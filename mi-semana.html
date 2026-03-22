@@ -343,42 +343,42 @@ background: #f5f2ed;
 color: #1a1814;
 min-height: calc(100vh - 57px);
 display: none;
+flex-direction: column;
 }
 
 #panel-tareas.active { display: flex; }
 
 .t-sidebar {
-width: 140px;
+width: 100%;
 flex-shrink: 0;
 background: #1a1814;
 color: #f5f2ed;
-padding: 20px 12px;
+padding: 16px 20px;
 display: flex;
-flex-direction: column;
-gap: 2px;
-min-height: calc(100vh - 57px);
-position: sticky;
-top: 57px;
-height: calc(100vh - 57px);
-overflow-y: auto;
+flex-direction: row;
+flex-wrap: wrap;
+gap: 6px 16px;
+align-items: center;
+overflow-x: auto;
 }
 
 .t-sidebar-title {
 font-family: ‘Instrument Serif’, serif;
 font-size: 0.95rem;
 font-weight: 700;
-margin-bottom: 12px;
-line-height: 1.2;
+color: #f5f2ed;
+white-space: nowrap;
 }
-.t-sidebar-title span { font-style: italic; opacity: 0.5; font-size: 0.7rem; display: block; font-family: ‘DM Mono’, monospace; font-weight: 400; }
+.t-sidebar-title span { display: none; }
 
 .t-section {
 font-family: ‘Instrument Serif’, serif;
-font-size: 0.8rem;
+font-size: 0.75rem;
 font-weight: 700;
-color: #f5f2ed;
-margin-top: 14px;
-margin-bottom: 3px;
+color: #888;
+white-space: nowrap;
+margin-top: 0;
+margin-bottom: 0;
 }
 
 .t-filter {
@@ -386,30 +386,31 @@ background: none;
 border: none;
 color: #888;
 font-family: ‘Instrument Serif’, serif;
-font-size: 0.78rem;
-padding: 4px 6px;
-border-radius: 5px;
+font-size: 0.82rem;
+padding: 4px 8px;
+border-radius: 20px;
 cursor: pointer;
 text-align: left;
 display: flex;
 align-items: center;
-gap: 6px;
+gap: 5px;
 transition: all 0.12s;
-width: 100%;
+white-space: nowrap;
 }
 .t-filter:hover { background: #2a2a2a; color: #fff; }
 .t-filter.active { background: #f5f2ed; color: #1a1814; font-weight: 700; }
 
-.f-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.f-cnt { margin-left: auto; background: #2a2a2a; color: #666; font-size: 0.58rem; padding: 1px 5px; border-radius: 8px; }
+.f-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.f-cnt { background: #2a2a2a; color: #666; font-size: 0.58rem; padding: 1px 5px; border-radius: 8px; font-family: ‘DM Mono’, monospace; }
 .t-filter.active .f-cnt { background: #e0dbd2; color: #8a8278; }
 
 .t-main {
 flex: 1;
 padding: 20px 16px;
-width: 0;
+width: 100%;
 min-width: 0;
 overflow-x: hidden;
+background: #f5f2ed;
 }
 
 .t-topbar {
@@ -588,6 +589,7 @@ DIARIO PANEL
 background: #0f0f0f;
 min-height: calc(100vh - 57px);
 padding: 28px 20px 60px;
+width: 100%;
 }
 
 .d-container {
@@ -1577,4 +1579,4 @@ setInterval(updateDiaryTimestamp, 30000);
 </script>
 
 </body>
-</html> 
+</html>
