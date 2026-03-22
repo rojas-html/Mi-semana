@@ -339,11 +339,12 @@ min-height: 38px;
 TAREAS PANEL (light)
 ═══════════════════════════════════════════ */
 #panel-tareas {
-background: #1a1814;
+background: #f5f2ed;
 color: #1a1814;
 min-height: calc(100vh - 57px);
 display: none;
 width: 100%;
+overflow: hidden;
 }
 
 #panel-tareas.active { display: flex; }
@@ -901,31 +902,31 @@ padding: 8px 18px; border-radius: 6px; cursor: pointer;
 
 <div class="t-section">Materias</div>
 <button class="t-filter" onclick="setFilter('Inglés',this)">
-  <span class="f-dot" style="background:var(--ingles)"></span>Inglés
+  <span class="f-dot" style="background:#2563a8"></span>Inglés
   <span class="f-cnt" id="cnt-Inglés">0</span>
 </button>
 <button class="t-filter" onclick="setFilter('Métodos de Estudio',this)">
-  <span class="f-dot" style="background:var(--metodos)"></span>Métodos Est.
+  <span class="f-dot" style="background:#16794a"></span>Métodos Est.
   <span class="f-cnt" id="cnt-Métodos de Estudio">0</span>
 </button>
 <button class="t-filter" onclick="setFilter('F.J. de Caldas',this)">
-  <span class="f-dot" style="background:var(--caldas)"></span>F.J. de Caldas
+  <span class="f-dot" style="background:#a05c1a"></span>F.J. de Caldas
   <span class="f-cnt" id="cnt-F.J. de Caldas">0</span>
 </button>
 <button class="t-filter" onclick="setFilter('Teoría del Lenguaje',this)">
-  <span class="f-dot" style="background:var(--teoria)"></span>Teoría Leng.
+  <span class="f-dot" style="background:#7c2d8f"></span>Teoría Leng.
   <span class="f-cnt" id="cnt-Teoría del Lenguaje">0</span>
 </button>
 <button class="t-filter" onclick="setFilter('Política y Ciudadanía',this)">
-  <span class="f-dot" style="background:var(--politica)"></span>Política y C.
+  <span class="f-dot" style="background:#b91c3a"></span>Política y C.
   <span class="f-cnt" id="cnt-Política y Ciudadanía">0</span>
 </button>
 <button class="t-filter" onclick="setFilter('Oralidad',this)">
-  <span class="f-dot" style="background:var(--oralidad)"></span>Oralidad
+  <span class="f-dot" style="background:#0e7490"></span>Oralidad
   <span class="f-cnt" id="cnt-Oralidad">0</span>
 </button>
 <button class="t-filter" onclick="setFilter('Fund. Teórica',this)">
-  <span class="f-dot" style="background:var(--fund)"></span>Fund. Teórica
+  <span class="f-dot" style="background:#92400e"></span>Fund. Teórica
   <span class="f-cnt" id="cnt-Fund. Teórica">0</span>
 </button>
 ```
