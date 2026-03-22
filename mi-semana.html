@@ -90,12 +90,122 @@ PANELS
 .panel { display: none; }
 .panel.active { display: block; }
 
-/* ═══════════════════════════════════════════
-HORARIO PANEL (dark)
-═══════════════════════════════════════════ */
+/* Smart banner */
+.smart-banner {
+display: flex;
+align-items: center;
+gap: 16px;
+background: #161616;
+border-bottom: 1px solid #2a2a2a;
+padding: 16px 28px;
+flex-wrap: wrap;
+}
+
+.smart-left {
+display: flex;
+flex-direction: column;
+gap: 2px;
+min-width: 80px;
+}
+
+.smart-day {
+font-family: ‘Instrument Serif’, serif;
+font-size: 1.1rem;
+font-weight: 700;
+color: #e8e4dc;
+text-transform: capitalize;
+}
+
+.smart-time {
+font-family: ‘DM Mono’, monospace;
+font-size: 1.4rem;
+font-weight: 500;
+color: #d45c2e;
+letter-spacing: 0.05em;
+}
+
+.smart-center {
+flex: 1;
+min-width: 160px;
+}
+
+.smart-phrase {
+font-family: ‘Instrument Serif’, serif;
+font-size: 1rem;
+font-style: italic;
+color: #e8e4dc;
+margin-bottom: 3px;
+}
+
+.smart-summary {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+color: #5a5a5a;
+line-height: 1.5;
+}
+
+.smart-right {
+text-align: center;
+}
+
+.smart-pending {
+background: #1e3a2a;
+border: 1px solid #2e8b6b;
+border-radius: 10px;
+padding: 8px 14px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.smart-pending span {
+font-family: ‘Instrument Serif’, serif;
+font-size: 1.6rem;
+color: #3dba8a;
+line-height: 1;
+}
+
+.smart-pending small {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.55rem;
+color: #2e8b6b;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+}
+
+/* Today column highlight */
+.day-header.today {
+color: #e8e4dc !important;
+background: #1a1814 !important;
+border-bottom: 2px solid #d45c2e !important;
+}
+
+.time-indicator {
+position: absolute;
+left: 0; right: 0;
+height: 2px;
+background: #d45c2e;
+z-index: 10;
+pointer-events: none;
+}
+
+/* Horario panel padding */
 #panel-horario {
 background: #0f0f0f;
-padding: 32px 28px 60px;
+padding: 0 0 60px;
+}
+
+#panel-horario header {
+padding: 24px 28px 0;
+margin-bottom: 24px;
+}
+
+#panel-horario .legend {
+padding: 0 28px;
+}
+
+#panel-horario .grid-wrapper {
+padding: 0 28px;
 }
 
 #panel-horario header { margin-bottom: 24px; }
@@ -238,14 +348,14 @@ display: none;
 #panel-tareas.active { display: flex; }
 
 .t-sidebar {
-width: 220px;
+width: 140px;
 flex-shrink: 0;
 background: #1a1814;
 color: #f5f2ed;
-padding: 28px 18px;
+padding: 20px 12px;
 display: flex;
 flex-direction: column;
-gap: 4px;
+gap: 2px;
 min-height: calc(100vh - 57px);
 position: sticky;
 top: 57px;
@@ -255,20 +365,20 @@ overflow-y: auto;
 
 .t-sidebar-title {
 font-family: ‘Instrument Serif’, serif;
-font-size: 1.2rem;
+font-size: 0.95rem;
 font-weight: 700;
-margin-bottom: 18px;
+margin-bottom: 12px;
 line-height: 1.2;
 }
-.t-sidebar-title span { font-style: italic; opacity: 0.5; font-size: 0.8rem; display: block; font-family: ‘DM Mono’, monospace; font-weight: 400; }
+.t-sidebar-title span { font-style: italic; opacity: 0.5; font-size: 0.7rem; display: block; font-family: ‘DM Mono’, monospace; font-weight: 400; }
 
 .t-section {
 font-family: ‘Instrument Serif’, serif;
-font-size: 0.95rem;
+font-size: 0.8rem;
 font-weight: 700;
 color: #f5f2ed;
-margin-top: 18px;
-margin-bottom: 5px;
+margin-top: 14px;
+margin-bottom: 3px;
 }
 
 .t-filter {
@@ -276,22 +386,22 @@ background: none;
 border: none;
 color: #888;
 font-family: ‘Instrument Serif’, serif;
-font-size: 0.9rem;
-padding: 5px 8px;
+font-size: 0.78rem;
+padding: 4px 6px;
 border-radius: 5px;
 cursor: pointer;
 text-align: left;
 display: flex;
 align-items: center;
-gap: 7px;
+gap: 6px;
 transition: all 0.12s;
+width: 100%;
 }
 .t-filter:hover { background: #2a2a2a; color: #fff; }
 .t-filter.active { background: #f5f2ed; color: #1a1814; font-weight: 700; }
 
 .f-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.f-cnt { margin-left: auto; background: #2a2a2a; color: #666; font-size: 0.58rem; padding: 1px 5px; border-radius: 8px; }
-.t-filter.active .f-cnt { background: #e0dbd2; color: #8a8278; }
+.f-cnt { display: none; }
 
 .t-main {
 flex: 1;
@@ -349,7 +459,11 @@ min-width: 80px;
 .t-stat-num { font-family: ‘Instrument Serif’, serif; font-size: 1.5rem; line-height: 1; color: #1a1814; }
 .t-stat-lbl { font-size: 0.58rem; color: #8a8278; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
 
-.task-list { display: flex; flex-direction: column; gap: 7px; }
+.task-list {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+gap: 12px;
+}
 
 .task-card {
 background: #fefcf9;
@@ -467,6 +581,154 @@ color: #8a8278;
 .t-empty p { font-size: 0.75rem; line-height: 1.6; }
 
 /* ═══════════════════════════════════════════
+DIARIO PANEL
+═══════════════════════════════════════════ */
+#panel-diario {
+background: #0f0f0f;
+min-height: calc(100vh - 57px);
+padding: 28px 20px 60px;
+}
+
+.d-container {
+max-width: 680px;
+margin: 0 auto;
+}
+
+.d-composer {
+background: #161616;
+border: 1px solid #2a2a2a;
+border-radius: 12px;
+padding: 20px;
+margin-bottom: 28px;
+}
+
+.d-composer-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 14px;
+flex-wrap: wrap;
+gap: 6px;
+}
+
+.d-new-label {
+font-family: ‘Instrument Serif’, serif;
+font-size: 1rem;
+font-weight: 700;
+color: #e8e4dc;
+}
+
+.d-timestamp {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+color: #5a5a5a;
+letter-spacing: 0.05em;
+}
+
+.d-titulo-input {
+width: 100%;
+background: none;
+border: none;
+border-bottom: 1px solid #2a2a2a;
+font-family: ‘Instrument Serif’, serif;
+font-size: 1.1rem;
+font-weight: 700;
+color: #e8e4dc;
+padding: 6px 0 10px;
+margin-bottom: 12px;
+outline: none;
+}
+.d-titulo-input::placeholder { color: #3a3a3a; }
+.d-titulo-input:focus { border-bottom-color: #d45c2e; }
+
+.d-texto-input {
+width: 100%;
+background: none;
+border: none;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.8rem;
+color: #c8c2b8;
+line-height: 1.8;
+resize: none;
+min-height: 140px;
+outline: none;
+padding: 0;
+}
+.d-texto-input::placeholder { color: #3a3a3a; }
+
+.d-save-btn {
+margin-top: 14px;
+background: #d45c2e;
+color: #fff;
+border: none;
+font-family: ‘Instrument Serif’, serif;
+font-size: 0.9rem;
+padding: 10px 22px;
+border-radius: 7px;
+cursor: pointer;
+transition: opacity 0.15s;
+}
+.d-save-btn:hover { opacity: 0.85; }
+
+.d-entries-header {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.62rem;
+text-transform: uppercase;
+letter-spacing: 0.12em;
+color: #5a5a5a;
+margin-bottom: 14px;
+}
+
+.d-entries { display: flex; flex-direction: column; gap: 12px; }
+
+.d-entry {
+background: #161616;
+border: 1px solid #2a2a2a;
+border-radius: 10px;
+padding: 16px 18px;
+position: relative;
+transition: border-color 0.15s;
+}
+.d-entry:hover { border-color: #444; }
+
+.d-entry-date {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.6rem;
+color: #5a5a5a;
+letter-spacing: 0.08em;
+margin-bottom: 6px;
+}
+
+.d-entry-title {
+font-family: ‘Instrument Serif’, serif;
+font-size: 1rem;
+font-weight: 700;
+color: #e8e4dc;
+margin-bottom: 6px;
+}
+
+.d-entry-text {
+font-family: ‘DM Mono’, monospace;
+font-size: 0.75rem;
+color: #8a8480;
+line-height: 1.7;
+white-space: pre-wrap;
+}
+
+.d-entry-del {
+position: absolute;
+top: 12px;
+right: 14px;
+background: none;
+border: none;
+color: #3a3a3a;
+cursor: pointer;
+font-size: 0.8rem;
+transition: color 0.12s;
+}
+.d-entry-del:hover { color: #dc2626; }
+
+/* ═══════════════════════════════════════════
 MODAL
 ═══════════════════════════════════════════ */
 .modal-overlay {
@@ -539,6 +801,7 @@ padding: 8px 18px; border-radius: 6px; cursor: pointer;
   <div class="app-brand">Mi <em>semana</em></div>
   <button class="tab-btn active" onclick="showTab('horario',this)">📅 Horario</button>
   <button class="tab-btn" onclick="showTab('tareas',this)">📋 Tareas</button>
+  <button class="tab-btn" onclick="showTab('diario',this)">📓 Diario</button>
 </nav>
 
 <!-- ══════════════════════════════════════
@@ -546,6 +809,26 @@ padding: 8px 18px; border-radius: 6px; cursor: pointer;
 ══════════════════════════════════════ -->
 
 <div class="panel active" id="panel-horario">
+
+  <!-- Banner resumen inteligente -->
+
+  <div class="smart-banner" id="smart-banner">
+    <div class="smart-left">
+      <div class="smart-day" id="smart-day">—</div>
+      <div class="smart-time" id="smart-time">—</div>
+    </div>
+    <div class="smart-center">
+      <div class="smart-phrase" id="smart-phrase">—</div>
+      <div class="smart-summary" id="smart-summary">—</div>
+    </div>
+    <div class="smart-right">
+      <div class="smart-pending" id="smart-pending">
+        <span id="smart-count">0</span>
+        <small>pendientes</small>
+      </div>
+    </div>
+  </div>
+
   <header>
     <h1>Horario Semanal</h1>
     <p>Semestre activo</p>
@@ -653,6 +936,35 @@ padding: 8px 18px; border-radius: 6px; cursor: pointer;
   </main>
 </div>
 
+<!-- ══════════════════════════════════════
+     PANEL DIARIO
+══════════════════════════════════════ -->
+
+<div class="panel" id="panel-diario">
+  <div class="d-container">
+
+```
+<!-- Nueva entrada -->
+<div class="d-composer">
+  <div class="d-composer-header">
+    <div class="d-new-label">✍️ Nueva entrada</div>
+    <div class="d-timestamp" id="d-timestamp">—</div>
+  </div>
+  <input type="text" id="d-titulo" class="d-titulo-input" placeholder="Título (opcional)">
+  <textarea id="d-texto" class="d-texto-input" placeholder="Escribe lo que tengas en mente..."></textarea>
+  <button class="d-save-btn" onclick="saveDiaryEntry()">Guardar entrada</button>
+</div>
+
+<!-- Entradas guardadas -->
+<div class="d-entries-header">
+  <span id="d-count-label">Sin entradas aún</span>
+</div>
+<div class="d-entries" id="d-entries"></div>
+```
+
+  </div>
+</div>
+
 <!-- MODAL -->
 
 <div class="modal-overlay" id="modal">
@@ -744,6 +1056,70 @@ function showTab(tab, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
 }
+
+// Declare tasks early so banner can reference it
+let tasks = [];
+
+// ══════════════════════════════════════════
+// SMART BANNER — día, hora, frase, resumen
+// ══════════════════════════════════════════
+const FRASES = [
+  "Haz que suceda.",
+  "Tu único límite eres tú.",
+  "Disciplina sobre motivación.",
+  "Pequeños pasos, grandes metas.",
+  "Menos excusas, más resultados.",
+  "No te detengas hasta estar orgulloso.",
+  "La consistencia le gana al talento.",
+  "Si no duele, no crece.",
+  "Gana la mañana, gana el día.",
+  "Hoy es el día uno, no un día después."
+];
+
+const DIAS_ES = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const DIAS_SHORT = ['dom','lun','mar','mié','jue','vie','sáb'];
+
+// Horario por día para el resumen (0=dom...6=sáb)
+const DIA_INFO = {
+  0: { gym: false, clases: false, seminario: false },
+  1: { gym: true,  clases: true,  seminario: false, claseName: 'Inglés' },
+  2: { gym: true,  clases: false, seminario: true,  claseName: '' },
+  3: { gym: false, clases: true,  seminario: true,  claseName: 'Métodos + F.J. Caldas' },
+  4: { gym: false, clases: true,  seminario: false, claseName: 'Teoría + Política' },
+  5: { gym: true,  clases: true,  seminario: false, claseName: 'Oralidad' },
+  6: { gym: false, clases: true,  seminario: false, claseName: 'Fund. Teórica' },
+};
+
+function updateBanner() {
+  const now = new Date();
+  const dow = now.getDay();
+  const hrs = now.getHours();
+  const mins = now.getMinutes().toString().padStart(2,'0');
+
+  document.getElementById('smart-time').textContent = hrs + ':' + mins;
+  document.getElementById('smart-day').textContent = DIAS_ES[dow];
+  document.getElementById('smart-phrase').textContent = '"' + FRASES[dow % FRASES.length] + '"';
+
+  const info = DIA_INFO[dow] || {};
+  const parts = [];
+  if (info.gym) parts.push('🏋️ Gimnasio en la mañana');
+  if (info.clases && info.claseName) parts.push('📚 ' + info.claseName);
+  if (info.seminario) parts.push('🎓 Seminario en la tarde');
+  if (!info.gym && !info.clases && !info.seminario) parts.push('Día libre — recarga energía');
+  document.getElementById('smart-summary').textContent = parts.join(' · ');
+
+  const pending = tasks.filter(t => t.estado === 'pendiente').length;
+  document.getElementById('smart-count').textContent = pending;
+
+  const dayHeaders = document.querySelectorAll('.day-header');
+  dayHeaders.forEach(dh => dh.classList.remove('today'));
+  const colMap = {1:1, 2:2, 3:3, 4:4, 5:5, 6:6, 0:7};
+  const col = colMap[dow];
+  if (col && dayHeaders[col]) dayHeaders[col].classList.add('today');
+}
+
+// Actualizar cada minuto — se llama al final del script cuando el DOM está listo
+setInterval(updateBanner, 60000);
 
 // ══════════════════════════════════════════
 // HORARIO
@@ -921,15 +1297,11 @@ const MATERIA_COLORS = {
   'Fund. Teórica':'var(--fund)',
 };
 
-let tasks = [];
 let currentFilter = 'all';
 let editingId = null;
 
 function loadTasks() {
   try { tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { tasks = []; }
-}
-function saveTasks() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); } catch {}
 }
 function saveTasks() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); } catch {}
@@ -1037,6 +1409,8 @@ function renderTasks() {
       '</div>' +
     '</div>';
   }).join('');
+  // Refresh banner counter
+  if (typeof updateBanner === 'function') updateBanner();
 }
 
 function toggleNotes(id, btn) {
@@ -1055,28 +1429,6 @@ function deleteTask(id) {
   tasks = tasks.filter(t => t.id !== id);
   saveTasks();
   renderTasks();
-}
-
-function saveTask() {
-  const nombre = document.getElementById('f-nombre').value.trim();
-  if (!nombre) { alert('El nombre es obligatorio.'); return; }
-  const data = {
-    nombre,
-    materia:   document.getElementById('f-materia').value,
-    tipo:      document.getElementById('f-tipo').value,
-    fecha:     document.getElementById('f-fecha').value,
-    prioridad: document.getElementById('f-prioridad').value,
-    estado:    document.getElementById('f-estado').value,
-    bloque:    document.getElementById('f-bloque').value,
-    notas:     document.getElementById('f-notas').value.trim(),
-  };
-  if (editingId) {
-    const idx = tasks.findIndex(t=>t.id===editingId);
-    if (idx > -1) tasks[idx] = { ...tasks[idx], ...data };
-  } else {
-    tasks.push({ id: uid(), ...data });
-  }
-  saveTasks(); closeModal(); renderTasks();
 }
 
 function editTask(id) {
@@ -1131,23 +1483,96 @@ function saveTask() {
   saveTasks(); closeModal(); renderTasks();
 }
 
-function changeStatus(id, val) {
-  const t = tasks.find(t=>t.id===id);
-  if (t) { t.estado = val; saveTasks(); renderTasks(); }
-}
-
-function deleteTask(id) {
-  if (!confirm('¿Eliminar esta tarea?')) return;
-  tasks = tasks.filter(t=>t.id!==id);
-  saveTasks(); renderTasks();
-}
-
 document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
+// ══════════════════════════════════════════
+// DIARIO
+// ══════════════════════════════════════════
+const DIARY_KEY = 'misemana_diario_v1';
+let diaryEntries = [];
+
+function loadDiary() {
+  try { diaryEntries = JSON.parse(localStorage.getItem(DIARY_KEY)) || []; } catch { diaryEntries = []; }
+}
+
+function saveDiary() {
+  try { localStorage.setItem(DIARY_KEY, JSON.stringify(diaryEntries)); } catch {}
+}
+
+function updateDiaryTimestamp() {
+  const now = new Date();
+  const dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  const txt = dias[now.getDay()] + ', ' + now.getDate() + ' ' + meses[now.getMonth()] + '. ' + now.getFullYear() + ' · ' + h + ':' + m;
+  const el = document.getElementById('d-timestamp');
+  if (el) el.textContent = txt;
+}
+
+function formatEntryDate(ts) {
+  const d = new Date(ts);
+  const dias = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const h = d.getHours().toString().padStart(2,'0');
+  const m = d.getMinutes().toString().padStart(2,'0');
+  return dias[d.getDay()] + ' ' + d.getDate() + ' de ' + meses[d.getMonth()] + ' de ' + d.getFullYear() + ' · ' + h + ':' + m;
+}
+
+function saveDiaryEntry() {
+  const titulo = document.getElementById('d-titulo').value.trim();
+  const texto = document.getElementById('d-texto').value.trim();
+  if (!texto) { alert('Escribe algo antes de guardar.'); return; }
+  const entry = { id: Date.now().toString(36), titulo, texto, ts: Date.now() };
+  diaryEntries.unshift(entry);
+  saveDiary();
+  document.getElementById('d-titulo').value = '';
+  document.getElementById('d-texto').value = '';
+  renderDiary();
+}
+
+function deleteDiaryEntry(id) {
+  diaryEntries = diaryEntries.filter(e => e.id !== id);
+  saveDiary();
+  renderDiary();
+}
+
+function renderDiary() {
+  const container = document.getElementById('d-entries');
+  const countLabel = document.getElementById('d-count-label');
+  if (!container) return;
+
+  countLabel.textContent = diaryEntries.length === 0
+    ? 'Sin entradas aún'
+    : diaryEntries.length + ' entrada' + (diaryEntries.length > 1 ? 's' : '');
+
+  if (!diaryEntries.length) {
+    container.innerHTML = '<div style="text-align:center;padding:40px 0;color:#3a3a3a;font-family:DM Mono,monospace;font-size:0.72rem;">Tus pensamientos aparecerán aquí.</div>';
+    return;
+  }
+
+  container.innerHTML = diaryEntries.map(e => `
+    <div class="d-entry">
+      <button class="d-entry-del" onclick="deleteDiaryEntry('${e.id}')">🗑</button>
+      <div class="d-entry-date">${formatEntryDate(e.ts)}</div>
+      ${e.titulo ? `<div class="d-entry-title">${e.titulo}</div>` : ''}
+      <div class="d-entry-text">${e.texto}</div>
+    </div>
+  `).join('');
+}
+
+// Update timestamp every minute when diary is open
+setInterval(updateDiaryTimestamp, 60000);
+
 loadTasks();
 renderTasks();
+updateBanner();
+loadDiary();
+renderDiary();
+updateDiaryTimestamp();
+setInterval(updateDiaryTimestamp, 30000);
 </script>
 
 </body>
