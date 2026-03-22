@@ -39,6 +39,8 @@ font-family: ‘DM Mono’, monospace;
 min-height: 100vh;
 background: #0f0f0f;
 color: #e8e4dc;
+width: 100%;
+overflow-x: hidden;
 }
 
 /* ═══════════════════════════════════════════
@@ -87,7 +89,7 @@ white-space: nowrap;
 /* ═══════════════════════════════════════════
 PANELS
 ═══════════════════════════════════════════ */
-.panel { display: none; }
+.panel { display: none; width: 100%; }
 .panel.active { display: block; }
 
 /* Smart banner */
@@ -347,7 +349,7 @@ width: 100%;
 overflow: hidden;
 }
 
-#panel-tareas.active { display: flex; }
+#panel-tareas.active { display: flex; width: 100%; }
 
 .t-sidebar {
 width: 130px;
@@ -1588,4 +1590,4 @@ setInterval(updateDiaryTimestamp, 30000);
 </script>
 
 </body>
-</html>
+</html> 
