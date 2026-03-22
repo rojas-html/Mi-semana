@@ -159,7 +159,7 @@ cursor: default; transition: filter 0.15s; user-select: none;
 /* ══════════════════════════════════════════
 PANEL TAREAS
 ══════════════════════════════════════════ */
-#panel-tareas { background: #f5f2ed; color: #1a1814; min-height: calc(100vh - 57px); }
+#panel-tareas { background: #f5f2ed; color: #1a1814; height: calc(100vh - 57px); overflow: hidden; }
 #panel-tareas.active { display: flex; width: 100%; }
 
 .t-sidebar {
@@ -167,9 +167,8 @@ width: 130px; flex-shrink: 0;
 background: #1a1814; color: #f5f2ed;
 padding: 18px 10px;
 display: flex; flex-direction: column; gap: 2px;
-min-height: calc(100vh - 57px);
-position: sticky; top: 57px; height: calc(100vh - 57px);
-overflow-y: auto;
+height: calc(100vh - 57px);
+overflow: hidden;
 }
 .t-sidebar-title { font-family: ‘Instrument Serif’, serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; color: #f5f2ed; line-height: 1.2; }
 .t-sidebar-title span { font-style: italic; opacity: 0.45; font-size: 0.65rem; display: block; font-family: ‘DM Mono’, monospace; font-weight: 400; }
@@ -187,7 +186,7 @@ transition: all 0.12s; width: 100%;
 .f-cnt { margin-left: auto; background: #2a2a2a; color: #666; font-size: 0.55rem; padding: 1px 4px; border-radius: 8px; font-family: ‘DM Mono’, monospace; }
 .t-filter.active .f-cnt { background: #e0dbd2; color: #8a8278; }
 
-.t-main { flex: 1; min-width: 0; width: 0; padding: 18px 12px; background: #f5f2ed; overflow-x: hidden; }
+.t-main { flex: 1; min-width: 0; width: 0; padding: 18px 12px; background: #f5f2ed; height: calc(100vh - 57px); overflow-y: auto; overflow-x: hidden; }
 .t-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 10px; flex-wrap: wrap; }
 .t-topbar h2 { font-family: ‘Instrument Serif’, serif; font-size: 1.4rem; font-weight: 400; color: #1a1814; }
 .t-topbar h2 em { font-style: italic; color: #8a8278; }
@@ -199,37 +198,37 @@ transition: all 0.12s; width: 100%;
 .t-stat-num { font-family: ‘Instrument Serif’, serif; font-size: 1.3rem; line-height: 1; color: #1a1814; }
 .t-stat-lbl { font-size: 0.55rem; color: #8a8278; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
 
-.task-list { display: flex; flex-direction: column; gap: 8px; }
+.task-list { display: flex; flex-direction: column; gap: 6px; }
 .task-card {
-background: #fefcf9; border: 1px solid #e0dbd2; border-radius: 9px;
-padding: 12px 14px; display: grid; grid-template-columns: 4px 1fr;
-gap: 10px; align-items: start; transition: box-shadow 0.12s, transform 0.12s;
+background: #fefcf9; border: 1px solid #e0dbd2; border-radius: 8px;
+padding: 9px 11px; display: grid; grid-template-columns: 3px 1fr;
+gap: 8px; align-items: start; transition: box-shadow 0.12s;
 }
-.task-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.07); transform: translateY(-1px); }
+.task-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
 .task-card.entregado { opacity: 0.42; }
-.t-accent { border-radius: 3px; align-self: stretch; min-height: 16px; }
+.t-accent { border-radius: 2px; align-self: stretch; min-height: 14px; }
 .t-body { min-width: 0; }
-.t-name { font-family: ‘Instrument Serif’, serif; font-size: 1rem; font-weight: 700; line-height: 1.3; margin-bottom: 5px; color: #1a1814; }
-.t-meta { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
-.tag { font-size: 0.58rem; padding: 2px 6px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; font-family: ‘DM Mono’, monospace; }
+.t-name { font-family: ‘Instrument Serif’, serif; font-size: 0.92rem; font-weight: 700; line-height: 1.25; margin-bottom: 4px; color: #1a1814; }
+.t-meta { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; }
+.tag { font-size: 0.55rem; padding: 1px 5px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; font-family: ‘DM Mono’, monospace; }
 .tag-mat    { background: #f0ebe3; color: #8a8278; }
 .tag-tipo   { background: #eef2ff; color: #4f46e5; }
 .tag-alta   { background: #fef2f2; color: #dc2626; }
 .tag-media  { background: #fffbeb; color: #d97706; }
 .tag-baja   { background: #f0fdf4; color: #16a34a; }
 .tag-bloque { background: #f5f0e8; color: #92400e; }
-.t-date { font-size: 0.6rem; color: #8a8278; margin-top: 4px; font-family: ‘DM Mono’, monospace; }
+.t-date { font-size: 0.58rem; color: #8a8278; margin-top: 3px; font-family: ‘DM Mono’, monospace; }
 .t-date.vhoy    { color: #dc2626; font-weight: 500; }
 .t-date.vpronto { color: #d97706; }
-.t-notes-toggle { background: none; border: none; font-family: ‘DM Mono’, monospace; font-size: 0.6rem; color: #8a8278; cursor: pointer; padding: 3px 0; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.t-notes-toggle { background: none; border: none; font-family: ‘DM Mono’, monospace; font-size: 0.58rem; color: #8a8278; cursor: pointer; padding: 2px 0; margin-top: 3px; display: flex; align-items: center; gap: 3px; }
 .t-notes-toggle:hover { color: #1a1814; }
-.t-notes-body { display: none; margin-top: 7px; padding: 8px 10px; background: #f0ebe3; border-radius: 6px; border-left: 3px solid #c8c2b8; font-size: 0.7rem; color: #1a1814; line-height: 1.7; white-space: pre-wrap; font-family: ‘DM Mono’, monospace; }
+.t-notes-body { display: none; margin-top: 6px; padding: 7px 9px; background: #f0ebe3; border-radius: 5px; border-left: 2px solid #c8c2b8; font-size: 0.68rem; color: #1a1814; line-height: 1.65; white-space: pre-wrap; font-family: ‘DM Mono’, monospace; }
 .t-notes-body.open { display: block; }
-.t-actions { display: flex; flex-direction: row; gap: 6px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
-.status-sel { font-family: ‘Instrument Serif’, serif; font-size: 0.82rem; border: 1px solid #e0dbd2; border-radius: 5px; padding: 4px 7px; background: #f5f2ed; color: #1a1814; cursor: pointer; flex: 1; min-width: 0; }
-.btn-icon { background: none; border: none; color: #c8c2b8; cursor: pointer; font-size: 0.7rem; padding: 2px 3px; border-radius: 3px; }
+.t-actions { display: flex; flex-direction: row; gap: 5px; align-items: center; margin-top: 6px; flex-wrap: wrap; }
+.status-sel { font-family: ‘Instrument Serif’, serif; font-size: 0.78rem; border: 1px solid #e0dbd2; border-radius: 5px; padding: 3px 6px; background: #f5f2ed; color: #1a1814; cursor: pointer; flex: 1; min-width: 0; }
+.btn-icon { background: none; border: none; color: #c8c2b8; cursor: pointer; font-size: 0.68rem; padding: 2px 3px; border-radius: 3px; }
 .btn-icon:hover { color: #1a1814; }
-.btn-delete { background: none; border: 1px solid #e0dbd2; font-size: 0.85rem; padding: 3px 7px; border-radius: 5px; cursor: pointer; color: #8a8278; }
+.btn-delete { background: none; border: 1px solid #e0dbd2; font-size: 0.8rem; padding: 2px 6px; border-radius: 5px; cursor: pointer; color: #8a8278; }
 .btn-delete:hover { background: #fef2f2; border-color: #dc2626; color: #dc2626; }
 .t-empty { text-align: center; padding: 40px 16px; color: #8a8278; }
 .t-empty-icon { font-size: 1.8rem; margin-bottom: 8px; }
@@ -850,6 +849,7 @@ function changeStatus(id, val) {
   if (t) { t.estado = val; saveTasks(); renderTasks(); }
 }
 function deleteTask(id) {
+  if (!confirm('¿Eliminar esta tarea?')) return;
   tasks = tasks.filter(t => t.id !== id);
   saveTasks(); renderTasks();
 }
