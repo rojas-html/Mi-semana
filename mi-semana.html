@@ -401,14 +401,15 @@ width: 100%;
 .t-filter.active { background: #f5f2ed; color: #1a1814; font-weight: 700; }
 
 .f-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.f-cnt { display: none; }
+.f-cnt { margin-left: auto; background: #2a2a2a; color: #666; font-size: 0.58rem; padding: 1px 5px; border-radius: 8px; }
+.t-filter.active .f-cnt { background: #e0dbd2; color: #8a8278; }
 
 .t-main {
 flex: 1;
 padding: 20px 16px;
-max-width: 100%;
-overflow-x: hidden;
+width: 0;
 min-width: 0;
+overflow-x: hidden;
 }
 
 .t-topbar {
