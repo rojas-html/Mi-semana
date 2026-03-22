@@ -339,46 +339,48 @@ min-height: 38px;
 TAREAS PANEL (light)
 ═══════════════════════════════════════════ */
 #panel-tareas {
-background: #f5f2ed;
+background: #1a1814;
 color: #1a1814;
 min-height: calc(100vh - 57px);
 display: none;
-flex-direction: column;
+width: 100%;
 }
 
 #panel-tareas.active { display: flex; }
 
 .t-sidebar {
-width: 100%;
+width: 130px;
 flex-shrink: 0;
 background: #1a1814;
 color: #f5f2ed;
-padding: 16px 20px;
+padding: 18px 12px;
 display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-gap: 6px 16px;
-align-items: center;
-overflow-x: auto;
+flex-direction: column;
+gap: 2px;
+min-height: calc(100vh - 57px);
+position: sticky;
+top: 57px;
+height: calc(100vh - 57px);
+overflow-y: auto;
 }
 
 .t-sidebar-title {
 font-family: ‘Instrument Serif’, serif;
 font-size: 0.95rem;
 font-weight: 700;
+margin-bottom: 12px;
 color: #f5f2ed;
-white-space: nowrap;
+line-height: 1.2;
 }
-.t-sidebar-title span { display: none; }
+.t-sidebar-title span { font-style: italic; opacity: 0.5; font-size: 0.7rem; display: block; font-family: ‘DM Mono’, monospace; font-weight: 400; }
 
 .t-section {
 font-family: ‘Instrument Serif’, serif;
-font-size: 0.75rem;
+font-size: 0.8rem;
 font-weight: 700;
-color: #888;
-white-space: nowrap;
-margin-top: 0;
-margin-bottom: 0;
+color: #f5f2ed;
+margin-top: 14px;
+margin-bottom: 3px;
 }
 
 .t-filter {
@@ -386,16 +388,16 @@ background: none;
 border: none;
 color: #888;
 font-family: ‘Instrument Serif’, serif;
-font-size: 0.82rem;
-padding: 4px 8px;
-border-radius: 20px;
+font-size: 0.78rem;
+padding: 4px 6px;
+border-radius: 5px;
 cursor: pointer;
 text-align: left;
 display: flex;
 align-items: center;
-gap: 5px;
+gap: 6px;
 transition: all 0.12s;
-white-space: nowrap;
+width: 100%;
 }
 .t-filter:hover { background: #2a2a2a; color: #fff; }
 .t-filter.active { background: #f5f2ed; color: #1a1814; font-weight: 700; }
@@ -406,9 +408,9 @@ white-space: nowrap;
 
 .t-main {
 flex: 1;
-padding: 20px 16px;
-width: 100%;
+padding: 20px 14px;
 min-width: 0;
+width: 0;
 overflow-x: hidden;
 background: #f5f2ed;
 }
@@ -463,8 +465,14 @@ min-width: 80px;
 
 .task-list {
 display: grid;
-grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-gap: 12px;
+grid-template-columns: 1fr;
+gap: 10px;
+}
+
+@media (min-width: 500px) {
+.task-list {
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
 }
 
 .task-card {
