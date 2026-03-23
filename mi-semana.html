@@ -22,6 +22,18 @@ body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: #e8e4dc; 
 .panel { display: none; width: 100%; }
 .panel.active { display: block; width: 100%; }
 
+.panel.slide-in-right { animation: slideInRight 0.32s cubic-bezier(0.4,0,0.2,1) forwards; }
+.panel.slide-in-left  { animation: slideInLeft  0.32s cubic-bezier(0.4,0,0.2,1) forwards; }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(55px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInLeft  { from { opacity: 0; transform: translateX(-55px); } to { opacity: 1; transform: translateX(0); } }
+
+@keyframes pulseHL {
+0%   { box-shadow: 0 0 0 0 rgba(212,92,46,0.7); }
+50%  { box-shadow: 0 0 0 8px rgba(212,92,46,0.15); }
+100% { box-shadow: 0 0 0 0 rgba(212,92,46,0); }
+}
+.card-highlight { animation: pulseHL 1s ease forwards; border-color: rgba(212,92,46,0.5) !important; }
+
 /* INICIO */
 #panel-inicio { background: #0a0a0a; min-height: calc(100vh - 57px); padding: 22px 16px 60px; }
 .inicio-header { margin-bottom: 20px; }
@@ -43,12 +55,16 @@ body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: #e8e4dc; 
 
 .hoy-sub { font-size: 0.56rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.2); margin: 12px 0 7px; }
 .hoy-events { display: flex; flex-direction: column; gap: 5px; }
-.hoy-event { display: flex; align-items: center; gap: 10px; border-radius: 10px; padding: 9px 12px; }
+.hoy-event { display: flex; align-items: center; gap: 10px; border-radius: 10px; padding: 9px 12px; cursor: pointer; transition: filter 0.2s ease, transform 0.2s ease; }
+.hoy-event:hover { filter: brightness(1.15); transform: translateX(3px); }
 .hoy-event-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .hoy-event-text { font-size: 0.74rem; flex: 1; font-weight: 500; }
 .hoy-event-time { font-size: 0.6rem; white-space: nowrap; opacity: 0.5; }
+.hoy-event-arrow { font-size: 0.65rem; opacity: 0.25; flex-shrink: 0; }
 .hoy-tasks { display: flex; flex-direction: column; gap: 5px; }
-.hoy-task { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 9px 12px; }
+.hoy-task { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 9px 12px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease; }
+.hoy-task:hover { background: rgba(255,255,255,0.07); border-color: rgba(212,92,46,0.3); transform: translateX(3px); }
+.hoy-task-arrow { font-size: 0.65rem; color: #333; flex-shrink: 0; }
 .hoy-check { width: 16px; height: 16px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 5px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; }
 .hoy-check.done { background: #2e8b6b; border-color: #2e8b6b; color: #fff; }
 .hoy-task-text { font-size: 0.76rem; color: #c8c2b8; flex: 1; }
@@ -122,6 +138,23 @@ margin-bottom: 14px;
 .ocio    { background: #30144a; border-left: 3px solid #b060e0; color: #d4a0ff; }
 .sueno   { background: #141e2e; border-left: 3px solid #4a7898; color: #82aec8; }
 .comida  { background: #302000; border-left: 3px solid #c09018; color: #e8c040; }
+.block.continuation {
+opacity: 0.35;
+border-radius: 0;
+padding: 0;
+border-left-width: 3px;
+border-left-style: solid;
+border-top: none;
+border-right: none;
+border-bottom: none;
+background: transparent !important;
+}
+.clase.continuation   { border-left-color: #4d8ef0; background: rgba(22,45,88,0.75) !important; }
+.estudio.continuation { border-left-color: #35a87a; background: rgba(13,51,34,0.75) !important; }
+.gym.continuation     { border-left-color: #f06020; background: rgba(74,26,0,0.75) !important; }
+.ocio.continuation    { border-left-color: #b060e0; background: rgba(48,20,74,0.75) !important; }
+.sueno.continuation   { border-left-color: #4a7898; background: rgba(20,30,46,0.75) !important; }
+.comida.continuation  { border-left-color: #c09018; background: rgba(48,32,0,0.75) !important; }
 .empty   { font-size: 0.5rem; color: #222; display: flex; align-items: center; justify-content: center; height: 100%; min-height: 38px; }
 
 /* TAREAS */
@@ -217,6 +250,39 @@ margin-bottom: 14px;
 .btn-save { background: #d45c2e; color: #fff; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.72rem; padding: 9px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
 
 /* FOCUS PANEL */
+/* GIMNASIO */
+#panel-gym { background: #070707; min-height: calc(100vh - 57px); padding: 22px 16px 60px; }
+.gym-panel { max-width: 480px; margin: 0 auto; }
+.gym-header { margin-bottom: 22px; }
+.gym-title { font-size: 1.2rem; font-weight: 700; color: #e8e4dc; }
+.gym-subtitle { font-size: 0.65rem; color: #444; margin-top: 4px; }
+.gym-today { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 18px; margin-bottom: 16px; }
+.gym-today-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.gym-today-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #d45c2e; }
+.gym-today-day { font-size: 0.65rem; color: #444; }
+.gym-no-gym { font-size: 0.8rem; color: #3a3a3a; padding: 8px 0; text-align: center; }
+.gym-routine-name { font-size: 1rem; font-weight: 700; color: #e8e4dc; margin-bottom: 12px; }
+.gym-muscles { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+.gym-muscle { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px 12px; cursor: pointer; transition: all 0.2s ease; flex: 1; min-width: 100px; }
+.gym-muscle.done { background: rgba(212,92,46,0.12); border-color: rgba(212,92,46,0.4); }
+.gym-muscle-check { width: 16px; height: 16px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; flex-shrink: 0; }
+.gym-muscle.done .gym-muscle-check { background: #d45c2e; border-color: #d45c2e; color: #fff; }
+.gym-muscle-name { font-size: 0.76rem; color: #c8c2b8; font-weight: 500; }
+.gym-muscle.done .gym-muscle-name { color: #ffa070; }
+.gym-complete-btn { width: 100%; background: #d45c2e; color: #fff; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.88rem; font-weight: 700; padding: 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
+.gym-complete-btn:hover { opacity: 0.9; }
+.gym-complete-btn.done { background: #2e8b6b; }
+.gym-section-title { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #444; margin: 16px 0 10px; }
+.gym-week { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 18px; }
+.gym-week-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #1a1a1a; }
+.gym-week-row:last-child { border-bottom: none; padding-bottom: 0; }
+.gym-week-day { font-size: 0.7rem; font-weight: 600; color: #555; width: 36px; flex-shrink: 0; }
+.gym-week-day.today { color: #d45c2e; }
+.gym-week-routine { font-size: 0.72rem; color: #888; flex: 1; }
+.gym-week-status { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; }
+.gym-week-status.completed { background: #2e8b6b; color: #fff; }
+.gym-week-status.upcoming  { background: transparent; border: 1px solid #2a2a2a; }
+
 #panel-focus { background: #070707; min-height: calc(100vh - 57px); }
 .focus-panel { display: flex; flex-direction: column; align-items: center; padding: 28px 20px 60px; max-width: 480px; margin: 0 auto; }
 
@@ -278,6 +344,7 @@ stroke-dasharray: 628; stroke-dashoffset: 0; transition: stroke-dashoffset 1s li
   <button class="tab-btn" onclick="showTab('tareas',this)">Tareas</button>
   <button class="tab-btn" onclick="showTab('diario',this)">Diario</button>
   <button class="tab-btn" onclick="showTab('focus',this)">Focus</button>
+  <button class="tab-btn" onclick="showTab('gym',this)">Gym</button>
 </nav>
 
 <!-- INICIO -->
@@ -323,6 +390,13 @@ stroke-dasharray: 628; stroke-dashoffset: 0; transition: stroke-dashoffset 1s li
           <div class="icard-badge" id="ic-badge" style="display:none">0</div>
         </div>
         <div class="icard-sub" id="ic-t-sub">Sin pendientes</div>
+      </div>
+    </div>
+    <div class="icard" onclick="goTab('gym')">
+      <div class="icard-icon" style="background:#1a0f00;">&#127947;</div>
+      <div class="icard-body">
+        <div class="icard-top"><div class="icard-title">Gym</div></div>
+        <div class="icard-sub" id="ic-gym-sub">Ver rutina de hoy</div>
       </div>
     </div>
     <div class="icard" onclick="goTab('focus')">
@@ -437,6 +511,26 @@ stroke-dasharray: 628; stroke-dashoffset: 0; transition: stroke-dashoffset 1s li
     </div>
     <div class="d-entries-hdr" id="d-count">Sin entradas aun</div>
     <div class="d-entries" id="d-entries"></div>
+  </div>
+</div>
+
+<!-- GYM -->
+
+<div class="panel" id="panel-gym">
+  <div class="gym-panel">
+    <div class="gym-header">
+      <div class="gym-title">&#127947; Gimnasio</div>
+      <div class="gym-subtitle" id="gym-header-sub">Rutina semanal Upper / Lower</div>
+    </div>
+    <div class="gym-today">
+      <div class="gym-today-hdr">
+        <div class="gym-today-title">Hoy</div>
+        <div class="gym-today-day" id="gym-today-day"></div>
+      </div>
+      <div id="gym-today-content"></div>
+    </div>
+    <div class="gym-section-title">Esta semana</div>
+    <div class="gym-week" id="gym-week"></div>
   </div>
 </div>
 
@@ -756,19 +850,74 @@ var BLOCKS = [
 
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
 
+var TAB_ORDER = ['inicio','horario','tareas','diario','focus','gym'];
+var currentTab = 'inicio';
+
 function showTab(tab, btn) {
+  if (tab === currentTab) return;
+  var fromIdx = TAB_ORDER.indexOf(currentTab);
+  var toIdx   = TAB_ORDER.indexOf(tab);
+  var goRight = toIdx > fromIdx;
+
   document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); p.style.display = 'none'; });
-  var p = document.getElementById('panel-' + tab);
-  p.classList.add('active');
-  p.style.display = tab === 'tareas' ? 'flex' : 'block';
+  if (btn) btn.classList.add('active');
+
+  var fromPanel = document.getElementById('panel-' + currentTab);
+  var toPanel   = document.getElementById('panel-' + tab);
+
+  if (fromPanel) { fromPanel.classList.remove('active'); fromPanel.style.display = 'none'; }
+
+  toPanel.style.display = tab === 'tareas' ? 'flex' : 'block';
+  toPanel.classList.add('active');
+  toPanel.classList.remove('slide-in-right', 'slide-in-left');
+  void toPanel.offsetWidth;
+  toPanel.classList.add(goRight ? 'slide-in-right' : 'slide-in-left');
+
+  currentTab = tab;
   if (tab === 'focus') { renderFocusTaskList(); updatePomUI(); }
+  if (tab === 'gym')   { renderGym(); }
 }
 
 function goTab(tab) {
   var btn = document.querySelector('[onclick="showTab(\'' + tab + '\',this)"]');
   if (btn) showTab(tab, btn);
+}
+
+function navigateToTask(id) {
+  goTab('tareas');
+  setTimeout(function() {
+    var el = document.getElementById('card-' + id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function() {
+      el.classList.remove('card-highlight');
+      void el.offsetWidth;
+      el.classList.add('card-highlight');
+    }, 300);
+  }, 380);
+}
+
+function navigateToEvent(eventLabel) {
+  goTab('horario');
+  setTimeout(function() {
+    var grid = document.getElementById('schedule');
+    if (!grid) return;
+    var blocks = grid.querySelectorAll('.block');
+    var target = null;
+    blocks.forEach(function(b) {
+      var bold = b.querySelector('b');
+      if (bold && bold.textContent.trim() === eventLabel) {
+        if (!target) target = b;
+      }
+    });
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function() {
+      target.classList.remove('card-highlight');
+      void target.offsetWidth;
+      target.classList.add('card-highlight');
+    }, 300);
+  }, 380);
 }
 
 function loadTasks()  { try { tasks = JSON.parse(localStorage.getItem(TKEY)) || []; } catch(e) { tasks = []; } }
@@ -1078,10 +1227,11 @@ function renderHoy() {
       var sorted = evs.slice().sort(function(a,b) { return a.start.localeCompare(b.start); });
       ec.innerHTML = sorted.map(function(e) {
         var c = EV_COLORS[e.type] || EV_COLORS.clase;
-        return '<div class="hoy-event" style="background:' + c.bg + ';border:1px solid ' + c.bd + '">' +
+        return '<div class="hoy-event" style="background:' + c.bg + ';border:1px solid ' + c.bd + '" onclick="navigateToEvent(\'' + e.label + '\')">' +
           '<div class="hoy-event-dot" style="background:' + c.dot + '"></div>' +
           '<div class="hoy-event-text" style="color:' + c.tx + '">' + e.label + (e.sub ? ' - ' + e.sub : '') + '</div>' +
           '<div class="hoy-event-time" style="color:' + c.tx + '">' + e.start + ' - ' + e.end + '</div>' +
+          '<div class="hoy-event-arrow" style="color:' + c.tx + '">&#8250;</div>' +
         '</div>';
       }).join('');
     }
@@ -1094,10 +1244,11 @@ function renderHoy() {
       tc.innerHTML = '<div class="hoy-empty">No tienes tareas pendientes</div>';
     } else {
       tc.innerHTML = pending.map(function(t) {
-        return '<div class="hoy-task">' +
-          '<div class="hoy-check' + (t.estado === 'entregado' ? ' done' : '') + '" onclick="toggleHoy(\'' + t.id + '\')">' + (t.estado === 'entregado' ? 'v' : '') + '</div>' +
+        return '<div class="hoy-task" onclick="navigateToTask(\'' + t.id + '\')">' +
+          '<div class="hoy-check' + (t.estado === 'entregado' ? ' done' : '') + '" onclick="event.stopPropagation();toggleHoy(\'' + t.id + '\')">' + (t.estado === 'entregado' ? 'v' : '') + '</div>' +
           '<div class="hoy-task-text' + (t.estado === 'entregado' ? ' done' : '') + '">' + t.nombre + '</div>' +
           (t.materia ? '<div class="hoy-task-mat">' + t.materia + '</div>' : '') +
+          '<div class="hoy-task-arrow">&#8250;</div>' +
         '</div>';
       }).join('');
     }
@@ -1131,19 +1282,27 @@ function initQuickInput() {
   var lookup = {};
   BLOCKS.forEach(function(b) { lookup[b.day + '-' + b.hour] = b; });
   var sched = document.getElementById('schedule');
+
   for (var hr = 5; hr <= 23; hr++) {
     var tl = document.createElement('div');
     tl.className = 'time-label';
     tl.textContent = hr.toString().padStart(2,'0') + ':00';
     sched.appendChild(tl);
+
     for (var d = 0; d < 7; d++) {
       var cell = document.createElement('div');
       cell.className = 'cell';
-      var b = lookup[d + '-' + hr];
+      var b    = lookup[d + '-' + hr];
+      var prev = lookup[d + '-' + (hr - 1)];
+
       if (b) {
         var bl = document.createElement('div');
-        bl.className = 'block ' + b.type;
-        bl.innerHTML = '<b>' + b.label + '</b>' + (b.sub ? '<span>' + b.sub + '</span>' : '');
+        // Check if previous hour has same type AND same label = continuation
+        var isContinuation = prev && prev.type === b.type && prev.label === b.label;
+        bl.className = 'block ' + b.type + (isContinuation ? ' continuation' : '');
+        if (!isContinuation) {
+          bl.innerHTML = '<b>' + b.label + '</b>' + (b.sub ? '<span>' + b.sub + '</span>' : '');
+        }
         cell.appendChild(bl);
       } else {
         var ph = document.createElement('div');
@@ -1470,13 +1629,134 @@ function renderStudySuggestion() {
     '</div>';
 }
 
-/* INIT */
-loadTasks();
+// =============================================
+// GIMNASIO - RUTINA UPPER/LOWER
+// =============================================
+var GYM_KEY = 'ms_gym_v1';
+var gymData = {};
+
+var GYM_ROUTINE = {
+  1: { name: 'Upper A', muscles: ['Pecho','Espalda','Hombros','Brazos'] },
+  2: { name: 'Lower',   muscles: ['Piernas','Cardio'] },
+  5: { name: 'Upper B', muscles: ['Pecho','Espalda','Hombros','Brazos'] }
+};
+
+var DIAS_SHORT = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
+
+function loadGym() {
+  try { gymData = JSON.parse(localStorage.getItem(GYM_KEY)) || {}; } catch(e) { gymData = {}; }
+}
+function saveGym() {
+  try { localStorage.setItem(GYM_KEY, JSON.stringify(gymData)); } catch(e) {}
+}
+
+function gymWeekKey(dow) {
+  var now  = new Date();
+  var diff = now.getDay() - dow;
+  var d    = new Date(now);
+  d.setDate(d.getDate() - diff);
+  return d.getFullYear() + '-' + (d.getMonth()+1).toString().padStart(2,'0') + '-' + d.getDate().toString().padStart(2,'0');
+}
+
+function toggleGymMuscle(dow, muscle) {
+  var key = gymWeekKey(dow);
+  if (!gymData[key]) gymData[key] = { muscles: [], completed: false };
+  var idx = gymData[key].muscles.indexOf(muscle);
+  if (idx > -1) gymData[key].muscles.splice(idx, 1);
+  else gymData[key].muscles.push(muscle);
+  saveGym();
+  renderGym();
+}
+
+function completeGymSession(dow) {
+  var key = gymWeekKey(dow);
+  if (!gymData[key]) gymData[key] = { muscles: [], completed: false };
+  gymData[key].completed = !gymData[key].completed;
+  if (gymData[key].completed) {
+    var routine = GYM_ROUTINE[dow];
+    if (routine) gymData[key].muscles = routine.muscles.slice();
+  }
+  saveGym();
+  renderGym();
+  updateInicioGym();
+}
+
+function renderGym() {
+  var now = new Date();
+  var dow = now.getDay();
+
+  // Header day
+  var dayEl = document.getElementById('gym-today-day');
+  if (dayEl) dayEl.textContent = DIAS_SHORT[dow] + ' - ' + now.getDate() + ' ' + MESES[now.getMonth()];
+
+  // Today content
+  var content = document.getElementById('gym-today-content');
+  if (content) {
+    var routine = GYM_ROUTINE[dow];
+    if (!routine) {
+      content.innerHTML = '<div class="gym-no-gym">No tienes gym hoy. Descansa y recupera.</div>';
+    } else {
+      var key  = gymWeekKey(dow);
+      var data = gymData[key] || { muscles: [], completed: false };
+      var html = '<div class="gym-routine-name">' + routine.name + '</div>';
+      html += '<div class="gym-muscles">';
+      routine.muscles.forEach(function(m) {
+        var done = data.muscles.indexOf(m) > -1;
+        html += '<div class="gym-muscle' + (done ? ' done' : '') + '" onclick="toggleGymMuscle(' + dow + ',\'' + m + '\')">' +
+          '<div class="gym-muscle-check">' + (done ? 'v' : '') + '</div>' +
+          '<div class="gym-muscle-name">' + m + '</div>' +
+        '</div>';
+      });
+      html += '</div>';
+      html += '<button class="gym-complete-btn' + (data.completed ? ' done' : '') + '" onclick="completeGymSession(' + dow + ')">' +
+        (data.completed ? 'Sesion completada' : 'Marcar sesion completa') +
+      '</button>';
+      content.innerHTML = html;
+    }
+  }
+
+  // Week overview
+  var week = document.getElementById('gym-week');
+  if (week) {
+    var gymDays = [1, 2, 4, 5]; // lun, mar, jue(skip), vie
+    var displayDays = [1, 2, 5]; // los 3 que vas
+    week.innerHTML = displayDays.map(function(d) {
+      var routine = GYM_ROUTINE[d];
+      var key     = gymWeekKey(d);
+      var data    = gymData[key] || { muscles: [], completed: false };
+      var isToday = d === dow;
+      var isPast  = d < dow;
+      var statusCls = data.completed ? 'completed' : 'upcoming';
+      var statusTxt = data.completed ? 'v' : '';
+      return '<div class="gym-week-row">' +
+        '<div class="gym-week-day' + (isToday ? ' today' : '') + '">' + DIAS_SHORT[d] + '</div>' +
+        '<div class="gym-week-routine">' + (routine ? routine.name + ' - ' + routine.muscles.join(', ') : '') + '</div>' +
+        '<div class="gym-week-status ' + statusCls + '">' + statusTxt + '</div>' +
+      '</div>';
+    }).join('');
+  }
+}
+
+function updateInicioGym() {
+  var dow     = new Date().getDay();
+  var routine = GYM_ROUTINE[dow];
+  var sub     = document.getElementById('ic-gym-sub');
+  if (!sub) return;
+  if (!routine) {
+    sub.textContent = 'Hoy no toca gym - descansa';
+  } else {
+    var key  = gymWeekKey(dow);
+    var data = gymData[key] || { completed: false };
+    sub.textContent = data.completed ? routine.name + ' completado hoy' : routine.name + ' - pendiente';
+  }
+}
 loadDiary2();
+loadGym();
 renderTasks();
 renderDiaryList();
 updateBanner();
 updateInicio();
+updateInicioGym();
 updateDiaryTs();
 initQuickInput();
 updatePomUI();
