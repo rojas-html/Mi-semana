@@ -76,8 +76,136 @@ PANELS
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ══════════════════════════════════════════
-PANEL INICIO
+SECCIÓN HOY
 ══════════════════════════════════════════ */
+.hoy-section {
+background: linear-gradient(135deg, #1a0e08 0%, #120d0a 100%);
+border: 1px solid rgba(212,92,46,0.25);
+border-radius: 18px;
+padding: 18px;
+margin-bottom: 20px;
+box-shadow: 0 4px 24px rgba(212,92,46,0.08);
+}
+.hoy-title {
+font-size: 0.62rem;
+font-weight: 700;
+letter-spacing: 0.16em;
+text-transform: uppercase;
+color: #d45c2e;
+margin-bottom: 14px;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+.hoy-title::after {
+content: ‘’;
+flex: 1;
+height: 1px;
+background: rgba(212,92,46,0.2);
+}
+
+/* Input rápido */
+.quick-input-wrap {
+display: flex;
+align-items: center;
+gap: 8px;
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.08);
+border-radius: 10px;
+padding: 10px 14px;
+margin-bottom: 14px;
+transition: border-color 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.quick-input-wrap:focus-within {
+border-color: rgba(212,92,46,0.5);
+box-shadow: 0 0 0 3px rgba(212,92,46,0.1);
+}
+.quick-input-icon { font-size: 0.9rem; opacity: 0.4; flex-shrink: 0; }
+.quick-input {
+flex: 1;
+background: none;
+border: none;
+outline: none;
+font-family: ‘Poppins’, sans-serif;
+font-size: 0.82rem;
+color: #e8e4dc;
+}
+.quick-input::placeholder { color: rgba(255,255,255,0.2); }
+.quick-hint {
+font-size: 0.55rem;
+color: rgba(255,255,255,0.15);
+white-space: nowrap;
+flex-shrink: 0;
+}
+
+/* Eventos del horario en HOY */
+.hoy-block-title {
+font-size: 0.58rem;
+font-weight: 600;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.25);
+margin: 12px 0 6px;
+}
+.hoy-events { display: flex; flex-direction: column; gap: 5px; }
+.hoy-event {
+display: flex;
+align-items: center;
+gap: 8px;
+background: rgba(59,111,212,0.12);
+border: 1px solid rgba(59,111,212,0.2);
+border-radius: 8px;
+padding: 7px 10px;
+}
+.hoy-event-dot {
+width: 6px; height: 6px;
+border-radius: 50%;
+flex-shrink: 0;
+}
+.hoy-event-text {
+font-size: 0.72rem;
+color: #9ec5ff;
+flex: 1;
+}
+.hoy-event-time {
+font-size: 0.6rem;
+color: rgba(158,197,255,0.5);
+white-space: nowrap;
+}
+
+/* Tareas de HOY */
+.hoy-tasks { display: flex; flex-direction: column; gap: 5px; }
+.hoy-task {
+display: flex;
+align-items: center;
+gap: 8px;
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.07);
+border-radius: 8px;
+padding: 7px 10px;
+transition: background 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.hoy-task:hover { background: rgba(255,255,255,0.07); }
+.hoy-task-check {
+width: 14px; height: 14px;
+border: 1.5px solid rgba(255,255,255,0.2);
+border-radius: 4px;
+cursor: pointer;
+flex-shrink: 0;
+display: flex; align-items: center; justify-content: center;
+font-size: 0.6rem;
+transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+.hoy-task-check.done { background: #2e8b6b; border-color: #2e8b6b; }
+.hoy-task-text { font-size: 0.75rem; color: #c8c2b8; flex: 1; }
+.hoy-task-text.done { text-decoration: line-through; color: #555; }
+.hoy-task-mat { font-size: 0.55rem; color: #666; white-space: nowrap; }
+.hoy-empty {
+font-size: 0.75rem;
+color: #444;
+text-align: center;
+padding: 10px 0;
+}
 #panel-inicio {
 background: #0a0a0a;
 min-height: calc(100vh - 57px);
@@ -570,6 +698,33 @@ box-shadow: 0 2px 12px rgba(212,92,46,0.35);
     <div class="inicio-date" id="inicio-date">—</div>
     <div class="inicio-phrase" id="inicio-phrase">—</div>
   </div>
+
+  <!-- SECCIÓN HOY -->
+
+  <div class="hoy-section">
+    <div class="hoy-title">⚡ Hoy</div>
+
+```
+<!-- Input rápido de tareas -->
+<div class="quick-input-wrap">
+  <span class="quick-input-icon">+</span>
+  <input type="text" class="quick-input" id="quick-task-input" placeholder="Agregar tarea rápida...">
+  <span class="quick-hint">↵ Enter</span>
+</div>
+
+<!-- Eventos del horario de hoy -->
+<div class="hoy-block-title">📅 Eventos de hoy</div>
+<div class="hoy-events" id="hoy-events"></div>
+
+<!-- Tareas de hoy -->
+<div class="hoy-block-title" style="margin-top:14px">📋 Tareas de hoy</div>
+<div class="hoy-tasks" id="hoy-tasks"></div>
+```
+
+  </div>
+
+  <!-- Dashcards -->
+
   <div class="inicio-cards">
     <div class="inicio-card" onclick="goToTab('horario')">
       <div class="inicio-card-icon ic-horario">📅</div>
@@ -844,6 +999,134 @@ function goToTab(tab) {
   if (btn) showTab(tab, btn);
 }
 
+// ══════════════════════════════════════════
+// HOY — Eventos del horario para hoy
+// ══════════════════════════════════════════
+const SCHEDULE_BY_DAY = {
+  0: [], // domingo — sin clases definidas en horario
+  1: [
+    { label: 'Inglés', sub: 'Aula 109', start: '13:00', end: '17:00', type: 'clase' },
+    { label: 'Estudio', sub: 'Bloque fuerte', start: '07:30', end: '11:30', type: 'estudio' },
+    { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' },
+  ],
+  2: [
+    { label: 'Seminario', sub: '', start: '18:00', end: '21:00', type: 'clase' },
+    { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' },
+    { label: 'Estudio', sub: 'Sesión 1', start: '07:30', end: '11:30', type: 'estudio' },
+  ],
+  3: [
+    { label: 'Métodos de Estudio', sub: 'Aula 209', start: '07:00', end: '10:00', type: 'clase' },
+    { label: 'F.J. Caldas', sub: 'Aud. Principal', start: '11:00', end: '13:00', type: 'clase' },
+    { label: 'Seminario', sub: '', start: '18:00', end: '21:00', type: 'clase' },
+  ],
+  4: [
+    { label: 'Teoría del Lenguaje', sub: 'Aula 309', start: '07:00', end: '10:00', type: 'clase' },
+    { label: 'Política y Ciudadanía', sub: 'Aula 210', start: '11:00', end: '15:00', type: 'clase' },
+    { label: 'Estudio', sub: 'Adelanto trabajos', start: '17:00', end: '19:00', type: 'estudio' },
+  ],
+  5: [
+    { label: 'Oralidad', sub: 'Aula 101', start: '13:00', end: '15:30', type: 'clase' },
+    { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' },
+    { label: 'Estudio', sub: 'Bloque mañana', start: '07:30', end: '10:30', type: 'estudio' },
+  ],
+  6: [
+    { label: 'Fund. Teórica', sub: 'Aula 210', start: '07:00', end: '11:00', type: 'clase' },
+    { label: 'Estudio', sub: 'Bloque único', start: '15:00', end: '17:00', type: 'estudio' },
+  ],
+};
+
+const EVENT_COLORS = {
+  clase:   { bg: 'rgba(59,111,212,0.12)', border: 'rgba(59,111,212,0.3)', dot: '#5b9bf8', text: '#9ec5ff' },
+  estudio: { bg: 'rgba(46,139,107,0.12)', border: 'rgba(46,139,107,0.3)', dot: '#3dba8a', text: '#72d4ac' },
+  gym:     { bg: 'rgba(212,92,46,0.12)',  border: 'rgba(212,92,46,0.3)',  dot: '#f06020', text: '#ffa070' },
+};
+
+function renderHoyEvents() {
+  const dow = new Date().getDay();
+  const events = SCHEDULE_BY_DAY[dow] || [];
+  const container = document.getElementById('hoy-events');
+  if (!container) return;
+  if (!events.length) {
+    container.innerHTML = '<div class="hoy-empty">Sin eventos programados hoy</div>';
+    return;
+  }
+  // Sort by start time
+  const sorted = [...events].sort((a,b) => a.start.localeCompare(b.start));
+  container.innerHTML = sorted.map(e => {
+    const c = EVENT_COLORS[e.type] || EVENT_COLORS.clase;
+    return '<div class="hoy-event" style="background:' + c.bg + ';border-color:' + c.border + '">' +
+      '<div class="hoy-event-dot" style="background:' + c.dot + '"></div>' +
+      '<div class="hoy-event-text" style="color:' + c.text + '">' + e.label + (e.sub ? ' · ' + e.sub : '') + '</div>' +
+      '<div class="hoy-event-time" style="color:' + c.text + '88">' + e.start + ' – ' + e.end + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function renderHoyTasks() {
+  const container = document.getElementById('hoy-tasks');
+  if (!container) return;
+  // Show pending tasks (all, since there's no per-day assignment yet)
+  const todayTasks = tasks.filter(t => t.estado !== 'entregado');
+  if (!todayTasks.length) {
+    container.innerHTML = '<div class="hoy-empty">No tienes tareas pendientes 👍</div>';
+    return;
+  }
+  container.innerHTML = todayTasks.map(t => {
+    const done = t.estado === 'entregado';
+    return '<div class="hoy-task">' +
+      '<div class="hoy-task-check ' + (done ? 'done' : '') + '" onclick="toggleHoyTask(\'' + t.id + '\')">' + (done ? '✓' : '') + '</div>' +
+      '<div class="hoy-task-text ' + (done ? 'done' : '') + '">' + t.nombre + '</div>' +
+      (t.materia ? '<div class="hoy-task-mat">' + t.materia + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function toggleHoyTask(id) {
+  const t = tasks.find(t => t.id === id);
+  if (!t) return;
+  t.estado = t.estado === 'entregado' ? 'pendiente' : 'entregado';
+  saveTasks();
+  renderHoyTasks();
+  renderTasks();
+}
+
+// ══════════════════════════════════════════
+// INPUT RÁPIDO DE TAREAS
+// ══════════════════════════════════════════
+function initQuickInput() {
+  const input = document.getElementById('quick-task-input');
+  if (!input) return;
+  input.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter') return;
+    const nombre = input.value.trim();
+    if (!nombre) return;
+    // Create task with today's date and pending status
+    const today = new Date();
+    const yyyy  = today.getFullYear();
+    const mm    = (today.getMonth() + 1).toString().padStart(2,'0');
+    const dd    = today.getDate().toString().padStart(2,'0');
+    tasks.push({
+      id:       uid(),
+      nombre,
+      materia:  '',
+      tipo:     '',
+      fecha:    yyyy + '-' + mm + '-' + dd,
+      prioridad:'media',
+      estado:   'pendiente',
+      bloque:   '',
+      notas:    '',
+    });
+    saveTasks();
+    input.value = '';
+    renderTasks();
+    renderHoyTasks();
+    updateInicio();
+    // Small visual feedback
+    input.style.color = '#3dba8a';
+    setTimeout(() => { input.style.color = ''; }, 400);
+  });
+}
+
 function updateInicio() {
   const now   = new Date();
   const dias  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
@@ -851,12 +1134,12 @@ function updateInicio() {
   const hrs   = now.getHours().toString().padStart(2,'0');
   const mins  = now.getMinutes().toString().padStart(2,'0');
 
-  const dateEl = document.getElementById('inicio-date');
+  const dateEl   = document.getElementById('inicio-date');
   const phraseEl = document.getElementById('inicio-phrase');
-  if (dateEl) dateEl.textContent = dias[now.getDay()] + ', ' + now.getDate() + ' de ' + meses[now.getMonth()] + ' · ' + hrs + ':' + mins;
+  if (dateEl)   dateEl.textContent   = dias[now.getDay()] + ', ' + now.getDate() + ' de ' + meses[now.getMonth()] + ' · ' + hrs + ':' + mins;
   if (phraseEl) phraseEl.textContent = '"' + FRASES[now.getDay() % FRASES.length] + '"';
 
-  // Tareas pendientes
+  // Tareas pendientes — dashcard badge
   const pending = tasks.filter(t => t.estado === 'pendiente').length;
   const badge   = document.getElementById('ic-tareas-badge');
   const sub     = document.getElementById('ic-tareas-sub');
@@ -874,15 +1157,19 @@ function updateInicio() {
     }
   }
 
-  // Horario sub
-  const info = DIA_INFO[now.getDay()] || {};
+  // Horario dashcard sub
+  const info  = DIA_INFO[now.getDay()] || {};
   const parts = [];
-  if (info.gym) parts.push('🏋️ Gimnasio');
+  if (info.gym)                      parts.push('🏋️ Gimnasio');
   if (info.clases && info.claseName) parts.push('📚 ' + info.claseName);
-  if (info.seminario) parts.push('🎓 Seminario');
-  if (!parts.length) parts.push('Día libre hoy');
+  if (info.seminario)                parts.push('🎓 Seminario');
+  if (!parts.length)                 parts.push('Día libre hoy');
   const horarioSub = document.getElementById('ic-horario-sub');
   if (horarioSub) horarioSub.textContent = parts.join(' · ');
+
+  // Render HOY section
+  renderHoyEvents();
+  renderHoyTasks();
 }
 
 // ══════════════════════════════════════════
@@ -1323,6 +1610,7 @@ loadDiary();
 renderDiary();
 updateBanner();
 updateInicio();
+initQuickInput();
 updateDiaryTimestamp();
 setInterval(updateBanner, 60000);
 setInterval(updateDiaryTimestamp, 30000);
