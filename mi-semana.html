@@ -253,26 +253,65 @@ background: transparent !important;
 /* GIMNASIO */
 #panel-gym { background: #070707; min-height: calc(100vh - 57px); padding: 22px 16px 60px; }
 .gym-panel { max-width: 480px; margin: 0 auto; }
-.gym-header { margin-bottom: 22px; }
+.gym-header { margin-bottom: 20px; }
 .gym-title { font-size: 1.2rem; font-weight: 700; color: #e8e4dc; }
 .gym-subtitle { font-size: 0.65rem; color: #444; margin-top: 4px; }
-.gym-today { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 18px; margin-bottom: 16px; }
+
+.gym-today { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 18px; margin-bottom: 14px; }
 .gym-today-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .gym-today-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #d45c2e; }
 .gym-today-day { font-size: 0.65rem; color: #444; }
 .gym-no-gym { font-size: 0.8rem; color: #3a3a3a; padding: 8px 0; text-align: center; }
-.gym-routine-name { font-size: 1rem; font-weight: 700; color: #e8e4dc; margin-bottom: 12px; }
-.gym-muscles { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
-.gym-muscle { display: flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px 12px; cursor: pointer; transition: all 0.2s ease; flex: 1; min-width: 100px; }
-.gym-muscle.done { background: rgba(212,92,46,0.12); border-color: rgba(212,92,46,0.4); }
-.gym-muscle-check { width: 16px; height: 16px; border: 1.5px solid rgba(255,255,255,0.2); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; flex-shrink: 0; }
-.gym-muscle.done .gym-muscle-check { background: #d45c2e; border-color: #d45c2e; color: #fff; }
-.gym-muscle-name { font-size: 0.76rem; color: #c8c2b8; font-weight: 500; }
-.gym-muscle.done .gym-muscle-name { color: #ffa070; }
-.gym-complete-btn { width: 100%; background: #d45c2e; color: #fff; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.88rem; font-weight: 700; padding: 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; }
-.gym-complete-btn:hover { opacity: 0.9; }
+.gym-routine-name { font-size: 1rem; font-weight: 700; color: #e8e4dc; margin-bottom: 14px; }
+
+/* Grupo muscular expandible */
+.gym-group { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
+.gym-group-hdr { display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; }
+.gym-group-hdr:hover { background: rgba(255,255,255,0.04); }
+.gym-group-check { width: 18px; height: 18px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; flex-shrink: 0; transition: all 0.2s ease; }
+.gym-group-check.done { background: #d45c2e; border-color: #d45c2e; color: #fff; }
+.gym-group-name { font-size: 0.82rem; font-weight: 600; color: #c8c2b8; flex: 1; }
+.gym-group.done .gym-group-name { color: #ffa070; }
+.gym-group-count { font-size: 0.6rem; color: #444; }
+.gym-group-arrow { font-size: 0.7rem; color: #333; transition: transform 0.2s ease; }
+.gym-group.open .gym-group-arrow { transform: rotate(90deg); }
+
+.gym-group-body { display: none; padding: 0 14px 14px; }
+.gym-group.open .gym-group-body { display: block; }
+
+/* Ejercicios dentro del grupo */
+.gym-exercise { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+.gym-exercise-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.gym-exercise-name { font-size: 0.8rem; font-weight: 600; color: #e8e4dc; flex: 1; }
+.gym-exercise-del { background: none; border: none; color: #333; cursor: pointer; font-size: 0.72rem; padding: 2px 4px; }
+.gym-exercise-del:hover { color: #dc2626; }
+
+/* Series */
+.gym-series-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.gym-serie { display: flex; align-items: center; gap: 8px; }
+.gym-serie-num { font-size: 0.6rem; color: #444; width: 18px; flex-shrink: 0; text-align: center; }
+.gym-serie-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; padding: 6px 8px; font-family: ‘Poppins’, sans-serif; font-size: 0.75rem; color: #e8e4dc; outline: none; text-align: center; min-width: 0; }
+.gym-serie-input:focus { border-color: rgba(212,92,46,0.5); }
+.gym-serie-label { font-size: 0.55rem; color: #444; flex-shrink: 0; }
+.gym-serie-done { width: 22px; height: 22px; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.6rem; flex-shrink: 0; transition: all 0.2s ease; }
+.gym-serie-done.checked { background: #2e8b6b; border-color: #2e8b6b; color: #fff; }
+.gym-serie-del { background: none; border: none; color: #2a2a2a; cursor: pointer; font-size: 0.65rem; flex-shrink: 0; }
+.gym-serie-del:hover { color: #dc2626; }
+
+.gym-add-serie { background: none; border: 1px dashed rgba(255,255,255,0.1); border-radius: 7px; color: #444; font-family: ‘Poppins’, sans-serif; font-size: 0.7rem; padding: 6px; width: 100%; cursor: pointer; transition: all 0.2s ease; }
+.gym-add-serie:hover { border-color: rgba(212,92,46,0.4); color: #d45c2e; }
+
+/* Agregar ejercicio */
+.gym-add-exercise { display: flex; gap: 8px; margin-top: 10px; }
+.gym-add-exercise input { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 12px; font-family: ‘Poppins’, sans-serif; font-size: 0.76rem; color: #e8e4dc; outline: none; min-width: 0; }
+.gym-add-exercise input::placeholder { color: rgba(255,255,255,0.18); }
+.gym-add-exercise input:focus { border-color: rgba(212,92,46,0.5); }
+.gym-add-exercise button { background: #d45c2e; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-family: ‘Poppins’, sans-serif; font-size: 0.76rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+
+.gym-complete-btn { width: 100%; background: #d45c2e; color: #fff; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.88rem; font-weight: 700; padding: 12px; border-radius: 10px; cursor: pointer; margin-top: 4px; transition: all 0.2s ease; }
 .gym-complete-btn.done { background: #2e8b6b; }
-.gym-section-title { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #444; margin: 16px 0 10px; }
+
+.gym-section-title { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #444; margin: 14px 0 10px; }
 .gym-week { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 18px; }
 .gym-week-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #1a1a1a; }
 .gym-week-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -687,33 +726,35 @@ var DIA_INFO = {
 };
 
 var SCHED = {
-  0: [],
-  1: [
+  0: [], // domingo
+  1: [   // lunes
     { label: 'Ingles', sub: 'Aula 109', start: '13:00', end: '17:00', type: 'clase' },
     { label: 'Estudio', sub: 'Bloque fuerte', start: '07:30', end: '11:30', type: 'estudio' },
     { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' }
   ],
-  2: [
-    { label: 'Metodos Est.', sub: 'Aula 209', start: '07:00', end: '10:00', type: 'clase' },
-    { label: 'F.J. Caldas', sub: 'Aud. Principal', start: '11:00', end: '13:00', type: 'clase' },
+  2: [   // martes
     { label: 'Seminario', sub: '', start: '18:00', end: '21:00', type: 'clase' },
     { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' }
   ],
-  3: [
+  3: [   // miercoles
+    { label: 'Metodos Est.', sub: 'Aula 209', start: '07:00', end: '10:00', type: 'clase' },
+    { label: 'F.J. Caldas', sub: 'Aud. Principal', start: '11:00', end: '13:00', type: 'clase' },
+    { label: 'Seminario', sub: '', start: '18:00', end: '21:00', type: 'clase' }
+  ],
+  4: [   // jueves
     { label: 'Teoria Leng.', sub: 'Aula 309', start: '07:00', end: '10:00', type: 'clase' },
     { label: 'Politica', sub: 'Aula 210', start: '11:00', end: '15:00', type: 'clase' },
     { label: 'Estudio', sub: 'Adelanto', start: '17:00', end: '19:00', type: 'estudio' }
   ],
-  4: [
+  5: [   // viernes
     { label: 'Oralidad', sub: 'Aula 101', start: '13:00', end: '15:30', type: 'clase' },
     { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' },
     { label: 'Estudio', sub: 'Bloque manana', start: '07:30', end: '10:30', type: 'estudio' }
   ],
-  5: [
+  6: [   // sabado
     { label: 'Fund. Teorica', sub: 'Aula 210', start: '07:00', end: '11:00', type: 'clase' },
     { label: 'Estudio', sub: 'Bloque unico', start: '15:00', end: '17:00', type: 'estudio' }
-  ],
-  6: []
+  ]
 };
 
 var EV_COLORS = {
@@ -1630,15 +1671,15 @@ function renderStudySuggestion() {
 }
 
 // =============================================
-// GIMNASIO - RUTINA UPPER/LOWER
+// GIMNASIO - TRACKER COMPLETO
 // =============================================
-var GYM_KEY = 'ms_gym_v1';
+var GYM_KEY = 'ms_gym_v2';
 var gymData = {};
 
 var GYM_ROUTINE = {
-  1: { name: 'Upper A', muscles: ['Pecho','Espalda','Hombros','Brazos'] },
-  2: { name: 'Lower',   muscles: ['Piernas','Cardio'] },
-  5: { name: 'Upper B', muscles: ['Pecho','Espalda','Hombros','Brazos'] }
+  1: { name: 'Pierna',  muscles: ['Piernas','Cardio','Gluteos'] },
+  2: { name: 'Dorso A', muscles: ['Espalda','Biceps','Hombros'] },
+  5: { name: 'Dorso B', muscles: ['Espalda','Pecho','Triceps'] }
 };
 
 var DIAS_SHORT = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
@@ -1650,7 +1691,7 @@ function saveGym() {
   try { localStorage.setItem(GYM_KEY, JSON.stringify(gymData)); } catch(e) {}
 }
 
-function gymWeekKey(dow) {
+function gymDayKey(dow) {
   var now  = new Date();
   var diff = now.getDay() - dow;
   var d    = new Date(now);
@@ -1658,96 +1699,169 @@ function gymWeekKey(dow) {
   return d.getFullYear() + '-' + (d.getMonth()+1).toString().padStart(2,'0') + '-' + d.getDate().toString().padStart(2,'0');
 }
 
-function toggleGymMuscle(dow, muscle) {
-  var key = gymWeekKey(dow);
-  if (!gymData[key]) gymData[key] = { muscles: [], completed: false };
-  var idx = gymData[key].muscles.indexOf(muscle);
-  if (idx > -1) gymData[key].muscles.splice(idx, 1);
-  else gymData[key].muscles.push(muscle);
+function getGymDay(dow) {
+  var key = gymDayKey(dow);
+  if (!gymData[key]) {
+    var routine = GYM_ROUTINE[dow];
+    gymData[key] = {
+      completed: false,
+      groups: routine ? routine.muscles.map(function(m) {
+        return { name: m, done: false, open: false, exercises: [] };
+      }) : []
+    };
+  }
+  return gymData[key];
+}
+
+function gymToggleGroup(dow, gIdx) {
+  var day = getGymDay(dow);
+  day.groups[gIdx].open = !day.groups[gIdx].open;
+  saveGym(); renderGym();
+}
+
+function gymToggleGroupDone(dow, gIdx) {
+  var day = getGymDay(dow);
+  day.groups[gIdx].done = !day.groups[gIdx].done;
+  saveGym(); renderGym();
+}
+
+function gymAddExercise(dow, gIdx) {
+  var input = document.getElementById('gym-ex-input-' + gIdx);
+  if (!input) return;
+  var name = input.value.trim();
+  if (!name) return;
+  var day = getGymDay(dow);
+  day.groups[gIdx].exercises.push({ name: name, series: [] });
+  day.groups[gIdx].open = true;
+  input.value = '';
+  saveGym(); renderGym();
+}
+
+function gymDelExercise(dow, gIdx, eIdx) {
+  var day = getGymDay(dow);
+  day.groups[gIdx].exercises.splice(eIdx, 1);
+  saveGym(); renderGym();
+}
+
+function gymAddSerie(dow, gIdx, eIdx) {
+  var day = getGymDay(dow);
+  day.groups[gIdx].exercises[eIdx].series.push({ kg: '', reps: '', done: false });
+  saveGym(); renderGym();
+}
+
+function gymDelSerie(dow, gIdx, eIdx, sIdx) {
+  var day = getGymDay(dow);
+  day.groups[gIdx].exercises[eIdx].series.splice(sIdx, 1);
+  saveGym(); renderGym();
+}
+
+function gymToggleSerie(dow, gIdx, eIdx, sIdx) {
+  var day = getGymDay(dow);
+  day.groups[gIdx].exercises[eIdx].series[sIdx].done = !day.groups[gIdx].exercises[eIdx].series[sIdx].done;
+  saveGym(); renderGym();
+}
+
+function gymSaveField(dow, gIdx, eIdx, sIdx, field, val) {
+  var day = getGymDay(dow);
+  day.groups[gIdx].exercises[eIdx].series[sIdx][field] = val;
   saveGym();
-  renderGym();
 }
 
 function completeGymSession(dow) {
-  var key = gymWeekKey(dow);
-  if (!gymData[key]) gymData[key] = { muscles: [], completed: false };
-  gymData[key].completed = !gymData[key].completed;
-  if (gymData[key].completed) {
-    var routine = GYM_ROUTINE[dow];
-    if (routine) gymData[key].muscles = routine.muscles.slice();
-  }
-  saveGym();
-  renderGym();
-  updateInicioGym();
+  var day = getGymDay(dow);
+  day.completed = !day.completed;
+  saveGym(); renderGym(); updateInicioGym();
 }
 
 function renderGym() {
   var now = new Date();
   var dow = now.getDay();
-
-  // Header day
   var dayEl = document.getElementById('gym-today-day');
   if (dayEl) dayEl.textContent = DIAS_SHORT[dow] + ' - ' + now.getDate() + ' ' + MESES[now.getMonth()];
-
-  // Today content
   var content = document.getElementById('gym-today-content');
-  if (content) {
-    var routine = GYM_ROUTINE[dow];
-    if (!routine) {
-      content.innerHTML = '<div class="gym-no-gym">No tienes gym hoy. Descansa y recupera.</div>';
-    } else {
-      var key  = gymWeekKey(dow);
-      var data = gymData[key] || { muscles: [], completed: false };
-      var html = '<div class="gym-routine-name">' + routine.name + '</div>';
-      html += '<div class="gym-muscles">';
-      routine.muscles.forEach(function(m) {
-        var done = data.muscles.indexOf(m) > -1;
-        html += '<div class="gym-muscle' + (done ? ' done' : '') + '" onclick="toggleGymMuscle(' + dow + ',\'' + m + '\')">' +
-          '<div class="gym-muscle-check">' + (done ? 'v' : '') + '</div>' +
-          '<div class="gym-muscle-name">' + m + '</div>' +
-        '</div>';
+  if (!content) return;
+  var routine = GYM_ROUTINE[dow];
+  if (!routine) {
+    content.innerHTML = '<div class="gym-no-gym">No tienes gym hoy. Descansa y recupera.</div>';
+  } else {
+    var day = getGymDay(dow);
+    var html = '<div class="gym-routine-name">' + routine.name + '</div>';
+    day.groups.forEach(function(g, gIdx) {
+      var doneCount = g.exercises.reduce(function(acc, ex) { return acc + ex.series.filter(function(s) { return s.done; }).length; }, 0);
+      var totalSeries = g.exercises.reduce(function(acc, ex) { return acc + ex.series.length; }, 0);
+      var countTxt = g.exercises.length > 0 ? g.exercises.length + ' ej.' + (totalSeries > 0 ? ' ' + doneCount + '/' + totalSeries + ' series' : '') : '';
+      html += '<div class="gym-group' + (g.done ? ' done' : '') + (g.open ? ' open' : '') + '">' +
+        '<div class="gym-group-hdr" onclick="gymToggleGroup(' + dow + ',' + gIdx + ')">' +
+          '<div class="gym-group-check' + (g.done ? ' done' : '') + '" onclick="event.stopPropagation();gymToggleGroupDone(' + dow + ',' + gIdx + ')">' + (g.done ? 'v' : '') + '</div>' +
+          '<div class="gym-group-name">' + g.name + '</div>' +
+          '<div class="gym-group-count">' + countTxt + '</div>' +
+          '<div class="gym-group-arrow">&#8250;</div>' +
+        '</div>' +
+        '<div class="gym-group-body">';
+      g.exercises.forEach(function(ex, eIdx) {
+        html += '<div class="gym-exercise">' +
+          '<div class="gym-exercise-hdr">' +
+            '<div class="gym-exercise-name">' + ex.name + '</div>' +
+            '<button class="gym-exercise-del" onclick="gymDelExercise(' + dow + ',' + gIdx + ',' + eIdx + ')">&#128465;</button>' +
+          '</div>';
+        if (ex.series.length > 0) {
+          html += '<div class="gym-series-list">';
+          html += '<div class="gym-serie" style="margin-bottom:2px">' +
+            '<div class="gym-serie-num"></div>' +
+            '<div style="flex:1;text-align:center;font-size:0.58rem;color:#444">KG</div>' +
+            '<div class="gym-serie-label"></div>' +
+            '<div style="flex:1;text-align:center;font-size:0.58rem;color:#444">Reps</div>' +
+            '<div style="width:22px"></div>' +
+            '<div style="width:16px"></div>' +
+          '</div>';
+          ex.series.forEach(function(s, sIdx) {
+            html += '<div class="gym-serie">' +
+              '<div class="gym-serie-num">' + (sIdx+1) + '</div>' +
+              '<input class="gym-serie-input" type="number" placeholder="0" value="' + (s.kg || '') + '" onchange="gymSaveField(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ',&quot;kg&quot;,this.value)" min="0" step="0.5">' +
+              '<div class="gym-serie-label">kg</div>' +
+              '<input class="gym-serie-input" type="number" placeholder="0" value="' + (s.reps || '') + '" onchange="gymSaveField(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ',&quot;reps&quot;,this.value)" min="0">' +
+              '<div class="gym-serie-done' + (s.done ? ' checked' : '') + '" onclick="gymToggleSerie(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ')">' + (s.done ? 'v' : '') + '</div>' +
+              '<button class="gym-serie-del" onclick="gymDelSerie(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ')">x</button>' +
+            '</div>';
+          });
+          html += '</div>';
+        }
+        html += '<button class="gym-add-serie" onclick="gymAddSerie(' + dow + ',' + gIdx + ',' + eIdx + ')">+ Agregar serie</button></div>';
       });
-      html += '</div>';
-      html += '<button class="gym-complete-btn' + (data.completed ? ' done' : '') + '" onclick="completeGymSession(' + dow + ')">' +
-        (data.completed ? 'Sesion completada' : 'Marcar sesion completa') +
-      '</button>';
-      content.innerHTML = html;
-    }
+      html += '<div class="gym-add-exercise">' +
+        '<input id="gym-ex-input-' + gIdx + '" type="text" placeholder="Nombre del ejercicio...">' +
+        '<button onclick="gymAddExercise(' + dow + ',' + gIdx + ')">+ Agregar</button>' +
+      '</div></div></div>';
+    });
+    html += '<button class="gym-complete-btn' + (day.completed ? ' done' : '') + '" onclick="completeGymSession(' + dow + ')">' +
+      (day.completed ? 'Sesion completada' : 'Marcar sesion completa') + '</button>';
+    content.innerHTML = html;
   }
-
-  // Week overview
   var week = document.getElementById('gym-week');
   if (week) {
-    var gymDays = [1, 2, 4, 5]; // lun, mar, jue(skip), vie
-    var displayDays = [1, 2, 5]; // los 3 que vas
-    week.innerHTML = displayDays.map(function(d) {
-      var routine = GYM_ROUTINE[d];
-      var key     = gymWeekKey(d);
-      var data    = gymData[key] || { muscles: [], completed: false };
+    week.innerHTML = [1,2,5].map(function(d) {
+      var r = GYM_ROUTINE[d];
+      var dy = getGymDay(d);
       var isToday = d === dow;
-      var isPast  = d < dow;
-      var statusCls = data.completed ? 'completed' : 'upcoming';
-      var statusTxt = data.completed ? 'v' : '';
       return '<div class="gym-week-row">' +
         '<div class="gym-week-day' + (isToday ? ' today' : '') + '">' + DIAS_SHORT[d] + '</div>' +
-        '<div class="gym-week-routine">' + (routine ? routine.name + ' - ' + routine.muscles.join(', ') : '') + '</div>' +
-        '<div class="gym-week-status ' + statusCls + '">' + statusTxt + '</div>' +
+        '<div class="gym-week-routine">' + (r ? r.name : '') + '</div>' +
+        '<div class="gym-week-status ' + (dy.completed ? 'completed' : 'upcoming') + '">' + (dy.completed ? 'v' : '') + '</div>' +
       '</div>';
     }).join('');
   }
 }
 
 function updateInicioGym() {
-  var dow     = new Date().getDay();
+  var dow = new Date().getDay();
   var routine = GYM_ROUTINE[dow];
-  var sub     = document.getElementById('ic-gym-sub');
+  var sub = document.getElementById('ic-gym-sub');
   if (!sub) return;
   if (!routine) {
     sub.textContent = 'Hoy no toca gym - descansa';
   } else {
-    var key  = gymWeekKey(dow);
-    var data = gymData[key] || { completed: false };
-    sub.textContent = data.completed ? routine.name + ' completado hoy' : routine.name + ' - pendiente';
+    var day = getGymDay(dow);
+    sub.textContent = day.completed ? routine.name + ' completado hoy' : routine.name + ' - pendiente';
   }
 }
 loadDiary2();
