@@ -1,1888 +1,869 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Semana</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Poppins', sans-serif; background: #0a0a0a; color: #e8e4dc; width: 100%; overflow-x: hidden; min-height: 100vh; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Museo Francisco José de Caldas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Josefin+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --parchment: #e8dfc9;
+      --gold: #b8932a;
+      --gold-light: #d4ae5a;
+      --burgundy: #6b1e2e;
+      --dark-brown: #2a1a0e;
+      --forest: #2d4a2d;
+      --ink: #1a1208;
+      --muted: #7a6a5a;
+    }
 
-/* NAV */
-.topnav { display: flex; align-items: center; background: #0a0a0a; border-bottom: 1px solid #1a1a1a; padding: 0 16px; position: sticky; top: 0; z-index: 50; overflow-x: auto; }
-.app-brand { font-size: 1rem; color: #e8e4dc; padding: 16px 0; margin-right: 20px; white-space: nowrap; flex-shrink: 0; font-weight: 600; }
-.app-brand em { font-style: italic; opacity: 0.4; }
-.tab-btn { background: none; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.88rem; color: #444; padding: 16px 12px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; flex-shrink: 0; font-weight: 500; }
-.tab-btn:hover { color: #888; }
-.tab-btn.active { color: #e8e4dc; border-bottom-color: #d45c2e; font-weight: 700; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* PANELS */
-.panel { display: none; width: 100%; }
-.panel.active { display: block; width: 100%; }
+    html { scroll-behavior: smooth; }
 
-.panel.slide-in-right { animation: slideInRight 0.32s cubic-bezier(0.4,0,0.2,1) forwards; }
-.panel.slide-in-left  { animation: slideInLeft  0.32s cubic-bezier(0.4,0,0.2,1) forwards; }
-@keyframes slideInRight { from { opacity: 0; transform: translateX(55px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes slideInLeft  { from { opacity: 0; transform: translateX(-55px); } to { opacity: 1; transform: translateX(0); } }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-@keyframes pulseHL {
-0%   { box-shadow: 0 0 0 0 rgba(212,92,46,0.7); }
-50%  { box-shadow: 0 0 0 8px rgba(212,92,46,0.15); }
-100% { box-shadow: 0 0 0 0 rgba(212,92,46,0); }
-}
-.card-highlight { animation: pulseHL 1s ease forwards; border-color: rgba(212,92,46,0.5) !important; }
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--dark-brown);
+    }
 
-/* INICIO */
-#panel-inicio { background: #0a0a0a; min-height: calc(100vh - 57px); padding: 22px 16px 60px; }
-.inicio-header { margin-bottom: 20px; }
-.inicio-greeting { font-size: 1.35rem; font-weight: 700; color: #e8e4dc; line-height: 1.2; }
-.inicio-greeting em { font-style: italic; color: #d45c2e; }
-.inicio-date { font-size: 0.66rem; color: #444; margin-top: 5px; }
-.inicio-phrase { font-size: 0.84rem; margin-top: 8px; font-style: italic; color: #444; line-height: 1.5; }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(107,30,46,0.45) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(45,74,45,0.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 80%, rgba(184,147,42,0.2) 0%, transparent 50%),
+        linear-gradient(160deg, #1a0d06 0%, #2a1a0e 40%, #1e130a 100%);
+    }
 
-.hoy-section { background: #111; border: 1px solid #1e1e1e; border-radius: 20px; padding: 18px; margin-bottom: 16px; }
-.hoy-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #d45c2e; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-.hoy-title::after { content: ‘’; flex: 1; height: 1px; background: rgba(212,92,46,0.15); }
+    .hero-texture {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8932a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
 
-.quick-wrap { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 11px 14px; margin-bottom: 16px; }
-.quick-wrap:focus-within { border-color: rgba(212,92,46,0.4); box-shadow: 0 0 0 3px rgba(212,92,46,0.08); }
-.quick-icon { font-size: 1rem; opacity: 0.25; flex-shrink: 0; }
-.quick-input { flex: 1; background: none; border: none; outline: none; font-family: ‘Poppins’, sans-serif; font-size: 0.84rem; color: #e8e4dc; }
-.quick-input::placeholder { color: rgba(255,255,255,0.18); }
-.quick-hint { font-size: 0.52rem; color: rgba(255,255,255,0.12); white-space: nowrap; background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08); }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      padding: 2rem;
+      animation: heroFade 1.4s ease forwards;
+    }
 
-.hoy-sub { font-size: 0.56rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.2); margin: 12px 0 7px; }
-.hoy-events { display: flex; flex-direction: column; gap: 5px; }
-.hoy-event { display: flex; align-items: center; gap: 10px; border-radius: 10px; padding: 9px 12px; cursor: pointer; transition: filter 0.2s ease, transform 0.2s ease; }
-.hoy-event:hover { filter: brightness(1.15); transform: translateX(3px); }
-.hoy-event-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.hoy-event-text { font-size: 0.74rem; flex: 1; font-weight: 500; }
-.hoy-event-time { font-size: 0.6rem; white-space: nowrap; opacity: 0.5; }
-.hoy-event-arrow { font-size: 0.65rem; opacity: 0.25; flex-shrink: 0; }
-.hoy-tasks { display: flex; flex-direction: column; gap: 5px; }
-.hoy-task { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 9px 12px; cursor: pointer; transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease; }
-.hoy-task:hover { background: rgba(255,255,255,0.07); border-color: rgba(212,92,46,0.3); transform: translateX(3px); }
-.hoy-task-arrow { font-size: 0.65rem; color: #333; flex-shrink: 0; }
-.hoy-check { width: 16px; height: 16px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 5px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; }
-.hoy-check.done { background: #2e8b6b; border-color: #2e8b6b; color: #fff; }
-.hoy-task-text { font-size: 0.76rem; color: #c8c2b8; flex: 1; }
-.hoy-task-text.done { text-decoration: line-through; color: #444; }
-.hoy-task-mat { font-size: 0.52rem; color: #555; background: rgba(255,255,255,0.04); padding: 2px 6px; border-radius: 4px; }
-.study-suggestion {
-display: flex;
-align-items: center;
-gap: 10px;
-background: rgba(255,255,255,0.03);
-border: 1px solid rgba(255,255,255,0.07);
-border-radius: 12px;
-padding: 12px 14px;
-margin-bottom: 14px;
-}
-.study-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.study-body { flex: 1; min-width: 0; }
-.study-text { font-size: 0.78rem; color: #c8c2b8; font-weight: 500; line-height: 1.3; }
-.study-sub  { font-size: 0.62rem; color: #555; margin-top: 2px; }
+    @keyframes heroFade {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-.hoy-empty { font-size: 0.74rem; color: #3a3a3a; padding: 8px 2px; }
+    .hero-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      opacity: 0.85;
+    }
 
-.inicio-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.icard { background: #111; border: 1px solid #1a1a1a; border-radius: 16px; padding: 14px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; align-items: flex-start; transition: all 0.2s ease; }
-.icard:hover { transform: translateY(-2px); border-color: #252525; }
-.icard:active { transform: translateY(0); }
-.icard-icon { font-size: 1.3rem; width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; }
-.ic-h { background: #0f1e3a; }
-.ic-t { background: #0a160a; }
-.ic-d { background: #1e0e00; }
-.ic-f { background: #1a1000; }
-.icard-body { width: 100%; }
-.icard-top { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
-.icard-title { font-size: 0.78rem; font-weight: 600; color: #aaa8a4; }
-.icard-sub { font-size: 0.62rem; color: #333; line-height: 1.4; margin-top: 3px; }
-.icard-badge { background: #d45c2e; color: #fff; font-size: 0.52rem; font-weight: 700; padding: 2px 6px; border-radius: 20px; }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 0.4rem;
+    }
 
-/* HORARIO */
-#panel-horario { background: #0f0f0f; padding: 0 0 60px; }
-.smart-banner { display: flex; align-items: center; gap: 12px; background: #111; border-bottom: 1px solid #1e1e1e; padding: 16px 20px; flex-wrap: wrap; }
-.smart-left { display: flex; flex-direction: column; gap: 2px; min-width: 70px; }
-.smart-day { font-size: 1rem; font-weight: 700; color: #e8e4dc; }
-.smart-time { font-size: 1.3rem; color: #d45c2e; }
-.smart-center { flex: 1; min-width: 140px; }
-.smart-phrase { font-size: 0.9rem; font-style: italic; color: #e8e4dc; margin-bottom: 2px; }
-.smart-sum { font-size: 0.6rem; color: #444; }
-.smart-right { text-align: center; }
-.smart-pend { background: #1e3a2a; border: 1px solid #2e8b6b; border-radius: 10px; padding: 7px 12px; display: flex; flex-direction: column; align-items: center; }
-.smart-pend span { font-size: 1.4rem; color: #3dba8a; line-height: 1; }
-.smart-pend small { font-size: 0.52rem; color: #2e8b6b; text-transform: uppercase; }
-#panel-horario header { padding: 20px 20px 0; margin-bottom: 16px; }
-#panel-horario h1 { font-size: clamp(1.4rem,5vw,2.2rem); font-weight: 800; letter-spacing: -0.03em; }
-#panel-horario header p { font-size: 0.68rem; color: #444; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.1em; }
-.legend { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px; margin-bottom: 16px; }
-.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.62rem; text-transform: uppercase; opacity: 0.7; }
-.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
-.grid-wrapper { overflow-x: auto; padding: 0 20px 20px; }
-.schedule { display: grid; grid-template-columns: 52px repeat(7, minmax(90px,1fr)); min-width: 700px; border: 1px solid #222; border-radius: 14px; overflow: hidden; }
-.day-header { background: #111; padding: 12px 6px; text-align: center; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #444; border-right: 1px solid #222; border-bottom: 1px solid #2a2a2a; }
-.day-header.today { color: #e8e4dc !important; background: #1c1412 !important; border-bottom: 2px solid #d45c2e !important; }
-.time-label { padding: 5px 8px 0; display: flex; align-items: flex-start; justify-content: flex-end; font-size: 0.56rem; color: #444; border-right: 1px solid #222; border-bottom: 1px solid #1a1a1a; min-height: 44px; background: #111; }
-.cell { min-height: 44px; border-right: 1px solid #1e1e1e; border-bottom: 1px solid #1a1a1a; padding: 3px; background: #0d0d0d; }
-.cell:last-child { border-right: none; }
-.block { border-radius: 6px; padding: 5px 7px; font-size: 0.6rem; line-height: 1.3; height: 100%; display: flex; flex-direction: column; justify-content: center; cursor: default; user-select: none; }
-.block:hover { filter: brightness(1.15); }
-.block b { font-weight: 700; font-size: 0.64rem; display: block; margin-bottom: 1px; }
-.block span { opacity: 0.75; }
-.clase   { background: #162d58; border-left: 3px solid #4d8ef0; color: #9ec5ff; }
-.estudio { background: #0d3322; border-left: 3px solid #35a87a; color: #72d4ac; }
-.gym     { background: #4a1a00; border-left: 3px solid #f06020; color: #ffa070; }
-.ocio    { background: #30144a; border-left: 3px solid #b060e0; color: #d4a0ff; }
-.sueno   { background: #141e2e; border-left: 3px solid #4a7898; color: #82aec8; }
-.comida  { background: #302000; border-left: 3px solid #c09018; color: #e8c040; }
-.block.continuation {
-opacity: 0.35;
-border-radius: 0;
-padding: 0;
-border-left-width: 3px;
-border-left-style: solid;
-border-top: none;
-border-right: none;
-border-bottom: none;
-background: transparent !important;
-}
-.clase.continuation   { border-left-color: #4d8ef0; background: rgba(22,45,88,0.75) !important; }
-.estudio.continuation { border-left-color: #35a87a; background: rgba(13,51,34,0.75) !important; }
-.gym.continuation     { border-left-color: #f06020; background: rgba(74,26,0,0.75) !important; }
-.ocio.continuation    { border-left-color: #b060e0; background: rgba(48,20,74,0.75) !important; }
-.sueno.continuation   { border-left-color: #4a7898; background: rgba(20,30,46,0.75) !important; }
-.comida.continuation  { border-left-color: #c09018; background: rgba(48,32,0,0.75) !important; }
-.empty   { font-size: 0.5rem; color: #222; display: flex; align-items: center; justify-content: center; height: 100%; min-height: 38px; }
+    .hero h1 span {
+      color: var(--gold-light);
+      font-style: italic;
+    }
 
-/* TAREAS */
-#panel-tareas { background: #eeeae3; color: #1a1814; height: calc(100vh - 57px); overflow: hidden; }
-#panel-tareas.active { display: flex; width: 100%; }
-.t-sidebar { width: 130px; flex-shrink: 0; background: #16120e; color: #f5f2ed; padding: 18px 10px; display: flex; flex-direction: column; gap: 2px; height: calc(100vh - 57px); overflow: hidden; }
-.t-sidebar-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 10px; color: #f5f2ed; line-height: 1.2; }
-.t-sidebar-title span { font-style: italic; opacity: 0.4; font-size: 0.65rem; display: block; font-weight: 400; }
-.t-section { font-size: 0.75rem; font-weight: 700; color: #f5f2ed; margin-top: 12px; margin-bottom: 2px; opacity: 0.7; }
-.t-filter { background: none; border: none; color: #666; font-family: ‘Poppins’, sans-serif; font-size: 0.75rem; padding: 5px 6px; border-radius: 7px; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 5px; width: 100%; }
-.t-filter:hover { background: #2a2420; color: #fff; }
-.t-filter.active { background: #f5f2ed; color: #1a1814; font-weight: 700; }
-.f-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.f-cnt { margin-left: auto; background: #2a2420; color: #555; font-size: 0.55rem; padding: 1px 4px; border-radius: 8px; }
-.t-filter.active .f-cnt { background: #e0dbd2; color: #8a8278; }
-.t-main { flex: 1; min-width: 0; width: 0; padding: 18px 12px; background: #eeeae3; height: calc(100vh - 57px); overflow-y: auto; overflow-x: hidden; }
-.t-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 10px; flex-wrap: wrap; }
-.t-topbar h2 { font-size: 1.2rem; font-weight: 400; color: #1a1814; }
-.t-topbar h2 em { font-style: italic; color: #8a8278; }
-.btn-new { background: #16120e; color: #f5f2ed; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.8rem; padding: 8px 14px; border-radius: 8px; cursor: pointer; white-space: nowrap; font-weight: 500; }
-.t-stats { display: flex; gap: 7px; margin-bottom: 14px; flex-wrap: wrap; }
-.t-stat { background: #faf7f2; border: 1px solid #ddd8d0; border-radius: 10px; padding: 8px 10px; flex: 1; min-width: 58px; }
-.t-stat-num { font-size: 1.3rem; line-height: 1; color: #1a1814; font-weight: 600; }
-.t-stat-lbl { font-size: 0.52rem; color: #9a9288; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
-.task-list { display: flex; flex-direction: column; gap: 7px; }
-.task-card { background: #faf7f2; border: 1px solid #ddd8d0; border-radius: 10px; padding: 10px 12px; display: grid; grid-template-columns: 3px 1fr; gap: 9px; align-items: start; }
-.task-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); transform: translateY(-1px); }
-.task-card.entregado { opacity: 0.4; }
-.task-card.urgente { border-left: 3px solid #dc2626; }
-.t-accent { border-radius: 3px; align-self: stretch; min-height: 14px; }
-.t-body { min-width: 0; }
-.t-name-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; margin-bottom: 4px; }
-.t-name { font-size: 0.95rem; font-weight: 700; line-height: 1.25; color: #1a1814; flex: 1; }
-.u-badge { font-size: 0.52rem; font-weight: 600; padding: 2px 7px; border-radius: 20px; border: 1px solid; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-.t-meta { display: flex; flex-wrap: wrap; gap: 3px; align-items: center; }
-.tag { font-size: 0.55rem; padding: 2px 6px; border-radius: 20px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 500; }
-.tag-mat    { background: #ede8e0; color: #8a8278; }
-.tag-tipo   { background: #eef2ff; color: #4f46e5; }
-.tag-bloque { background: #f5f0e8; color: #92400e; }
-.t-date { font-size: 0.58rem; color: #9a9288; margin-top: 3px; }
-.t-date.vhoy    { color: #dc2626; font-weight: 500; }
-.t-date.vpronto { color: #d97706; }
-.t-notes-btn { background: none; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.58rem; color: #9a9288; cursor: pointer; padding: 2px 0; margin-top: 3px; display: flex; align-items: center; gap: 3px; }
-.t-notes-body { display: none; margin-top: 7px; padding: 8px 10px; background: #ede8e0; border-radius: 7px; border-left: 2px solid #c8c2b8; font-size: 0.68rem; color: #1a1814; line-height: 1.65; white-space: pre-wrap; }
-.t-notes-body.open { display: block; }
-.t-actions { display: flex; flex-direction: row; gap: 5px; align-items: center; margin-top: 7px; flex-wrap: wrap; }
-.status-sel { font-family: ‘Poppins’, sans-serif; font-size: 0.78rem; border: 1px solid #ddd8d0; border-radius: 6px; padding: 4px 7px; background: #f5f2ed; color: #1a1814; cursor: pointer; flex: 1; min-width: 0; }
-.btn-icon { background: none; border: none; color: #c0bab2; cursor: pointer; font-size: 0.68rem; padding: 2px 5px; border-radius: 3px; }
-.btn-icon:hover { color: #1a1814; }
-.btn-del { background: none; border: 1px solid #ddd8d0; font-size: 0.75rem; padding: 3px 7px; border-radius: 6px; cursor: pointer; color: #9a9288; }
-.btn-del:hover { background: #fef2f2; border-color: #dc2626; color: #dc2626; }
-.t-empty { text-align: center; padding: 40px 16px; color: #9a9288; font-size: 0.8rem; line-height: 1.6; }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--parchment);
+      opacity: 0.75;
+      margin-top: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
 
-/* DIARIO */
-#panel-diario { background: #0a0a0a; min-height: calc(100vh - 57px); padding: 24px 20px 60px; }
-.d-container { max-width: 600px; margin: 0 auto; }
-.d-composer { background: #111; border: 1px solid #222; border-radius: 16px; padding: 20px; margin-bottom: 24px; }
-.d-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #1e1e1e; }
-.d-label { font-size: 1rem; font-weight: 700; color: #e8e4dc; }
-.d-ts { font-size: 0.58rem; color: #444; }
-.d-title-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; font-family: ‘Poppins’, sans-serif; font-size: 1rem; font-weight: 600; color: #e8e4dc; padding: 10px 14px; margin-bottom: 10px; outline: none; }
-.d-title-input::placeholder { color: rgba(255,255,255,0.18); }
-.d-title-input:focus { border-color: rgba(212,92,46,0.6); }
-.d-text-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; font-family: ‘Poppins’, sans-serif; font-size: 0.78rem; color: #b8b2a8; line-height: 1.9; resize: none; min-height: 130px; outline: none; padding: 10px 14px; }
-.d-text-input::placeholder { color: rgba(255,255,255,0.18); }
-.d-text-input:focus { border-color: rgba(212,92,46,0.6); }
-.d-save-btn { margin-top: 14px; background: #d45c2e; color: #fff; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.9rem; padding: 10px 22px; border-radius: 8px; cursor: pointer; }
-.d-entries-hdr { font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.14em; color: #333; margin-bottom: 14px; font-weight: 700; }
-.d-entries { display: flex; flex-direction: column; gap: 10px; }
-.d-entry { background: #111; border: 1px solid #1e1e1e; border-radius: 14px; padding: 16px 18px; position: relative; }
-.d-entry:hover { border-color: #333; }
-.d-entry-date { font-size: 0.56rem; color: #444; margin-bottom: 6px; }
-.d-entry-title { font-size: 1rem; font-weight: 700; color: #e8e4dc; margin-bottom: 6px; }
-.d-entry-text { font-size: 0.72rem; color: #5a5a5a; line-height: 1.75; white-space: pre-wrap; }
-.d-entry-del { position: absolute; top: 12px; right: 14px; background: none; border: none; color: #2a2a2a; cursor: pointer; font-size: 0.78rem; }
-.d-entry-del:hover { color: #dc2626; }
+    .hero-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 2rem auto;
+    }
 
-/* MODAL */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.open { display: flex; }
-.modal { background: #111; border: 1px solid rgba(255,255,255,0.08); color: #e8e4dc; border-radius: 18px; padding: 24px; width: 100%; max-width: 460px; box-shadow: 0 24px 64px rgba(0,0,0,0.6); max-height: 90vh; overflow-y: auto; }
-.modal h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 18px; }
-.fg { margin-bottom: 12px; }
-.fg label { display: block; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); margin-bottom: 5px; font-weight: 600; }
-.fg input, .fg select, .fg textarea { width: 100%; font-family: ‘Poppins’, sans-serif; font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 12px; background: rgba(255,255,255,0.05); color: #e8e4dc; outline: none; }
-.fg input::placeholder, .fg textarea::placeholder { color: rgba(255,255,255,0.2); }
-.fg select option { background: #1a1410; color: #e8e4dc; }
-.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: rgba(212,92,46,0.6); }
-.fg textarea { resize: vertical; min-height: 110px; line-height: 1.7; }
-.fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
-.btn-cancel { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); font-family: ‘Poppins’, sans-serif; font-size: 0.72rem; padding: 9px 16px; border-radius: 8px; cursor: pointer; color: rgba(255,255,255,0.45); }
-.btn-save { background: #d45c2e; color: #fff; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.72rem; padding: 9px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gold-light);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      animation: scrollBob 2s ease-in-out infinite;
+    }
 
-/* FOCUS PANEL */
-/* GIMNASIO */
-#panel-gym { background: #070707; min-height: calc(100vh - 57px); padding: 22px 16px 60px; }
-.gym-panel { max-width: 480px; margin: 0 auto; }
-.gym-header { margin-bottom: 20px; }
-.gym-title { font-size: 1.2rem; font-weight: 700; color: #e8e4dc; }
-.gym-subtitle { font-size: 0.65rem; color: #444; margin-top: 4px; }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
 
-.gym-today { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 18px; margin-bottom: 14px; }
-.gym-today-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-.gym-today-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #d45c2e; }
-.gym-today-day { font-size: 0.65rem; color: #444; }
-.gym-no-gym { font-size: 0.8rem; color: #3a3a3a; padding: 8px 0; text-align: center; }
-.gym-routine-name { font-size: 1rem; font-weight: 700; color: #e8e4dc; margin-bottom: 14px; }
+    @keyframes scrollBob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
 
-/* Grupo muscular expandible */
-.gym-group { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
-.gym-group-hdr { display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; }
-.gym-group-hdr:hover { background: rgba(255,255,255,0.04); }
-.gym-group-check { width: 18px; height: 18px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; flex-shrink: 0; transition: all 0.2s ease; }
-.gym-group-check.done { background: #d45c2e; border-color: #d45c2e; color: #fff; }
-.gym-group-name { font-size: 0.82rem; font-weight: 600; color: #c8c2b8; flex: 1; }
-.gym-group.done .gym-group-name { color: #ffa070; }
-.gym-group-count { font-size: 0.6rem; color: #444; }
-.gym-group-arrow { font-size: 0.7rem; color: #333; transition: transform 0.2s ease; }
-.gym-group.open .gym-group-arrow { transform: rotate(90deg); }
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26, 18, 8, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 147, 42, 0.25);
+      padding: 0 2rem;
+    }
 
-.gym-group-body { display: none; padding: 0 14px 14px; }
-.gym-group.open .gym-group-body { display: block; }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
 
-/* Ejercicios dentro del grupo */
-.gym-exercise { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; margin-bottom: 8px; }
-.gym-exercise-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-.gym-exercise-name { font-size: 0.8rem; font-weight: 600; color: #e8e4dc; flex: 1; }
-.gym-exercise-del { background: none; border: none; color: #333; cursor: pointer; font-size: 0.72rem; padding: 2px 4px; }
-.gym-exercise-del:hover { color: #dc2626; }
+    .nav-inner::-webkit-scrollbar { display: none; }
 
-/* Series */
-.gym-series-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
-.gym-serie { display: flex; align-items: center; gap: 8px; }
-.gym-serie-num { font-size: 0.6rem; color: #444; width: 18px; flex-shrink: 0; text-align: center; }
-.gym-serie-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; padding: 6px 8px; font-family: ‘Poppins’, sans-serif; font-size: 0.75rem; color: #e8e4dc; outline: none; text-align: center; min-width: 0; }
-.gym-serie-input:focus { border-color: rgba(212,92,46,0.5); }
-.gym-serie-label { font-size: 0.55rem; color: #444; flex-shrink: 0; }
-.gym-serie-done { width: 22px; height: 22px; border: 1.5px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.6rem; flex-shrink: 0; transition: all 0.2s ease; }
-.gym-serie-done.checked { background: #2e8b6b; border-color: #2e8b6b; color: #fff; }
-.gym-serie-del { background: none; border: none; color: #2a2a2a; cursor: pointer; font-size: 0.65rem; flex-shrink: 0; }
-.gym-serie-del:hover { color: #dc2626; }
+    nav a {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--parchment);
+      text-decoration: none;
+      padding: 1.1rem 1rem;
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
 
-.gym-add-serie { background: none; border: 1px dashed rgba(255,255,255,0.1); border-radius: 7px; color: #444; font-family: ‘Poppins’, sans-serif; font-size: 0.7rem; padding: 6px; width: 100%; cursor: pointer; transition: all 0.2s ease; }
-.gym-add-serie:hover { border-color: rgba(212,92,46,0.4); color: #d45c2e; }
+    nav a:hover { opacity: 1; color: var(--gold-light); }
 
-/* Agregar ejercicio */
-.gym-add-exercise { display: flex; gap: 8px; margin-top: 10px; }
-.gym-add-exercise input { flex: 1; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 12px; font-family: ‘Poppins’, sans-serif; font-size: 0.76rem; color: #e8e4dc; outline: none; min-width: 0; }
-.gym-add-exercise input::placeholder { color: rgba(255,255,255,0.18); }
-.gym-add-exercise input:focus { border-color: rgba(212,92,46,0.5); }
-.gym-add-exercise button { background: #d45c2e; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-family: ‘Poppins’, sans-serif; font-size: 0.76rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+    /* ── INTRO STRIP ── */
+    .intro-strip {
+      background: var(--dark-brown);
+      color: var(--parchment);
+      text-align: center;
+      padding: 4rem 2rem;
+      border-bottom: 2px solid rgba(184,147,42,0.2);
+    }
 
-.gym-complete-btn { width: 100%; background: #d45c2e; color: #fff; border: none; font-family: ‘Poppins’, sans-serif; font-size: 0.88rem; font-weight: 700; padding: 12px; border-radius: 10px; cursor: pointer; margin-top: 4px; transition: all 0.2s ease; }
-.gym-complete-btn.done { background: #2e8b6b; }
+    .intro-strip p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      opacity: 0.85;
+      font-weight: 300;
+    }
 
-.gym-section-title { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #444; margin: 14px 0 10px; }
-.gym-week { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 18px; }
-.gym-week-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #1a1a1a; }
-.gym-week-row:last-child { border-bottom: none; padding-bottom: 0; }
-.gym-week-day { font-size: 0.7rem; font-weight: 600; color: #555; width: 36px; flex-shrink: 0; }
-.gym-week-day.today { color: #d45c2e; }
-.gym-week-routine { font-size: 0.72rem; color: #888; flex: 1; }
-.gym-week-status { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; }
-.gym-week-status.completed { background: #2e8b6b; color: #fff; }
-.gym-week-status.upcoming  { background: transparent; border: 1px solid #2a2a2a; }
+    /* ── SECTION ── */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
 
-#panel-focus { background: #070707; min-height: calc(100vh - 57px); }
-.focus-panel { display: flex; flex-direction: column; align-items: center; padding: 28px 20px 60px; max-width: 480px; margin: 0 auto; }
+    section.alt {
+      background: var(--parchment);
+      max-width: none;
+      padding: 6rem 2rem;
+    }
 
-.fp-header { text-align: center; margin-bottom: 28px; }
-.fp-title { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #d45c2e; margin-bottom: 8px; }
-.fp-task-name { font-size: 1rem; font-weight: 600; color: #e8e4dc; line-height: 1.3; min-height: 1.3em; }
+    section.alt > * { max-width: 1300px; margin-left: auto; margin-right: auto; }
 
-/* Timer ring */
-.fp-timer-wrap { position: relative; width: 220px; height: 220px; margin-bottom: 24px; }
-.fp-svg { width: 220px; height: 220px; transform: rotate(-90deg); }
-.fp-track { fill: none; stroke: #1a1a1a; stroke-width: 10; }
-.fp-ring  { fill: none; stroke: #d45c2e; stroke-width: 10; stroke-linecap: round;
-stroke-dasharray: 628; stroke-dashoffset: 0; transition: stroke-dashoffset 1s linear, stroke 0.5s ease; }
-.fp-timer-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
-.fp-phase-lbl { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #555; }
-.fp-time { font-size: 3rem; font-weight: 700; color: #e8e4dc; letter-spacing: 0.04em; line-height: 1; }
-.fp-session-lbl { font-size: 0.6rem; color: #444; }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
 
-/* Dots */
-.fp-dots { display: flex; gap: 8px; margin-bottom: 28px; }
-.fp-dot { width: 10px; height: 10px; border-radius: 50%; background: #1e1e1e; border: 1px solid #2a2a2a; transition: all 0.4s ease; }
-.fp-dot.done { background: #d45c2e; border-color: #d45c2e; }
-.fp-dot.active { background: transparent; border: 2px solid #d45c2e; }
+    .section-tag {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.8rem;
+    }
 
-/* Controls */
-.fp-controls { display: flex; gap: 10px; margin-bottom: 32px; }
-.fp-btn { background: #111; border: 1px solid #222; color: #888; font-family: ‘Poppins’, sans-serif; font-size: 0.8rem; padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 500; transition: all 0.2s ease; }
-.fp-btn:hover { background: #1a1a1a; color: #e8e4dc; }
-.fp-btn-main { background: #d45c2e; border-color: #d45c2e; color: #fff; font-size: 0.9rem; padding: 12px 32px; font-weight: 700; }
-.fp-btn-main:hover { opacity: 0.9; }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 400;
+      color: var(--dark-brown);
+      line-height: 1.2;
+    }
 
-/* Config */
-.fp-config { width: 100%; background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 16px; margin-bottom: 16px; }
-.fp-config-title { font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #444; margin-bottom: 12px; }
-.fp-config-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-.fp-config-item label { display: block; font-size: 0.58rem; color: #555; margin-bottom: 5px; }
-.fp-config-item input { width: 100%; background: #0a0a0a; border: 1px solid #222; border-radius: 8px; padding: 8px; font-family: ‘Poppins’, sans-serif; font-size: 0.85rem; font-weight: 600; color: #e8e4dc; text-align: center; outline: none; }
-.fp-config-item input:focus { border-color: #d45c2e; }
+    .section-header p {
+      max-width: 600px;
+      margin: 1rem auto 0;
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+    }
 
-/* Task selector */
-.fp-task-select { width: 100%; background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 16px; }
-.fp-task-list { display: flex; flex-direction: column; gap: 6px; max-height: 200px; overflow-y: auto; }
-.fp-task-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px; border: 1px solid #1e1e1e; cursor: pointer; transition: all 0.2s ease; }
-.fp-task-item:hover { background: #1a1a1a; border-color: #333; }
-.fp-task-item.selected { background: rgba(212,92,46,0.1); border-color: rgba(212,92,46,0.4); }
-.fp-task-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.fp-task-label { font-size: 0.76rem; color: #c8c2b8; flex: 1; }
-.fp-task-mat { font-size: 0.55rem; color: #555; white-space: nowrap; }
-.fp-empty-tasks { font-size: 0.72rem; color: #3a3a3a; padding: 8px 0; }
-</style>
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1.5rem auto 0;
+    }
 
+    /* ── GALLERY GRIDS ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
+    }
+
+    .grid-featured {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .grid-masonry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 280px;
+      gap: 1.2rem;
+    }
+
+    .grid-masonry .tall { grid-row: span 2; }
+    .grid-masonry .wide { grid-column: span 2; }
+
+    /* ── PHOTO CARD ── */
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      background: var(--dark-brown);
+      cursor: pointer;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
+      filter: brightness(0.92) saturate(0.9);
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.06);
+      filter: brightness(1) saturate(1.1);
+    }
+
+    .photo-card .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.5rem 1.2rem 1.2rem;
+      background: linear-gradient(transparent, rgba(26,18,8,0.85));
+      color: var(--cream);
+      font-size: 0.82rem;
+      font-family: 'Josefin Sans', sans-serif;
+      letter-spacing: 0.08em;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .photo-card:hover .caption { transform: translateY(0); }
+
+    .photo-card .gold-corner {
+      position: absolute;
+      top: 0.8rem;
+      left: 0.8rem;
+      width: 20px;
+      height: 20px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .photo-card:hover .gold-corner { opacity: 1; }
+
+    /* Fixed height variants */
+    .h-280 { height: 280px; }
+    .h-320 { height: 320px; }
+    .h-380 { height: 380px; }
+    .h-420 { height: 420px; }
+    .h-500 { height: 500px; }
+    .h-600 { height: 600px; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,6,2,0.95);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border: 1px solid rgba(184,147,42,0.3);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      color: var(--gold-light);
+      font-size: 2rem;
+      cursor: pointer;
+      font-family: 'Josefin Sans', sans-serif;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+
+    .lightbox-close:hover { transform: rotate(90deg); }
+
+    /* ── QUOTE BAND ── */
+    .quote-band {
+      background: var(--burgundy);
+      color: var(--cream);
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .quote-band blockquote {
+      max-width: 750px;
+      margin: 0 auto;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      font-style: italic;
+      line-height: 1.5;
+      opacity: 0.95;
+    }
+
+    .quote-band cite {
+      display: block;
+      margin-top: 1.5rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      font-style: normal;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--parchment);
+      text-align: center;
+      padding: 3rem 2rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      opacity: 0.8;
+    }
+
+    footer span { color: var(--gold-light); }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .grid-3, .grid-featured { grid-template-columns: repeat(2, 1fr); }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-masonry { grid-template-columns: repeat(2, 1fr); }
+      .grid-masonry .wide { grid-column: span 1; }
+    }
+
+    @media (max-width: 600px) {
+      .grid-2, .grid-3, .grid-4, .grid-featured, .grid-masonry {
+        grid-template-columns: 1fr;
+      }
+      .grid-masonry .tall { grid-row: span 1; }
+      nav a { padding: 0.9rem 0.6rem; font-size: 0.6rem; }
+    }
+  </style>
 </head>
 <body>
 
-<nav class="topnav">
-  <div class="app-brand">Mi <em>semana</em></div>
-  <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
-  <button class="tab-btn" onclick="showTab('horario',this)">Horario</button>
-  <button class="tab-btn" onclick="showTab('tareas',this)">Tareas</button>
-  <button class="tab-btn" onclick="showTab('diario',this)">Diario</button>
-  <button class="tab-btn" onclick="showTab('focus',this)">Focus</button>
-  <button class="tab-btn" onclick="showTab('gym',this)">Gym</button>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-content">
+    <p class="hero-label">Recorrido Virtual · Bogotá, Colombia</p>
+    <h1>Museo <span>Francisco José</span><br>de Caldas</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">Ciencia · Naturaleza · Historia · Arte · Patria</p>
+  </div>
+  <div class="hero-scroll">Explorar</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#biodiversidad">Biodiversidad</a>
+    <a href="#arquitectura">Arquitectura</a>
+    <a href="#artefactos">Artefactos</a>
+    <a href="#desminado">Ingeniería Militar</a>
+    <a href="#cartografia">Cartografía</a>
+    <a href="#botanica">Botánica</a>
+    <a href="#historia">Historia de Vida</a>
+    <a href="#arte">Arte Contemporáneo</a>
+  </div>
 </nav>
 
-<!-- INICIO -->
-
-<div class="panel active" id="panel-inicio">
-  <div class="inicio-header">
-    <div class="inicio-greeting">Hola, <em>Andres</em></div>
-    <div class="inicio-date" id="inicio-date"></div>
-    <div class="inicio-phrase" id="inicio-phrase"></div>
-  </div>
-  <div class="hoy-section">
-    <div class="hoy-title">HOY</div>
-
-```
-<!-- Sugerencia de estudio -->
-<div class="study-suggestion" id="study-suggestion" style="display:none"></div>
-
-<div class="quick-wrap">
-  <span class="quick-icon">+</span>
-  <input class="quick-input" id="quick-input" type="text" placeholder="Agregar tarea rapida...">
-  <span class="quick-hint">Enter</span>
-</div>
-<div class="hoy-sub">Eventos de hoy</div>
-<div class="hoy-events" id="hoy-events"></div>
-<div class="hoy-sub" style="margin-top:14px">Tareas de hoy</div>
-<div class="hoy-tasks" id="hoy-tasks"></div>
-```
-
-  </div>
-  <div class="inicio-cards">
-    <div class="icard" onclick="goTab('horario')">
-      <div class="icard-icon ic-h">&#128197;</div>
-      <div class="icard-body">
-        <div class="icard-top"><div class="icard-title">Horario</div></div>
-        <div class="icard-sub" id="ic-h-sub">Tu semana</div>
-      </div>
-    </div>
-    <div class="icard" onclick="goTab('tareas')">
-      <div class="icard-icon ic-t">&#128203;</div>
-      <div class="icard-body">
-        <div class="icard-top">
-          <div class="icard-title">Tareas</div>
-          <div class="icard-badge" id="ic-badge" style="display:none">0</div>
-        </div>
-        <div class="icard-sub" id="ic-t-sub">Sin pendientes</div>
-      </div>
-    </div>
-    <div class="icard" onclick="goTab('gym')">
-      <div class="icard-icon" style="background:#1a0f00;">&#127947;</div>
-      <div class="icard-body">
-        <div class="icard-top"><div class="icard-title">Gym</div></div>
-        <div class="icard-sub" id="ic-gym-sub">Ver rutina de hoy</div>
-      </div>
-    </div>
-    <div class="icard" onclick="goTab('focus')">
-      <div class="icard-icon ic-f">&#127919;</div>
-      <div class="icard-body">
-        <div class="icard-top"><div class="icard-title">Focus</div></div>
-        <div class="icard-sub" id="ic-f-sub">Pomodoro - 25 min</div>
-      </div>
-    </div>
-    <div class="icard" onclick="goTab('diario')">
-      <div class="icard-icon ic-d">&#128213;</div>
-      <div class="icard-body">
-        <div class="icard-top"><div class="icard-title">Diario</div></div>
-        <div class="icard-sub" id="ic-d-sub">Escribe tus pensamientos</div>
-      </div>
-    </div>
-  </div>
+<!-- INTRO -->
+<div class="intro-strip">
+  <p>
+    El Museo Francisco José de Caldas, ubicado en la casa natal del sabio neogranadino en el centro histórico de Bogotá, 
+    preserva la memoria de uno de los científicos más destacados de la Independencia colombiana. 
+    Sus salas recorren la biodiversidad, la cartografía, la ingeniería y el arte que definieron su legado.
+  </p>
 </div>
 
-<!-- HORARIO -->
+<!-- ══════════ 1. BIODIVERSIDAD ══════════ -->
+<section id="biodiversidad">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 1</span>
+    <h2>Biodiversidad & Ecosistemas</h2>
+    <p>Desde el Bosque Húmedo Tropical hasta el Páramo, una visión de los pisos bioclimáticos de Colombia.</p>
+    <div class="gold-line"></div>
+  </div>
 
-<div class="panel" id="panel-horario">
-  <div class="smart-banner">
-    <div class="smart-left">
-      <div class="smart-day" id="smart-day"></div>
-      <div class="smart-time" id="smart-time"></div>
+  <div class="grid-featured reveal" style="margin-bottom:1.5rem;">
+    <div class="photo-card h-500" onclick="openLb('imgs/img1.jpeg')">
+      <img src="imgs/img1.jpeg" alt="Mural de pisos bioclimáticos" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Mural de pisos bioclimáticos de Colombia — Páramo al Bosque Húmedo Tropical</div>
     </div>
-    <div class="smart-center">
-      <div class="smart-phrase" id="smart-phrase"></div>
-      <div class="smart-sum" id="smart-sum"></div>
+    <div class="photo-card h-500" onclick="openLb('imgs/img2.jpeg')">
+      <img src="imgs/img2.jpeg" alt="Mapa satelital de Colombia" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Gran mapa geográfico satelital de Colombia y sus cordilleras</div>
     </div>
-    <div class="smart-right">
-      <div class="smart-pend">
-        <span id="smart-count">0</span>
-        <small>pendientes</small>
-      </div>
+    <div class="photo-card h-500" onclick="openLb('imgs/img32.jpeg')">
+      <img src="imgs/img32.jpeg" alt="Vista general del hall" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Vista general del hall principal con el mural de biodiversidad</div>
     </div>
   </div>
-  <header>
-    <h1>Horario Semanal</h1>
-    <p>Semestre activo</p>
-  </header>
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#3b6fd4"></div>Clases</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#2e8b6b"></div>Estudio</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#d45c2e"></div>Gimnasio</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div>Ocio</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#4a6480"></div>Sueno</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#b8860b"></div>Comidas</div>
+</section>
+
+<!-- ══════════ 2. ARQUITECTURA ══════════ -->
+<section id="arquitectura" class="alt">
+  <div style="max-width:1300px;margin:0 auto;">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 2</span>
+    <h2>Arquitectura de la Casa</h2>
+    <p>El inmueble colonial donde nació Caldas, con sus balcones, corredores y maqueta de restauración.</p>
+    <div class="gold-line"></div>
   </div>
-  <div class="grid-wrapper">
-    <div class="schedule" id="schedule">
-      <div class="day-header">hora</div>
-      <div class="day-header">lun</div>
-      <div class="day-header">mar</div>
-      <div class="day-header">mie</div>
-      <div class="day-header">jue</div>
-      <div class="day-header">vie</div>
-      <div class="day-header">sab</div>
-      <div class="day-header">dom</div>
-    </div>
-  </div>
-</div>
 
-<!-- TAREAS -->
-
-<div class="panel" id="panel-tareas">
-  <aside class="t-sidebar">
-    <div class="t-sidebar-title">Tareas <span>academicas</span></div>
-    <div class="t-section">Vista</div>
-    <button class="t-filter active" onclick="setFilter('all',this)"><span class="f-dot" style="background:#888"></span>Todas<span class="f-cnt" id="cnt-all">0</span></button>
-    <button class="t-filter" onclick="setFilter('esta-semana',this)"><span class="f-dot" style="background:#f59e0b"></span>Semana<span class="f-cnt" id="cnt-semana">0</span></button>
-    <button class="t-filter" onclick="setFilter('pendiente',this)"><span class="f-dot" style="background:#64748b"></span>Por hacer<span class="f-cnt" id="cnt-pend">0</span></button>
-    <button class="t-filter" onclick="setFilter('en-progreso',this)"><span class="f-dot" style="background:#2563eb"></span>Progreso<span class="f-cnt" id="cnt-prog">0</span></button>
-    <button class="t-filter" onclick="setFilter('entregado',this)"><span class="f-dot" style="background:#16a34a"></span>Entregados<span class="f-cnt" id="cnt-ent">0</span></button>
-    <div class="t-section">Materias</div>
-    <button class="t-filter" onclick="setFilter('Ingles',this)"><span class="f-dot" style="background:#2563a8"></span>Ingles<span class="f-cnt" id="cnt-Ingles">0</span></button>
-    <button class="t-filter" onclick="setFilter('Metodos',this)"><span class="f-dot" style="background:#16794a"></span>Metodos<span class="f-cnt" id="cnt-Metodos">0</span></button>
-    <button class="t-filter" onclick="setFilter('Caldas',this)"><span class="f-dot" style="background:#a05c1a"></span>F.J. Caldas<span class="f-cnt" id="cnt-Caldas">0</span></button>
-    <button class="t-filter" onclick="setFilter('Teoria',this)"><span class="f-dot" style="background:#7c2d8f"></span>Teoria Leng.<span class="f-cnt" id="cnt-Teoria">0</span></button>
-    <button class="t-filter" onclick="setFilter('Politica',this)"><span class="f-dot" style="background:#b91c3a"></span>Politica<span class="f-cnt" id="cnt-Politica">0</span></button>
-    <button class="t-filter" onclick="setFilter('Oralidad',this)"><span class="f-dot" style="background:#0e7490"></span>Oralidad<span class="f-cnt" id="cnt-Oralidad">0</span></button>
-    <button class="t-filter" onclick="setFilter('Teorica',this)"><span class="f-dot" style="background:#92400e"></span>Fund. Teorica<span class="f-cnt" id="cnt-Teorica">0</span></button>
-  </aside>
-  <main class="t-main">
-    <div class="t-topbar">
-      <h2 id="view-title">Todas las <em>tareas</em></h2>
-      <button class="btn-new" onclick="openModal()">+ Nueva tarea</button>
+  <div class="grid-3 reveal">
+    <div class="photo-card h-380" onclick="openLb('imgs/img3.jpeg')">
+      <img src="imgs/img3.jpeg" alt="Hall principal con busto" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Hall principal — busto de Caldas, balcón colonial y techo translúcido</div>
     </div>
-    <div class="t-stats">
-      <div class="t-stat"><div class="t-stat-num" id="s-total">0</div><div class="t-stat-lbl">Total</div></div>
-      <div class="t-stat"><div class="t-stat-num" id="s-pend">0</div><div class="t-stat-lbl">Por hacer</div></div>
-      <div class="t-stat"><div class="t-stat-num" id="s-prog">0</div><div class="t-stat-lbl">Progreso</div></div>
-      <div class="t-stat"><div class="t-stat-num" id="s-ent">0</div><div class="t-stat-lbl">Entregadas</div></div>
+    <div class="photo-card h-380" onclick="openLb('imgs/img4.jpeg')">
+      <img src="imgs/img4.jpeg" alt="Interior colonial" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Interior colonial con estudiantes en visita guiada</div>
     </div>
-    <div class="task-list" id="task-list"></div>
-  </main>
-</div>
-
-<!-- DIARIO -->
-
-<div class="panel" id="panel-diario">
-  <div class="d-container">
-    <div class="d-composer">
-      <div class="d-header">
-        <div class="d-label">Nueva entrada</div>
-        <div class="d-ts" id="d-ts"></div>
-      </div>
-      <input class="d-title-input" id="d-titulo" type="text" placeholder="Titulo (opcional)">
-      <textarea class="d-text-input" id="d-texto" placeholder="Escribe lo que tengas en mente..."></textarea>
-      <button class="d-save-btn" onclick="saveDiary()">Guardar entrada</button>
-    </div>
-    <div class="d-entries-hdr" id="d-count">Sin entradas aun</div>
-    <div class="d-entries" id="d-entries"></div>
-  </div>
-</div>
-
-<!-- GYM -->
-
-<div class="panel" id="panel-gym">
-  <div class="gym-panel">
-    <div class="gym-header">
-      <div class="gym-title">&#127947; Gimnasio</div>
-      <div class="gym-subtitle" id="gym-header-sub">Rutina semanal Upper / Lower</div>
-    </div>
-    <div class="gym-today">
-      <div class="gym-today-hdr">
-        <div class="gym-today-title">Hoy</div>
-        <div class="gym-today-day" id="gym-today-day"></div>
-      </div>
-      <div id="gym-today-content"></div>
-    </div>
-    <div class="gym-section-title">Esta semana</div>
-    <div class="gym-week" id="gym-week"></div>
-  </div>
-</div>
-
-<!-- MODAL -->
-
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <h3 id="modal-title">Nueva tarea</h3>
-    <div class="fg"><label>Nombre *</label><input type="text" id="f-nombre" placeholder="Nombre de la tarea"></div>
-    <div class="fg-row">
-      <div class="fg"><label>Materia</label>
-        <select id="f-materia">
-          <option value="">- Seleccionar -</option>
-          <option value="Ingles">Ingles</option>
-          <option value="Metodos">Metodos de Estudio</option>
-          <option value="Caldas">F.J. de Caldas</option>
-          <option value="Teoria">Teoria del Lenguaje</option>
-          <option value="Politica">Politica y Ciudadania</option>
-          <option value="Oralidad">Oralidad</option>
-          <option value="Teorica">Fund. Teorica</option>
-        </select>
-      </div>
-      <div class="fg"><label>Tipo</label>
-        <select id="f-tipo">
-          <option value="">- Seleccionar -</option>
-          <option>Lectura</option>
-          <option>Trabajo escrito</option>
-          <option>Exposicion</option>
-          <option>Ejercicio</option>
-          <option>Repaso</option>
-          <option>Parcial</option>
-          <option>Proyecto</option>
-        </select>
-      </div>
-    </div>
-    <div class="fg-row">
-      <div class="fg"><label>Fecha de entrega</label><input type="date" id="f-fecha"></div>
-      <div class="fg"><label>Estado</label>
-        <select id="f-estado">
-          <option value="pendiente">Por hacer</option>
-          <option value="en-progreso">En progreso</option>
-          <option value="entregado">Entregado</option>
-        </select>
-      </div>
-    </div>
-    <div class="fg"><label>Notas</label><textarea id="f-notas" placeholder="Detalles adicionales..."></textarea></div>
-    <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="btn-save" onclick="saveTask()">Guardar</button>
+    <div class="photo-card h-380" onclick="openLb('imgs/img6.jpeg')">
+      <img src="imgs/img6.jpeg" alt="Maqueta de la casa" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Maqueta arquitectónica de la Casa Caldas en proceso de restauración</div>
     </div>
   </div>
-</div>
-
-<!-- FOCUS PANEL -->
-
-<div class="panel" id="panel-focus">
-  <div class="focus-panel">
-
-```
-<!-- Header -->
-<div class="fp-header">
-  <div class="fp-title">Modo Focus</div>
-  <div class="fp-task-name" id="fp-task-name">Sin tarea seleccionada</div>
-</div>
-
-<!-- Timer ring -->
-<div class="fp-timer-wrap">
-  <svg class="fp-svg" viewBox="0 0 220 220">
-    <circle class="fp-track" cx="110" cy="110" r="100"/>
-    <circle class="fp-ring"  cx="110" cy="110" r="100" id="fp-ring"/>
-  </svg>
-  <div class="fp-timer-inner">
-    <div class="fp-phase-lbl" id="fp-phase-lbl">Pomodoro</div>
-    <div class="fp-time" id="fp-time">25:00</div>
-    <div class="fp-session-lbl" id="fp-session-lbl">Sesion 1 de 4</div>
   </div>
-</div>
+</section>
 
-<!-- Dots -->
-<div class="fp-dots" id="fp-dots"></div>
+<!-- ══════════ 3. ARTEFACTOS HISTÓRICOS ══════════ -->
+<section id="artefactos">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 3</span>
+    <h2>Artefactos Históricos</h2>
+    <p>Objetos originales y réplicas que atestiguan la vida cotidiana y científica del período colonial.</p>
+    <div class="gold-line"></div>
+  </div>
 
-<!-- Controls -->
-<div class="fp-controls">
-  <button class="fp-btn" onclick="pomReset()">Reiniciar</button>
-  <button class="fp-btn fp-btn-main" id="fp-play" onclick="pomToggle()">Iniciar</button>
-  <button class="fp-btn" onclick="pomSkip()">Saltar</button>
-</div>
-
-<!-- Config -->
-<div class="fp-config">
-  <div class="fp-config-title">Configurar tiempos</div>
-  <div class="fp-config-row">
-    <div class="fp-config-item">
-      <label>Trabajo (min)</label>
-      <input type="number" id="cfg-work" value="25" min="1" max="60" onchange="pomApplyConfig()">
+  <div class="grid-2 reveal">
+    <div class="photo-card h-420" onclick="openLb('imgs/img5.jpeg')">
+      <img src="imgs/img5.jpeg" alt="Candado colonial" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Candado de la Casa — réplica en hierro forjado, s. XVIII</div>
     </div>
-    <div class="fp-config-item">
-      <label>Descanso corto</label>
-      <input type="number" id="cfg-short" value="5" min="1" max="30" onchange="pomApplyConfig()">
-    </div>
-    <div class="fp-config-item">
-      <label>Descanso largo</label>
-      <input type="number" id="cfg-long" value="15" min="1" max="60" onchange="pomApplyConfig()">
+    <div class="photo-card h-420" onclick="openLb('imgs/img31.jpeg')">
+      <img src="imgs/img31.jpeg" alt="Placa conmemorativa" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Placa de desagravio de España a la memoria de Francisco José de Caldas</div>
     </div>
   </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-band">
+  <blockquote>
+    "El geógrafo que no conoce la historia es como un ciego que camina sin guía."
+  </blockquote>
+  <cite>— Francisco José de Caldas (1768–1816)</cite>
 </div>
 
-<!-- Task selector -->
-<div class="fp-task-select">
-  <div class="fp-config-title">Seleccionar tarea</div>
-  <div class="fp-task-list" id="fp-task-list"></div>
-</div>
-```
-
+<!-- ══════════ 4. INGENIERÍA MILITAR & DESMINADO ══════════ -->
+<section id="desminado" class="alt">
+  <div style="max-width:1300px;margin:0 auto;">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 4</span>
+    <h2>Ingeniería Militar & Desminado</h2>
+    <p>De la fábrica de fusiles de Caldas a la moderna misión humanitaria de desminado del Ejército colombiano.</p>
+    <div class="gold-line"></div>
   </div>
+
+  <div class="grid-2 reveal" style="margin-bottom:1.5rem;">
+    <div class="photo-card h-500" onclick="openLb('imgs/img7.jpeg')">
+      <img src="imgs/img7.jpeg" alt="Traje desminado humanitario" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Traje de Desminado Humanitario — protección completa con escudo facial</div>
+    </div>
+    <div class="photo-card h-500" onclick="openLb('imgs/img10.jpeg')">
+      <img src="imgs/img10.jpeg" alt="Uniforme de ingeniería" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Uniforme de Ingeniería Militar con equipo de detección</div>
+    </div>
+  </div>
+  <div class="grid-3 reveal">
+    <div class="photo-card h-320" onclick="openLb('imgs/img8.jpeg')">
+      <img src="imgs/img8.jpeg" alt="Traje técnico de zapador" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Traje técnico de zapador con casco amarillo de seguridad</div>
+    </div>
+    <div class="photo-card h-320" onclick="openLb('imgs/img12.jpeg')">
+      <img src="imgs/img12.jpeg" alt="Fabricación de fusiles" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Sala de la fábrica de fusiles — Sistema de disparo en 1800</div>
+    </div>
+    <div class="photo-card h-320" onclick="openLb('imgs/img13.jpeg')">
+      <img src="imgs/img13.jpeg" alt="Nitrería y molino de pólvora" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Nitrería y Molino de Pólvora en Medellín — maquetas originales</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════ 5. CARTOGRAFÍA & CIENCIA ══════════ -->
+<section id="cartografia">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 5</span>
+    <h2>Obra Cartográfica de Caldas</h2>
+    <p>Mapas, instrumentos astronómicos y la nivelación de plantas que hicieron de Caldas el primer geógrafo de Colombia.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="grid-featured reveal" style="margin-bottom:1.5rem;">
+    <div class="photo-card h-500" onclick="openLb('imgs/img9.jpeg')">
+      <img src="imgs/img9.jpeg" alt="Obra cartográfica" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Panel principal — Obra Cartográfica de Francisco José de Caldas</div>
+    </div>
+    <div class="photo-card h-500" onclick="openLb('imgs/img11.jpeg')">
+      <img src="imgs/img11.jpeg" alt="Nivelación de plantas" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Nivelación de Plantas — estudio altitudinal de los Andes</div>
+    </div>
+    <div class="photo-card h-500" onclick="openLb('imgs/img19.jpeg')">
+      <img src="imgs/img19.jpeg" alt="Caldas y sus cuartos de círculo" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Caldas y sus Cuartos de Círculo — instrumentos de medición astronómica</div>
+    </div>
+  </div>
+
+  <div class="grid-2 reveal">
+    <div class="photo-card h-380" onclick="openLb('imgs/img26.jpeg')">
+      <img src="imgs/img26.jpeg" alt="Maqueta molino Caldas" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Maqueta de un molino diseñado por Francisco José de Caldas</div>
+    </div>
+    <div class="photo-card h-380" onclick="openLb('imgs/img30.jpeg')">
+      <img src="imgs/img30.jpeg" alt="Observatorio y vida de Caldas" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">El Observatorio Astronómico — sala de vida e historia de Caldas</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 6. BOTÁNICA ══════════ -->
+<section id="botanica" class="alt">
+  <div style="max-width:1300px;margin:0 auto;">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 6</span>
+    <h2>Ilustraciones Botánicas</h2>
+    <p>Láminas científicas inspiradas en la Expedición Botánica, catalogando la flora de los Andes colombianos.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="grid-3 reveal">
+    <div class="photo-card h-320" onclick="openLb('imgs/img14.jpeg')">
+      <img src="imgs/img14.jpeg" alt="Ilustraciones botánicas I" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Láminas botánicas — flora medicinal y plantas de los trópicos</div>
+    </div>
+    <div class="photo-card h-320" onclick="openLb('imgs/img17.jpeg')">
+      <img src="imgs/img17.jpeg" alt="Ilustraciones botánicas II" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Flora andina — helechos, tubérculos y plantas de páramo</div>
+    </div>
+    <div class="photo-card h-320" onclick="openLb('imgs/img20.jpeg')">
+      <img src="imgs/img20.jpeg" alt="Ilustraciones botánicas III" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Galería botánica — semillas, flores y raíces de Colombia</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════ 7. HISTORIA DE VIDA ══════════ -->
+<section id="historia">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 7</span>
+    <h2>Historia de Vida — Caldas y la Independencia</h2>
+    <p>Un recorrido cronológico desde 1797 hasta 1816, con murales inmersivos y retratos de los protagonistas.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <!-- Murales inmersivos -->
+  <div class="grid-2 reveal" style="margin-bottom:1.5rem;">
+    <div class="photo-card h-500" onclick="openLb('imgs/img24.jpeg')">
+      <img src="imgs/img24.jpeg" alt="Corredor inmersivo 1797-1802" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Corredor inmersivo — viajes de Caldas 1797–1802</div>
+    </div>
+    <div class="photo-card h-500" onclick="openLb('imgs/img21.jpeg')">
+      <img src="imgs/img21.jpeg" alt="Murales 1802-1810" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Murales cronológicos — expediciones y el Observatorio, 1802–1810</div>
+    </div>
+  </div>
+
+  <div class="grid-3 reveal" style="margin-bottom:1.5rem;">
+    <div class="photo-card h-320" onclick="openLb('imgs/img22.jpeg')">
+      <img src="imgs/img22.jpeg" alt="Corredor 1810" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Sala 1810 — matrimonio de Caldas y la nueva vida en Santafé</div>
+    </div>
+    <div class="photo-card h-320" onclick="openLb('imgs/img23.jpeg')">
+      <img src="imgs/img23.jpeg" alt="Corredor 1797-1801" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Corredor 1797–1801 — travesías por los Andes y el Huila</div>
+    </div>
+    <div class="photo-card h-320" onclick="openLb('imgs/img18.jpeg')">
+      <img src="imgs/img18.jpeg" alt="Vista aérea del patio" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Patio interior de la Casa Caldas — arquitectura neoclásica colonial</div>
+    </div>
+  </div>
+
+  <!-- Retratos de protagonistas -->
+  <div class="section-header reveal" style="margin-top:3rem;">
+    <span class="section-tag">Personajes históricos</span>
+    <h2 style="font-size:1.8rem;">Protagonistas de la Independencia</h2>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="grid-4 reveal">
+    <div class="photo-card h-380" onclick="openLb('imgs/img25.jpeg')">
+      <img src="imgs/img25.jpeg" alt="José Camilo Torres" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">José Camilo Torres y Tenorio (1766–1816)</div>
+    </div>
+    <div class="photo-card h-380" onclick="openLb('imgs/img27.jpeg')">
+      <img src="imgs/img27.jpeg" alt="Antonio Nariño" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Antonio Nariño y Álvarez del Casal (1765–1823)</div>
+    </div>
+    <div class="photo-card h-380" onclick="openLb('imgs/img28.jpeg')">
+      <img src="imgs/img28.jpeg" alt="Francisco de Paula Santander" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Francisco de Paula Santander y Omaña (1792–1840)</div>
+    </div>
+    <div class="photo-card h-380" onclick="openLb('imgs/img29.jpeg')">
+      <img src="imgs/img29.jpeg" alt="Miguel de Pombo" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Miguel de Pombo y Pombo (1779–1816)</div>
+    </div>
+  </div>
+
+  <!-- Pintura del fusilamiento -->
+  <div class="grid-2 reveal" style="margin-top:1.5rem;">
+    <div class="photo-card h-500" onclick="openLb('imgs/img15.jpeg')">
+      <img src="imgs/img15.jpeg" alt="Fusilamiento de Caldas" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Pintura histórica — el fusilamiento de Francisco José de Caldas, 1816</div>
+    </div>
+    <div class="photo-card h-500" onclick="openLb('imgs/img16.jpeg')">
+      <img src="imgs/img16.jpeg" alt="Escena del fusilamiento" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Detalle de la escena histórica — últimos momentos del sabio</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 8. ARTE CONTEMPORÁNEO ══════════ -->
+<section id="arte" class="alt">
+  <div style="max-width:1300px;margin:0 auto;">
+  <div class="section-header reveal">
+    <span class="section-tag">Sala 8</span>
+    <h2>Arte Contemporáneo</h2>
+    <p>Pinturas, esculturas y obra mixta de artistas colombianos que dialogan con la memoria y el conflicto.</p>
+    <div class="gold-line"></div>
+  </div>
+
+  <div class="grid-3 reveal">
+    <div class="photo-card h-420" onclick="openLb('imgs/img1.jpeg')">
+      <img src="imgs/img32.jpeg" alt="Esculturas y pinturas sala arte" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Sala de arte contemporáneo — escultura en cerámica y óleo sobre tela</div>
+    </div>
+    <div class="photo-card h-420" onclick="openLb('imgs/img3.jpeg')">
+      <!-- reusing fitting images for art section -->
+      <img src="imgs/img19.jpeg" alt="Busto escultórico" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Busto escultórico en arcilla azul — galería de arte contemporáneo</div>
+    </div>
+    <div class="photo-card h-420" onclick="openLb('imgs/img1.jpeg')">
+      <img src="imgs/img16.jpeg" alt="Galería de pinturas" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Galería de pinturas con retratos y obras mixtas sobre el conflicto</div>
+    </div>
+  </div>
+
+  <div class="grid-2 reveal" style="margin-top:1.5rem;">
+    <div class="photo-card h-380" onclick="openLb('imgs/img13.jpeg')">
+      <img src="imgs/img13.jpeg" alt="Sala de pinturas II" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Sala de pinturas — obras sobre la infancia, el conflicto y la paz en Colombia</div>
+    </div>
+    <div class="photo-card h-380" onclick="openLb('imgs/img1.jpeg')">
+      <img src="imgs/img1.jpeg" alt="Vista del museo" loading="lazy" />
+      <div class="gold-corner"></div>
+      <div class="caption">Vista panorámica del Museo — mural de biodiversidad y hall de entrada</div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><span>Museo Francisco José de Caldas</span> · Casa natal del sabio, Centro Histórico de Bogotá</p>
+  <p style="margin-top:0.5rem; opacity:0.5;">Registro fotográfico · Universidad Distrital Francisco José de Caldas</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLb()">
+  <span class="lightbox-close" onclick="closeLb()">✕</span>
+  <img id="lb-img" src="" alt="" />
 </div>
 
 <script>
-var tasks = [];
-var diary = [];
-var filter = 'all';
-var editId = null;
-var TKEY = 'ms_tasks_v2';
-var DKEY = 'ms_diary_v2';
+  // Lightbox
+  function openLb(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLb(); });
 
-var DIAS = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
-var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-var FRASES = [
-  'Haz que suceda.',
-  'Tu unico limite eres tu.',
-  'Disciplina sobre motivacion.',
-  'Pasos pequenos, grandes metas.',
-  'Menos excusas, mas resultados.',
-  'No te detengas hasta estar orgulloso.',
-  'La consistencia le gana al talento.',
-  'Gana la manana, gana el dia.',
-  'El exito es la suma de esfuerzos diarios.',
-  'Hoy es el dia uno.'
-];
-
-var MATERIA_COLORS = {
-  'Ingles': '#2563a8', 'Metodos': '#16794a', 'Caldas': '#a05c1a',
-  'Teoria': '#7c2d8f', 'Politica': '#b91c3a', 'Oralidad': '#0e7490', 'Teorica': '#92400e'
-};
-
-var DIA_INFO = {
-  0: { gym: false, clases: false, sem: false, cn: '' },
-  1: { gym: true,  clases: true,  sem: false, cn: 'Ingles' },
-  2: { gym: true,  clases: true,  sem: true,  cn: 'Metodos + Caldas' },
-  3: { gym: false, clases: true,  sem: true,  cn: 'Teoria + Politica' },
-  4: { gym: false, clases: true,  sem: false, cn: 'Oralidad' },
-  5: { gym: true,  clases: true,  sem: false, cn: 'Fund. Teorica' },
-  6: { gym: false, clases: false, sem: false, cn: '' }
-};
-
-var SCHED = {
-  0: [], // domingo
-  1: [   // lunes
-    { label: 'Ingles', sub: 'Aula 109', start: '13:00', end: '17:00', type: 'clase' },
-    { label: 'Estudio', sub: 'Bloque fuerte', start: '07:30', end: '11:30', type: 'estudio' },
-    { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' }
-  ],
-  2: [   // martes
-    { label: 'Seminario', sub: '', start: '18:00', end: '21:00', type: 'clase' },
-    { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' }
-  ],
-  3: [   // miercoles
-    { label: 'Metodos Est.', sub: 'Aula 209', start: '07:00', end: '10:00', type: 'clase' },
-    { label: 'F.J. Caldas', sub: 'Aud. Principal', start: '11:00', end: '13:00', type: 'clase' },
-    { label: 'Seminario', sub: '', start: '18:00', end: '21:00', type: 'clase' }
-  ],
-  4: [   // jueves
-    { label: 'Teoria Leng.', sub: 'Aula 309', start: '07:00', end: '10:00', type: 'clase' },
-    { label: 'Politica', sub: 'Aula 210', start: '11:00', end: '15:00', type: 'clase' },
-    { label: 'Estudio', sub: 'Adelanto', start: '17:00', end: '19:00', type: 'estudio' }
-  ],
-  5: [   // viernes
-    { label: 'Oralidad', sub: 'Aula 101', start: '13:00', end: '15:30', type: 'clase' },
-    { label: 'Gimnasio', sub: '', start: '06:00', end: '07:00', type: 'gym' },
-    { label: 'Estudio', sub: 'Bloque manana', start: '07:30', end: '10:30', type: 'estudio' }
-  ],
-  6: [   // sabado
-    { label: 'Fund. Teorica', sub: 'Aula 210', start: '07:00', end: '11:00', type: 'clase' },
-    { label: 'Estudio', sub: 'Bloque unico', start: '15:00', end: '17:00', type: 'estudio' }
-  ]
-};
-
-var EV_COLORS = {
-  clase:   { bg: 'rgba(59,111,212,0.12)', bd: 'rgba(59,111,212,0.3)', dot: '#5b9bf8', tx: '#9ec5ff' },
-  estudio: { bg: 'rgba(46,139,107,0.12)', bd: 'rgba(46,139,107,0.3)', dot: '#3dba8a', tx: '#72d4ac' },
-  gym:     { bg: 'rgba(212,92,46,0.12)',  bd: 'rgba(212,92,46,0.3)',  dot: '#f06020', tx: '#ffa070' }
-};
-
-var BLOCKS = [
-  {day:6,hour:8,type:'ocio',label:'Despertar',sub:'8:00'},
-  {day:6,hour:9,type:'ocio',label:'Iglesia',sub:'9:00-11:00'},
-  {day:6,hour:10,type:'ocio',label:'Iglesia',sub:''},
-  {day:6,hour:11,type:'ocio',label:'Familia',sub:''},
-  {day:6,hour:12,type:'ocio',label:'Familia',sub:''},
-  {day:6,hour:13,type:'estudio',label:'Estudio',sub:'Sesion corta'},
-  {day:6,hour:14,type:'ocio',label:'Almuerzo',sub:'Familiar'},
-  {day:6,hour:15,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:6,hour:16,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:6,hour:17,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:6,hour:18,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:6,hour:19,type:'estudio',label:'Organizacion',sub:'Semana'},
-  {day:6,hour:20,type:'ocio',label:'Ocio',sub:'Cierre'},
-  {day:6,hour:21,type:'ocio',label:'Ocio',sub:'Cierre'},
-  {day:6,hour:22,type:'sueno',label:'Sueno',sub:''},
-  {day:5,hour:5,type:'sueno',label:'Sueno',sub:'5:30'},
-  {day:5,hour:6,type:'ocio',label:'Viaje',sub:'Sale 6:00'},
-  {day:5,hour:7,type:'clase',label:'Fund. Teorica',sub:'Aula 210'},
-  {day:5,hour:8,type:'clase',label:'Fund. Teorica',sub:'Aula 210'},
-  {day:5,hour:9,type:'clase',label:'Fund. Teorica',sub:'Aula 210'},
-  {day:5,hour:10,type:'clase',label:'Fund. Teorica',sub:'Aula 210'},
-  {day:5,hour:11,type:'ocio',label:'Viaje',sub:'Regreso'},
-  {day:5,hour:12,type:'ocio',label:'Ocio',sub:''},
-  {day:5,hour:13,type:'ocio',label:'Ocio',sub:''},
-  {day:5,hour:14,type:'ocio',label:'Almuerzo',sub:''},
-  {day:5,hour:15,type:'estudio',label:'Estudio',sub:'Bloque unico'},
-  {day:5,hour:16,type:'estudio',label:'Estudio',sub:''},
-  {day:5,hour:17,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:5,hour:18,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:5,hour:19,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:5,hour:20,type:'ocio',label:'Ocio',sub:'Tarde libre'},
-  {day:5,hour:21,type:'ocio',label:'Ocio',sub:'Serie'},
-  {day:5,hour:22,type:'sueno',label:'Sueno',sub:''},
-  {day:4,hour:5,type:'sueno',label:'Sueno',sub:'5:30'},
-  {day:4,hour:6,type:'gym',label:'Gimnasio',sub:'6:00-7:00'},
-  {day:4,hour:7,type:'comida',label:'Desayuno',sub:'7:00-7:30'},
-  {day:4,hour:8,type:'estudio',label:'Estudio',sub:'Manana'},
-  {day:4,hour:9,type:'estudio',label:'Estudio',sub:'Manana'},
-  {day:4,hour:10,type:'estudio',label:'Estudio',sub:''},
-  {day:4,hour:11,type:'ocio',label:'Ocio',sub:''},
-  {day:4,hour:12,type:'ocio',label:'Viaje',sub:'Sale 12:00'},
-  {day:4,hour:13,type:'clase',label:'Oralidad',sub:'Aula 101'},
-  {day:4,hour:14,type:'clase',label:'Oralidad',sub:'Aula 101'},
-  {day:4,hour:15,type:'clase',label:'Oralidad',sub:''},
-  {day:4,hour:16,type:'ocio',label:'Ocio',sub:'Amigos'},
-  {day:4,hour:17,type:'ocio',label:'Ocio',sub:'Amigos'},
-  {day:4,hour:18,type:'ocio',label:'Viaje',sub:''},
-  {day:4,hour:19,type:'estudio',label:'Estudio',sub:'Tarde'},
-  {day:4,hour:20,type:'estudio',label:'Estudio',sub:''},
-  {day:4,hour:21,type:'ocio',label:'Ocio',sub:'Cierre'},
-  {day:4,hour:22,type:'sueno',label:'Sueno',sub:''},
-  {day:3,hour:5,type:'sueno',label:'Sueno',sub:'5:30'},
-  {day:3,hour:6,type:'ocio',label:'Viaje',sub:'Sale 6:00'},
-  {day:3,hour:7,type:'clase',label:'Teoria Leng.',sub:'Aula 309'},
-  {day:3,hour:8,type:'clase',label:'Teoria Leng.',sub:'Aula 309'},
-  {day:3,hour:9,type:'clase',label:'Teoria Leng.',sub:'Aula 309'},
-  {day:3,hour:10,type:'ocio',label:'Ocio',sub:'Ping pong'},
-  {day:3,hour:11,type:'clase',label:'Politica',sub:'Aula 210'},
-  {day:3,hour:12,type:'clase',label:'Politica',sub:'Aula 210'},
-  {day:3,hour:13,type:'clase',label:'Politica',sub:'Aula 210'},
-  {day:3,hour:14,type:'clase',label:'Politica',sub:'Aula 210'},
-  {day:3,hour:15,type:'ocio',label:'Viaje',sub:'Sale 3:00'},
-  {day:3,hour:16,type:'ocio',label:'Llegada',sub:'Almuerzo'},
-  {day:3,hour:17,type:'estudio',label:'Estudio',sub:'Adelanto'},
-  {day:3,hour:18,type:'estudio',label:'Estudio',sub:''},
-  {day:3,hour:19,type:'ocio',label:'Ocio',sub:'Descanso'},
-  {day:3,hour:20,type:'ocio',label:'Ocio',sub:'Descanso'},
-  {day:3,hour:21,type:'sueno',label:'Cierre',sub:''},
-  {day:3,hour:22,type:'sueno',label:'Sueno',sub:''},
-  {day:2,hour:5,type:'sueno',label:'Sueno',sub:'5:30'},
-  {day:2,hour:6,type:'ocio',label:'Viaje',sub:'Sale 6:00'},
-  {day:2,hour:7,type:'clase',label:'Metodos Est.',sub:'Aula 209'},
-  {day:2,hour:8,type:'clase',label:'Metodos Est.',sub:'Aula 209'},
-  {day:2,hour:9,type:'clase',label:'Metodos Est.',sub:'Aula 209'},
-  {day:2,hour:10,type:'ocio',label:'Ocio',sub:'Ping pong'},
-  {day:2,hour:11,type:'clase',label:'F.J. Caldas',sub:'Aud.'},
-  {day:2,hour:12,type:'clase',label:'F.J. Caldas',sub:'Aud.'},
-  {day:2,hour:13,type:'ocio',label:'Ocio',sub:'Amigos'},
-  {day:2,hour:14,type:'ocio',label:'Viaje',sub:'Sale 2:00'},
-  {day:2,hour:15,type:'estudio',label:'Estudio',sub:'Bloque'},
-  {day:2,hour:16,type:'estudio',label:'Estudio',sub:''},
-  {day:2,hour:17,type:'ocio',label:'Ocio',sub:'Recarga'},
-  {day:2,hour:18,type:'clase',label:'Seminario',sub:'6:00-9:00'},
-  {day:2,hour:19,type:'clase',label:'Seminario',sub:''},
-  {day:2,hour:20,type:'clase',label:'Seminario',sub:''},
-  {day:2,hour:21,type:'sueno',label:'Cierre',sub:''},
-  {day:2,hour:22,type:'sueno',label:'Sueno',sub:''},
-  {day:1,hour:5,type:'sueno',label:'Sueno',sub:'5:30'},
-  {day:1,hour:6,type:'gym',label:'Gimnasio',sub:'6:00-7:00'},
-  {day:1,hour:7,type:'comida',label:'Desayuno',sub:'7:00-7:30'},
-  {day:1,hour:8,type:'estudio',label:'Estudio',sub:'Sesion 1'},
-  {day:1,hour:9,type:'estudio',label:'Estudio',sub:'Sesion 1'},
-  {day:1,hour:10,type:'estudio',label:'Estudio',sub:'Sesion 1'},
-  {day:1,hour:11,type:'estudio',label:'Estudio',sub:''},
-  {day:1,hour:12,type:'ocio',label:'Familia',sub:''},
-  {day:1,hour:13,type:'ocio',label:'Familia',sub:''},
-  {day:1,hour:14,type:'ocio',label:'Familia',sub:''},
-  {day:1,hour:15,type:'estudio',label:'Estudio',sub:'Sesion 2'},
-  {day:1,hour:16,type:'estudio',label:'Estudio',sub:'Sesion 2'},
-  {day:1,hour:17,type:'estudio',label:'Estudio',sub:''},
-  {day:1,hour:18,type:'clase',label:'Seminario',sub:'6:00-9:00'},
-  {day:1,hour:19,type:'clase',label:'Seminario',sub:''},
-  {day:1,hour:20,type:'clase',label:'Seminario',sub:''},
-  {day:1,hour:21,type:'sueno',label:'Cierre',sub:''},
-  {day:1,hour:22,type:'sueno',label:'Sueno',sub:''},
-  {day:0,hour:5,type:'sueno',label:'Sueno',sub:'5:30'},
-  {day:0,hour:6,type:'gym',label:'Gimnasio',sub:'6:00-7:00'},
-  {day:0,hour:7,type:'comida',label:'Desayuno',sub:'7:00-7:30'},
-  {day:0,hour:8,type:'estudio',label:'Estudio',sub:'Bloque fuerte'},
-  {day:0,hour:9,type:'estudio',label:'Estudio',sub:'Bloque fuerte'},
-  {day:0,hour:10,type:'estudio',label:'Estudio',sub:'Bloque fuerte'},
-  {day:0,hour:11,type:'estudio',label:'Estudio',sub:''},
-  {day:0,hour:12,type:'ocio',label:'Viaje',sub:'Sale 12:00'},
-  {day:0,hour:13,type:'clase',label:'Ingles',sub:'Aula 109'},
-  {day:0,hour:14,type:'clase',label:'Ingles',sub:'Aula 109'},
-  {day:0,hour:15,type:'clase',label:'Ingles',sub:'Aula 109'},
-  {day:0,hour:16,type:'clase',label:'Ingles',sub:'Aula 109'},
-  {day:0,hour:17,type:'ocio',label:'Viaje',sub:'Regreso'},
-  {day:0,hour:18,type:'ocio',label:'Ocio',sub:''},
-  {day:0,hour:19,type:'ocio',label:'Ocio',sub:''},
-  {day:0,hour:20,type:'estudio',label:'Estudio',sub:'Repaso'},
-  {day:0,hour:21,type:'estudio',label:'Estudio',sub:''},
-  {day:0,hour:22,type:'sueno',label:'Sueno',sub:''}
-];
-
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
-
-var TAB_ORDER = ['inicio','horario','tareas','diario','focus','gym'];
-var currentTab = 'inicio';
-
-function showTab(tab, btn) {
-  if (tab === currentTab) return;
-  var fromIdx = TAB_ORDER.indexOf(currentTab);
-  var toIdx   = TAB_ORDER.indexOf(tab);
-  var goRight = toIdx > fromIdx;
-
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-
-  var fromPanel = document.getElementById('panel-' + currentTab);
-  var toPanel   = document.getElementById('panel-' + tab);
-
-  if (fromPanel) { fromPanel.classList.remove('active'); fromPanel.style.display = 'none'; }
-
-  toPanel.style.display = tab === 'tareas' ? 'flex' : 'block';
-  toPanel.classList.add('active');
-  toPanel.classList.remove('slide-in-right', 'slide-in-left');
-  void toPanel.offsetWidth;
-  toPanel.classList.add(goRight ? 'slide-in-right' : 'slide-in-left');
-
-  currentTab = tab;
-  if (tab === 'focus') { renderFocusTaskList(); updatePomUI(); }
-  if (tab === 'gym')   { renderGym(); }
-}
-
-function goTab(tab) {
-  var btn = document.querySelector('[onclick="showTab(\'' + tab + '\',this)"]');
-  if (btn) showTab(tab, btn);
-}
-
-function navigateToTask(id) {
-  goTab('tareas');
-  setTimeout(function() {
-    var el = document.getElementById('card-' + id);
-    if (!el) return;
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(function() {
-      el.classList.remove('card-highlight');
-      void el.offsetWidth;
-      el.classList.add('card-highlight');
-    }, 300);
-  }, 380);
-}
-
-function navigateToEvent(eventLabel) {
-  goTab('horario');
-  setTimeout(function() {
-    var grid = document.getElementById('schedule');
-    if (!grid) return;
-    var blocks = grid.querySelectorAll('.block');
-    var target = null;
-    blocks.forEach(function(b) {
-      var bold = b.querySelector('b');
-      if (bold && bold.textContent.trim() === eventLabel) {
-        if (!target) target = b;
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        io.unobserve(entry.target);
       }
     });
-    if (!target) return;
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(function() {
-      target.classList.remove('card-highlight');
-      void target.offsetWidth;
-      target.classList.add('card-highlight');
-    }, 300);
-  }, 380);
-}
-
-function loadTasks()  { try { tasks = JSON.parse(localStorage.getItem(TKEY)) || []; } catch(e) { tasks = []; } }
-function saveTasks()  { try { localStorage.setItem(TKEY, JSON.stringify(tasks)); } catch(e) {} }
-function loadDiary2() { try { diary = JSON.parse(localStorage.getItem(DKEY)) || []; } catch(e) { diary = []; } }
-function saveDiary2() { try { localStorage.setItem(DKEY, JSON.stringify(diary)); } catch(e) {} }
-
-function now0() { var d = new Date(); d.setHours(0,0,0,0); return d; }
-function todayStr() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth()+1).toString().padStart(2,'0') + '-' + d.getDate().toString().padStart(2,'0'); }
-
-function getUrgency(fecha, estado) {
-  if (estado === 'entregado' || !fecha) return null;
-  var now = now0();
-  var d   = new Date(fecha + 'T00:00:00');
-  var diff = Math.round((d - now) / 86400000);
-  if (diff < 0)   return { label: 'Vencida',      color: '#dc2626' };
-  if (diff === 0) return { label: 'Vence hoy',    color: '#dc2626' };
-  if (diff === 1) return { label: 'Vence manana', color: '#d97706' };
-  if (diff <= 5)  return { label: 'Esta semana',  color: '#d97706' };
-  return null;
-}
-
-function dateLabel(f) {
-  if (!f) return null;
-  var now = now0();
-  var d   = new Date(f + 'T00:00:00');
-  var diff = Math.round((d - now) / 86400000);
-  var fmt  = d.toLocaleDateString('es-CO', { day:'numeric', month:'short', year:'numeric' });
-  if (diff < 0)   return { text: 'Vencio el ' + fmt, cls: 'vhoy' };
-  if (diff === 0) return { text: 'Vence hoy', cls: 'vhoy' };
-  if (diff === 1) return { text: 'Vence manana', cls: 'vpronto' };
-  if (diff <= 5)  return { text: 'Vence en ' + diff + ' dias - ' + fmt, cls: 'vpronto' };
-  return { text: 'Entrega: ' + fmt, cls: '' };
-}
-
-function filterTasks() {
-  var now = now0();
-  var we  = new Date(now); we.setDate(we.getDate() + 7);
-  return tasks.filter(function(t) {
-    if (filter === 'all')         return true;
-    if (filter === 'pendiente')   return t.estado === 'pendiente';
-    if (filter === 'en-progreso') return t.estado === 'en-progreso';
-    if (filter === 'entregado')   return t.estado === 'entregado';
-    if (filter === 'esta-semana') {
-      if (!t.fecha) return false;
-      var d = new Date(t.fecha + 'T00:00:00');
-      return d >= now && d <= we;
-    }
-    return t.materia === filter;
-  }).sort(function(a,b) {
-    if (!a.fecha && !b.fecha) return 0;
-    if (!a.fecha) return 1;
-    if (!b.fecha) return -1;
-    return new Date(a.fecha) - new Date(b.fecha);
-  });
-}
-
-function renderTasks() {
-  var now = now0();
-  var we  = new Date(now); we.setDate(we.getDate() + 7);
-  var pend = tasks.filter(function(t) { return t.estado === 'pendiente'; }).length;
-  var prog = tasks.filter(function(t) { return t.estado === 'en-progreso'; }).length;
-  var ent  = tasks.filter(function(t) { return t.estado === 'entregado'; }).length;
-  document.getElementById('s-total').textContent = tasks.length;
-  document.getElementById('s-pend').textContent  = pend;
-  document.getElementById('s-prog').textContent  = prog;
-  document.getElementById('s-ent').textContent   = ent;
-  document.getElementById('cnt-all').textContent    = tasks.length;
-  document.getElementById('cnt-pend').textContent   = pend;
-  document.getElementById('cnt-prog').textContent   = prog;
-  document.getElementById('cnt-ent').textContent    = ent;
-  document.getElementById('cnt-semana').textContent = tasks.filter(function(t) {
-    if (!t.fecha) return false;
-    var d = new Date(t.fecha + 'T00:00:00');
-    return d >= now && d <= we;
-  }).length;
-  Object.keys(MATERIA_COLORS).forEach(function(m) {
-    var el = document.getElementById('cnt-' + m);
-    if (el) el.textContent = tasks.filter(function(t) { return t.materia === m; }).length;
-  });
-
-  var list = document.getElementById('task-list');
-  var ft   = filterTasks();
-  if (!ft.length) {
-    list.innerHTML = '<div class="t-empty">No hay tareas aqui.<br>Usa <strong>+ Nueva tarea</strong> para agregar.</div>';
-    updateBanner(); return;
-  }
-  list.innerHTML = ft.map(function(t) {
-    var color   = MATERIA_COLORS[t.materia] || '#888';
-    var dl      = dateLabel(t.fecha);
-    var urg     = getUrgency(t.fecha, t.estado);
-    var hasN    = t.notas && t.notas.trim().length > 0;
-    var urgCls  = (urg && (urg.label === 'Vence hoy' || urg.label === 'Vencida')) ? ' urgente' : '';
-    var acColor = urg ? urg.color : color;
-    return '<div class="task-card' + (t.estado === 'entregado' ? ' entregado' : '') + urgCls + '" id="card-' + t.id + '">' +
-      '<div class="t-accent" style="background:' + acColor + '"></div>' +
-      '<div class="t-body">' +
-        '<div class="t-name-row">' +
-          '<div class="t-name">' + t.nombre + '</div>' +
-          (urg ? '<span class="u-badge" style="background:' + urg.color + '22;color:' + urg.color + ';border-color:' + urg.color + '44">' + urg.label + '</span>' : '') +
-        '</div>' +
-        '<div class="t-meta">' +
-          (t.materia ? '<span class="tag tag-mat">' + t.materia + '</span>' : '') +
-          (t.tipo    ? '<span class="tag tag-tipo">' + t.tipo + '</span>' : '') +
-        '</div>' +
-        (dl ? '<div class="t-date ' + dl.cls + '">' + dl.text + '</div>' : '') +
-        (hasN ? '<button class="t-notes-btn" onclick="toggleNotes(\'' + t.id + '\',this)"><span>&gt;</span> Ver detalles</button><div class="t-notes-body" id="notes-' + t.id + '">' + t.notas + '</div>' : '') +
-        '<div class="t-actions">' +
-          '<select class="status-sel" onchange="changeStatus(\'' + t.id + '\',this.value)">' +
-            '<option value="pendiente"'   + (t.estado === 'pendiente'   ? ' selected' : '') + '>Por hacer</option>' +
-            '<option value="en-progreso"' + (t.estado === 'en-progreso' ? ' selected' : '') + '>En progreso</option>' +
-            '<option value="entregado"'   + (t.estado === 'entregado'   ? ' selected' : '') + '>Entregado</option>' +
-          '</select>' +
-          '<button class="btn-icon" onclick="openFocus(\'' + t.id + '\')" title="Focus">&#127919;</button>' +
-          '<button class="btn-icon" onclick="editTask(\'' + t.id + '\')" title="Editar">&#9998;</button>' +
-          '<button class="btn-del" onclick="delTask(\'' + t.id + '\')">&#128465;</button>' +
-        '</div>' +
-      '</div></div>';
-  }).join('');
-  updateBanner();
-  updateInicio();
-}
-
-function setFilter(f, btn) {
-  filter = f;
-  document.querySelectorAll('.t-filter').forEach(function(b) { b.classList.remove('active'); });
-  btn.classList.add('active');
-  var titles = { all: 'Todas las <em>tareas</em>', 'esta-semana': 'Esta <em>semana</em>', pendiente: 'Por <em>hacer</em>', 'en-progreso': 'En <em>progreso</em>', entregado: '<em>Entregadas</em>' };
-  document.getElementById('view-title').innerHTML = titles[f] || ('<em>' + f + '</em>');
-  renderTasks();
-}
-
-function toggleNotes(id, btn) {
-  var b = document.getElementById('notes-' + id);
-  var o = b.classList.toggle('open');
-  btn.querySelector('span').textContent = o ? 'v' : '>';
-  btn.lastChild.textContent = o ? ' Ocultar' : ' Ver detalles';
-}
-
-function changeStatus(id, val) {
-  var t = tasks.find(function(x) { return x.id === id; });
-  if (t) { t.estado = val; saveTasks(); renderTasks(); }
-}
-
-function delTask(id) {
-  if (!confirm('Eliminar esta tarea?')) return;
-  tasks = tasks.filter(function(x) { return x.id !== id; });
-  saveTasks(); renderTasks();
-}
-
-function openModal() {
-  editId = null;
-  ['f-nombre','f-materia','f-tipo','f-fecha','f-notas'].forEach(function(i) { document.getElementById(i).value = ''; });
-  document.getElementById('f-estado').value = 'pendiente';
-  document.getElementById('modal-title').textContent = 'Nueva tarea';
-  document.getElementById('modal').classList.add('open');
-}
-
-function editTask(id) {
-  var t = tasks.find(function(x) { return x.id === id; });
-  if (!t) return;
-  editId = id;
-  document.getElementById('f-nombre').value  = t.nombre || '';
-  document.getElementById('f-materia').value = t.materia || '';
-  document.getElementById('f-tipo').value    = t.tipo || '';
-  document.getElementById('f-fecha').value   = t.fecha || '';
-  document.getElementById('f-estado').value  = t.estado || 'pendiente';
-  document.getElementById('f-notas').value   = t.notas || '';
-  document.getElementById('modal-title').textContent = 'Editar tarea';
-  document.getElementById('modal').classList.add('open');
-}
-
-function closeModal() { document.getElementById('modal').classList.remove('open'); editId = null; }
-
-function saveTask() {
-  var nombre = document.getElementById('f-nombre').value.trim();
-  if (!nombre) { alert('El nombre es obligatorio.'); return; }
-  var data = {
-    nombre:  nombre,
-    materia: document.getElementById('f-materia').value,
-    tipo:    document.getElementById('f-tipo').value,
-    fecha:   document.getElementById('f-fecha').value,
-    estado:  document.getElementById('f-estado').value,
-    notas:   document.getElementById('f-notas').value.trim()
-  };
-  if (editId) {
-    var i = tasks.findIndex(function(x) { return x.id === editId; });
-    if (i > -1) { data.id = editId; tasks[i] = data; }
-  } else {
-    data.id = uid();
-    tasks.push(data);
-  }
-  saveTasks(); closeModal(); renderTasks();
-}
-
-document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-
-function saveDiary() {
-  var titulo = document.getElementById('d-titulo').value.trim();
-  var texto  = document.getElementById('d-texto').value.trim();
-  if (!texto) { alert('Escribe algo antes de guardar.'); return; }
-  diary.unshift({ id: uid(), titulo: titulo, texto: texto, ts: Date.now() });
-  saveDiary2();
-  document.getElementById('d-titulo').value = '';
-  document.getElementById('d-texto').value = '';
-  renderDiaryList();
-}
-
-function deleteDiary(id) {
-  if (!confirm('Eliminar esta entrada?')) return;
-  diary = diary.filter(function(e) { return e.id !== id; });
-  saveDiary2(); renderDiaryList();
-}
-
-function renderDiaryList() {
-  var c = document.getElementById('d-entries');
-  var l = document.getElementById('d-count');
-  l.textContent = diary.length === 0 ? 'Sin entradas aun' : diary.length + ' entrada' + (diary.length > 1 ? 's' : '');
-  if (!diary.length) {
-    c.innerHTML = '<div style="text-align:center;padding:36px 0;color:#3a3a3a;font-size:0.7rem;">Tus pensamientos apareceran aqui.</div>';
-    return;
-  }
-  c.innerHTML = diary.map(function(e) {
-    var d = new Date(e.ts);
-    var ds = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
-    var date = ds[d.getDay()] + ' ' + d.getDate() + ' ' + MESES[d.getMonth()] + ' ' + d.getFullYear() + ' ' + d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
-    return '<div class="d-entry">' +
-      '<button class="d-entry-del" onclick="deleteDiary(\'' + e.id + '\')">X</button>' +
-      '<div class="d-entry-date">' + date + '</div>' +
-      (e.titulo ? '<div class="d-entry-title">' + e.titulo + '</div>' : '') +
-      '<div class="d-entry-text">' + e.texto + '</div>' +
-    '</div>';
-  }).join('');
-}
-
-function updateDiaryTs() {
-  var now = new Date();
-  var el = document.getElementById('d-ts');
-  if (el) el.textContent = DIAS[now.getDay()] + ' ' + now.getDate() + ' ' + MESES[now.getMonth()] + ' ' + now.getFullYear() + ' ' + now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-}
-
-function updateBanner() {
-  var now = new Date();
-  var dow = now.getDay();
-  document.getElementById('smart-day').textContent    = DIAS[dow];
-  document.getElementById('smart-time').textContent   = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-  document.getElementById('smart-phrase').textContent = '"' + FRASES[dow % FRASES.length] + '"';
-  var info = DIA_INFO[dow] || {};
-  var parts = [];
-  if (info.gym)            parts.push('Gimnasio');
-  if (info.clases && info.cn) parts.push(info.cn);
-  if (info.sem)            parts.push('Seminario');
-  if (!parts.length)       parts.push('Dia libre');
-  document.getElementById('smart-sum').textContent   = parts.join(' - ');
-  document.getElementById('smart-count').textContent = tasks.filter(function(t) { return t.estado === 'pendiente'; }).length;
-  var headers = document.querySelectorAll('.day-header');
-  headers.forEach(function(h) { h.classList.remove('today'); });
-  var cm = {1:1,2:2,3:3,4:4,5:5,6:6,0:7};
-  if (headers[cm[dow]]) headers[cm[dow]].classList.add('today');
-}
-
-function updateInicio() {
-  var now = new Date();
-  var dow = now.getDay();
-  var el = document.getElementById('inicio-date');
-  if (el) el.textContent = DIAS[dow] + ', ' + now.getDate() + ' de ' + MESES[now.getMonth()];
-  var ph = document.getElementById('inicio-phrase');
-  if (ph) ph.textContent = '"' + FRASES[dow % FRASES.length] + '"';
-
-  var pend = tasks.filter(function(t) { return t.estado === 'pendiente'; }).length;
-  var badge = document.getElementById('ic-badge');
-  var sub   = document.getElementById('ic-t-sub');
-  if (badge) { badge.textContent = pend; badge.style.display = pend > 0 ? 'block' : 'none'; }
-  if (sub) sub.textContent = pend > 0 ? pend + ' pendiente' + (pend > 1 ? 's' : '') : 'Sin pendientes';
-
-  var dsub = document.getElementById('ic-d-sub');
-  if (dsub) {
-    if (diary.length > 0) {
-      var diff = Math.floor((Date.now() - diary[0].ts) / 86400000);
-      dsub.textContent = diff === 0 ? 'Ultima entrada hoy' : 'Ultima entrada hace ' + diff + ' dia' + (diff > 1 ? 's' : '');
-    } else {
-      dsub.textContent = 'Escribe tus pensamientos';
-    }
-  }
-
-  var info = DIA_INFO[dow] || {};
-  var parts = [];
-  if (info.gym) parts.push('Gimnasio');
-  if (info.clases && info.cn) parts.push(info.cn);
-  if (info.sem) parts.push('Seminario');
-  if (!parts.length) parts.push('Dia libre hoy');
-  var hsub = document.getElementById('ic-h-sub');
-  if (hsub) hsub.textContent = parts.join(' - ');
-
-  renderHoy();
-  renderStudySuggestion();
-}
-
-function renderHoy() {
-  var dow = new Date().getDay();
-  var evs = SCHED[dow] || [];
-  var ec = document.getElementById('hoy-events');
-  if (ec) {
-    if (!evs.length) {
-      ec.innerHTML = '<div class="hoy-empty">Sin eventos programados hoy</div>';
-    } else {
-      var sorted = evs.slice().sort(function(a,b) { return a.start.localeCompare(b.start); });
-      ec.innerHTML = sorted.map(function(e) {
-        var c = EV_COLORS[e.type] || EV_COLORS.clase;
-        return '<div class="hoy-event" style="background:' + c.bg + ';border:1px solid ' + c.bd + '" onclick="navigateToEvent(\'' + e.label + '\')">' +
-          '<div class="hoy-event-dot" style="background:' + c.dot + '"></div>' +
-          '<div class="hoy-event-text" style="color:' + c.tx + '">' + e.label + (e.sub ? ' - ' + e.sub : '') + '</div>' +
-          '<div class="hoy-event-time" style="color:' + c.tx + '">' + e.start + ' - ' + e.end + '</div>' +
-          '<div class="hoy-event-arrow" style="color:' + c.tx + '">&#8250;</div>' +
-        '</div>';
-      }).join('');
-    }
-  }
-
-  var tc = document.getElementById('hoy-tasks');
-  if (tc) {
-    var pending = tasks.filter(function(t) { return t.estado !== 'entregado'; });
-    if (!pending.length) {
-      tc.innerHTML = '<div class="hoy-empty">No tienes tareas pendientes</div>';
-    } else {
-      tc.innerHTML = pending.map(function(t) {
-        return '<div class="hoy-task" onclick="navigateToTask(\'' + t.id + '\')">' +
-          '<div class="hoy-check' + (t.estado === 'entregado' ? ' done' : '') + '" onclick="event.stopPropagation();toggleHoy(\'' + t.id + '\')">' + (t.estado === 'entregado' ? 'v' : '') + '</div>' +
-          '<div class="hoy-task-text' + (t.estado === 'entregado' ? ' done' : '') + '">' + t.nombre + '</div>' +
-          (t.materia ? '<div class="hoy-task-mat">' + t.materia + '</div>' : '') +
-          '<div class="hoy-task-arrow">&#8250;</div>' +
-        '</div>';
-      }).join('');
-    }
-  }
-}
-
-function toggleHoy(id) {
-  var t = tasks.find(function(x) { return x.id === id; });
-  if (!t) return;
-  t.estado = t.estado === 'entregado' ? 'pendiente' : 'entregado';
-  saveTasks(); renderTasks(); renderHoy();
-}
-
-function initQuickInput() {
-  var input = document.getElementById('quick-input');
-  if (!input) return;
-  input.addEventListener('keydown', function(e) {
-    if (e.key !== 'Enter') return;
-    var nombre = input.value.trim();
-    if (!nombre) return;
-    tasks.push({ id: uid(), nombre: nombre, materia: '', tipo: '', fecha: todayStr(), estado: 'pendiente', notas: '' });
-    saveTasks();
-    input.value = '';
-    renderTasks();
-    renderHoy();
-    updateInicio();
-  });
-}
-
-(function buildSchedule() {
-  var lookup = {};
-  BLOCKS.forEach(function(b) { lookup[b.day + '-' + b.hour] = b; });
-  var sched = document.getElementById('schedule');
-
-  for (var hr = 5; hr <= 23; hr++) {
-    var tl = document.createElement('div');
-    tl.className = 'time-label';
-    tl.textContent = hr.toString().padStart(2,'0') + ':00';
-    sched.appendChild(tl);
-
-    for (var d = 0; d < 7; d++) {
-      var cell = document.createElement('div');
-      cell.className = 'cell';
-      var b    = lookup[d + '-' + hr];
-      var prev = lookup[d + '-' + (hr - 1)];
-
-      if (b) {
-        var bl = document.createElement('div');
-        // Check if previous hour has same type AND same label = continuation
-        var isContinuation = prev && prev.type === b.type && prev.label === b.label;
-        bl.className = 'block ' + b.type + (isContinuation ? ' continuation' : '');
-        if (!isContinuation) {
-          bl.innerHTML = '<b>' + b.label + '</b>' + (b.sub ? '<span>' + b.sub + '</span>' : '');
-        }
-        cell.appendChild(bl);
-      } else {
-        var ph = document.createElement('div');
-        ph.className = 'empty';
-        ph.textContent = '.';
-        cell.appendChild(ph);
-      }
-      sched.appendChild(cell);
-    }
-  }
-})();
-
-/* FOCUS + POMODORO */
-var POM_WORK  = 25 * 60;
-var POM_SHORT = 5  * 60;
-var POM_LONG  = 15 * 60;
-var pomInt = null, pomSecs = POM_WORK, pomRun = false, pomPhase = 'work', pomSess = 0;
-var focusTaskId = null;
-
-function pomApplyConfig() {
-  var w = parseInt(document.getElementById('cfg-work').value)  || 25;
-  var s = parseInt(document.getElementById('cfg-short').value) || 5;
-  var l = parseInt(document.getElementById('cfg-long').value)  || 15;
-  POM_WORK  = w * 60;
-  POM_SHORT = s * 60;
-  POM_LONG  = l * 60;
-  if (!pomRun) {
-    pomSecs = pomPhase === 'work' ? POM_WORK : pomPhase === 'short' ? POM_SHORT : POM_LONG;
-    updatePomUI();
-  }
-}
-
-function renderFocusTaskList() {
-  var list = document.getElementById('fp-task-list');
-  if (!list) return;
-  var pending = tasks.filter(function(t) { return t.estado !== 'entregado'; });
-  if (!pending.length) {
-    list.innerHTML = '<div class="fp-empty-tasks">Sin tareas pendientes. Agrega tareas primero.</div>';
-    return;
-  }
-  list.innerHTML = pending.map(function(t) {
-    var color = MATERIA_COLORS[t.materia] || '#888';
-    var sel   = focusTaskId === t.id ? ' selected' : '';
-    return '<div class="fp-task-item' + sel + '" onclick="selectFocusTask(\'' + t.id + '\')">' +
-      '<div class="fp-task-dot" style="background:' + color + '"></div>' +
-      '<div class="fp-task-label">' + t.nombre + '</div>' +
-      (t.materia ? '<div class="fp-task-mat">' + t.materia + '</div>' : '') +
-    '</div>';
-  }).join('');
-}
-
-function selectFocusTask(id) {
-  focusTaskId = id;
-  var t = tasks.find(function(x) { return x.id === id; });
-  var nameEl = document.getElementById('fp-task-name');
-  if (nameEl) nameEl.textContent = t ? t.nombre : 'Sin tarea seleccionada';
-  renderFocusTaskList();
-}
-
-function pomToggle() {
-  getAudioCtx();
-  if (pomRun) {
-    clearInterval(pomInt); pomRun = false;
-    document.getElementById('fp-play').textContent = 'Continuar';
-  } else {
-    pomRun = true;
-    document.getElementById('fp-play').textContent = 'Pausar';
-    pomInt = setInterval(function() {
-      pomSecs--;
-      if (pomSecs <= 0) { clearInterval(pomInt); pomRun = false; pomEnd(); }
-      updatePomUI();
-    }, 1000);
-  }
-}
-
-function pomReset() {
-  clearInterval(pomInt); pomRun = false;
-  pomSecs = pomPhase === 'work' ? POM_WORK : pomPhase === 'short' ? POM_SHORT : POM_LONG;
-  document.getElementById('fp-play').textContent = 'Iniciar';
-  updatePomUI();
-}
-
-function pomSkip() { clearInterval(pomInt); pomRun = false; pomEnd(); }
-
-function pomEnd() {
-  playSound(pomPhase === 'work' ? 'rest' : 'work');
-  if (pomPhase === 'work') {
-    pomSess++;
-    if (pomSess % 4 === 0) { pomPhase = 'long';  pomSecs = POM_LONG;  sendN('Descanso largo', 'Descansa 15 minutos. Lo lograste.'); }
-    else                   { pomPhase = 'short'; pomSecs = POM_SHORT; sendN('Descanso corto', 'Toma 5 minutos antes del siguiente bloque.'); }
-  } else {
-    pomPhase = 'work'; pomSecs = POM_WORK; sendN('A trabajar', '25 minutos de focus. Tu puedes.');
-  }
-  document.getElementById('fp-play').textContent = 'Iniciar';
-  updatePomUI();
-}
-
-function updatePomUI() {
-  var m = Math.floor(pomSecs / 60).toString().padStart(2,'0');
-  var s = (pomSecs % 60).toString().padStart(2,'0');
-  var timeEl = document.getElementById('fp-time');
-  if (timeEl) timeEl.textContent = m + ':' + s;
-
-  var phases = { work: 'Pomodoro', short: 'Descanso corto', long: 'Descanso largo' };
-  var phEl = document.getElementById('fp-phase-lbl');
-  if (phEl) phEl.textContent = phases[pomPhase];
-
-  var sessEl = document.getElementById('fp-session-lbl');
-  if (sessEl) {
-    var cur = (pomSess % 4) + (pomPhase === 'work' ? 1 : 0);
-    sessEl.textContent = 'Sesion ' + Math.min(cur, 4) + ' de 4';
-  }
-
-  var total = pomPhase === 'work' ? POM_WORK : pomPhase === 'short' ? POM_SHORT : POM_LONG;
-  var circ  = 2 * Math.PI * 100;
-  var ring  = document.getElementById('fp-ring');
-  if (ring) {
-    ring.style.strokeDasharray  = circ;
-    ring.style.strokeDashoffset = circ * (1 - pomSecs / total);
-    ring.style.stroke = pomPhase === 'work' ? '#d45c2e' : '#2e8b6b';
-  }
-
-  var dots = document.getElementById('fp-dots');
-  if (dots) {
-    var done = pomSess % 4;
-    var html = '';
-    for (var i = 0; i < 4; i++) {
-      var cls = i < done ? 'done' : (i === done && pomPhase === 'work' ? 'active' : '');
-      html += '<div class="fp-dot ' + cls + '"></div>';
-    }
-    dots.innerHTML = html;
-  }
-}
-
-var audioCtx = null;
-
-function getAudioCtx() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-  return audioCtx;
-}
-
-function playSound(type) {
-  try {
-    var ctx = getAudioCtx();
-    var now = ctx.currentTime;
-
-    function beep(freq, startTime, duration) {
-      var osc  = ctx.createOscillator();
-      var gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.setValueAtTime(freq, startTime);
-      osc.type = 'sine';
-      gain.gain.setValueAtTime(0.0, startTime);
-      gain.gain.linearRampToValueAtTime(0.25, startTime + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-      osc.start(startTime);
-      osc.stop(startTime + duration);
-    }
-
-    if (type === 'rest') {
-      beep(520, now,        0.25);
-      beep(660, now + 0.28, 0.25);
-      beep(800, now + 0.56, 0.4);
-    } else {
-      beep(800, now,        0.25);
-      beep(660, now + 0.28, 0.25);
-      beep(520, now + 0.56, 0.4);
-    }
-  } catch(e) {}
-}
-
-function unlockAudio() {
-  getAudioCtx();
-  document.removeEventListener('touchstart', unlockAudio);
-  document.removeEventListener('click', unlockAudio);
-}
-
-function openFocus(id) {
-  selectFocusTask(id);
-  goTab('focus');
-}
-
-function askNotif() {
-  if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
-}
-function sendN(title, body) {
-  if ('Notification' in window && Notification.permission === 'granted') new Notification(title, { body: body });
-}
-function checkTodayNotifs() {
-  if (!('Notification' in window) || Notification.permission !== 'granted') return;
-  var ts = todayStr();
-  var due = tasks.filter(function(t) { return t.fecha === ts && t.estado !== 'entregado'; });
-  if (due.length) sendN(due.length + ' tarea' + (due.length > 1 ? 's' : '') + ' vence hoy', due.map(function(t) { return '- ' + t.nombre; }).join('\n'));
-}
-
-// =============================================
-// RECORDATORIO DE CLASES
-// =============================================
-var notifiedClasses = {};
-
-function checkClassReminders() {
-  if (!('Notification' in window) || Notification.permission !== 'granted') return;
-  var now  = new Date();
-  var dow  = now.getDay();
-  var evs  = SCHED[dow] || [];
-  var hhmm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-
-  evs.forEach(function(e) {
-    if (e.type !== 'clase') return;
-    var parts   = e.start.split(':');
-    var classMs = new Date();
-    classMs.setHours(parseInt(parts[0]), parseInt(parts[1]), 0, 0);
-    var diffMin = Math.round((classMs - now) / 60000);
-    var key = dow + '-' + e.start + '-' + e.label;
-
-    if (diffMin === 15 && !notifiedClasses[key + '-15']) {
-      notifiedClasses[key + '-15'] = true;
-      sendN('En 15 minutos: ' + e.label, (e.sub ? e.sub + ' - ' : '') + 'Preparate para ir.');
-    }
-    if (diffMin === 5 && !notifiedClasses[key + '-5']) {
-      notifiedClasses[key + '-5'] = true;
-      sendN('En 5 minutos: ' + e.label, (e.sub ? e.sub : 'Es hora de salir.'));
-    }
-  });
-
-  // Reset notifiedClasses at midnight
-  if (now.getHours() === 0 && now.getMinutes() === 0) {
-    notifiedClasses = {};
-  }
-}
-
-// =============================================
-// BLOQUE DE ESTUDIO SUGERIDO
-// =============================================
-function getStudySuggestion() {
-  var now = new Date();
-  var dow = now.getDay();
-  var evs = SCHED[dow] || [];
-
-  // Find free blocks today (gaps between schedule events)
-  var busySlots = [];
-  evs.forEach(function(e) {
-    var s = parseInt(e.start.split(':')[0]);
-    var en = parseInt(e.end.split(':')[0]);
-    for (var h = s; h < en; h++) busySlots.push(h);
-  });
-
-  var nowHour = now.getHours();
-  var freeBlocks = [];
-  var blockStart = -1;
-
-  for (var h = nowHour; h <= 22; h++) {
-    var busy = busySlots.indexOf(h) > -1;
-    if (!busy && blockStart === -1) {
-      blockStart = h;
-    } else if (busy && blockStart !== -1) {
-      if (h - blockStart >= 1) freeBlocks.push({ start: blockStart, end: h });
-      blockStart = -1;
-    }
-  }
-  if (blockStart !== -1 && 22 - blockStart >= 1) {
-    freeBlocks.push({ start: blockStart, end: 22 });
-  }
-
-  // Find urgent tasks
-  var urgentTasks = tasks.filter(function(t) {
-    if (t.estado === 'entregado' || !t.fecha) return false;
-    var d    = new Date(t.fecha + 'T00:00:00');
-    var diff = Math.round((d - now0()) / 86400000);
-    return diff <= 5;
-  }).sort(function(a,b) {
-    return new Date(a.fecha) - new Date(b.fecha);
-  });
-
-  if (!freeBlocks.length) {
-    return { text: 'No hay bloques libres disponibles hoy.', type: 'none' };
-  }
-
-  var best = freeBlocks[0];
-  var dur  = best.end - best.start;
-  var timeStr = best.start.toString().padStart(2,'0') + ':00 - ' + best.end.toString().padStart(2,'0') + ':00';
-
-  if (urgentTasks.length) {
-    var t = urgentTasks[0];
-    var d = new Date(t.fecha + 'T00:00:00');
-    var diff = Math.round((d - now0()) / 86400000);
-    var urgStr = diff === 0 ? 'vence hoy' : diff === 1 ? 'vence manana' : 'vence en ' + diff + ' dias';
-    return {
-      text: 'Estudia ' + t.nombre + ' (' + urgStr + ')',
-      sub:  'Bloque libre: ' + timeStr + ' (' + dur + 'h)',
-      type: 'urgent',
-      color: diff <= 1 ? '#dc2626' : '#d97706'
-    };
-  }
-
-  return {
-    text: 'Tienes ' + dur + 'h libres para estudiar',
-    sub:  timeStr + ' - buen momento para adelantar',
-    type: 'free',
-    color: '#2e8b6b'
-  };
-}
-
-function renderStudySuggestion() {
-  var el = document.getElementById('study-suggestion');
-  if (!el) return;
-  var s = getStudySuggestion();
-  if (s.type === 'none') {
-    el.style.display = 'none';
-    return;
-  }
-  el.style.display = 'block';
-  el.innerHTML =
-    '<div class="study-dot" style="background:' + s.color + '"></div>' +
-    '<div class="study-body">' +
-      '<div class="study-text">' + s.text + '</div>' +
-      (s.sub ? '<div class="study-sub">' + s.sub + '</div>' : '') +
-    '</div>';
-}
-
-// =============================================
-// GIMNASIO - TRACKER COMPLETO
-// =============================================
-var GYM_KEY = 'ms_gym_v2';
-var gymData = {};
-
-var GYM_ROUTINE = {
-  1: { name: 'Pierna',  muscles: ['Piernas','Cardio','Gluteos'] },
-  2: { name: 'Dorso A', muscles: ['Espalda','Biceps','Hombros'] },
-  5: { name: 'Dorso B', muscles: ['Espalda','Pecho','Triceps'] }
-};
-
-var DIAS_SHORT = ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'];
-
-function loadGym() {
-  try { gymData = JSON.parse(localStorage.getItem(GYM_KEY)) || {}; } catch(e) { gymData = {}; }
-}
-function saveGym() {
-  try { localStorage.setItem(GYM_KEY, JSON.stringify(gymData)); } catch(e) {}
-}
-
-function gymDayKey(dow) {
-  var now  = new Date();
-  var diff = now.getDay() - dow;
-  var d    = new Date(now);
-  d.setDate(d.getDate() - diff);
-  return d.getFullYear() + '-' + (d.getMonth()+1).toString().padStart(2,'0') + '-' + d.getDate().toString().padStart(2,'0');
-}
-
-function getGymDay(dow) {
-  var key = gymDayKey(dow);
-  if (!gymData[key]) {
-    var routine = GYM_ROUTINE[dow];
-    gymData[key] = {
-      completed: false,
-      groups: routine ? routine.muscles.map(function(m) {
-        return { name: m, done: false, open: false, exercises: [] };
-      }) : []
-    };
-  }
-  return gymData[key];
-}
-
-function gymToggleGroup(dow, gIdx) {
-  var day = getGymDay(dow);
-  day.groups[gIdx].open = !day.groups[gIdx].open;
-  saveGym(); renderGym();
-}
-
-function gymToggleGroupDone(dow, gIdx) {
-  var day = getGymDay(dow);
-  day.groups[gIdx].done = !day.groups[gIdx].done;
-  saveGym(); renderGym();
-}
-
-function gymAddExercise(dow, gIdx) {
-  var input = document.getElementById('gym-ex-input-' + gIdx);
-  if (!input) return;
-  var name = input.value.trim();
-  if (!name) return;
-  var day = getGymDay(dow);
-  day.groups[gIdx].exercises.push({ name: name, series: [] });
-  day.groups[gIdx].open = true;
-  input.value = '';
-  saveGym(); renderGym();
-}
-
-function gymDelExercise(dow, gIdx, eIdx) {
-  var day = getGymDay(dow);
-  day.groups[gIdx].exercises.splice(eIdx, 1);
-  saveGym(); renderGym();
-}
-
-function gymAddSerie(dow, gIdx, eIdx) {
-  var day = getGymDay(dow);
-  day.groups[gIdx].exercises[eIdx].series.push({ kg: '', reps: '', done: false });
-  saveGym(); renderGym();
-}
-
-function gymDelSerie(dow, gIdx, eIdx, sIdx) {
-  var day = getGymDay(dow);
-  day.groups[gIdx].exercises[eIdx].series.splice(sIdx, 1);
-  saveGym(); renderGym();
-}
-
-function gymToggleSerie(dow, gIdx, eIdx, sIdx) {
-  var day = getGymDay(dow);
-  day.groups[gIdx].exercises[eIdx].series[sIdx].done = !day.groups[gIdx].exercises[eIdx].series[sIdx].done;
-  saveGym(); renderGym();
-}
-
-function gymSaveField(dow, gIdx, eIdx, sIdx, field, val) {
-  var day = getGymDay(dow);
-  day.groups[gIdx].exercises[eIdx].series[sIdx][field] = val;
-  saveGym();
-}
-
-function completeGymSession(dow) {
-  var day = getGymDay(dow);
-  day.completed = !day.completed;
-  saveGym(); renderGym(); updateInicioGym();
-}
-
-function renderGym() {
-  var now = new Date();
-  var dow = now.getDay();
-  var dayEl = document.getElementById('gym-today-day');
-  if (dayEl) dayEl.textContent = DIAS_SHORT[dow] + ' - ' + now.getDate() + ' ' + MESES[now.getMonth()];
-  var content = document.getElementById('gym-today-content');
-  if (!content) return;
-  var routine = GYM_ROUTINE[dow];
-  if (!routine) {
-    content.innerHTML = '<div class="gym-no-gym">No tienes gym hoy. Descansa y recupera.</div>';
-  } else {
-    var day = getGymDay(dow);
-    var html = '<div class="gym-routine-name">' + routine.name + '</div>';
-    day.groups.forEach(function(g, gIdx) {
-      var doneCount = g.exercises.reduce(function(acc, ex) { return acc + ex.series.filter(function(s) { return s.done; }).length; }, 0);
-      var totalSeries = g.exercises.reduce(function(acc, ex) { return acc + ex.series.length; }, 0);
-      var countTxt = g.exercises.length > 0 ? g.exercises.length + ' ej.' + (totalSeries > 0 ? ' ' + doneCount + '/' + totalSeries + ' series' : '') : '';
-      html += '<div class="gym-group' + (g.done ? ' done' : '') + (g.open ? ' open' : '') + '">' +
-        '<div class="gym-group-hdr" onclick="gymToggleGroup(' + dow + ',' + gIdx + ')">' +
-          '<div class="gym-group-check' + (g.done ? ' done' : '') + '" onclick="event.stopPropagation();gymToggleGroupDone(' + dow + ',' + gIdx + ')">' + (g.done ? 'v' : '') + '</div>' +
-          '<div class="gym-group-name">' + g.name + '</div>' +
-          '<div class="gym-group-count">' + countTxt + '</div>' +
-          '<div class="gym-group-arrow">&#8250;</div>' +
-        '</div>' +
-        '<div class="gym-group-body">';
-      g.exercises.forEach(function(ex, eIdx) {
-        html += '<div class="gym-exercise">' +
-          '<div class="gym-exercise-hdr">' +
-            '<div class="gym-exercise-name">' + ex.name + '</div>' +
-            '<button class="gym-exercise-del" onclick="gymDelExercise(' + dow + ',' + gIdx + ',' + eIdx + ')">&#128465;</button>' +
-          '</div>';
-        if (ex.series.length > 0) {
-          html += '<div class="gym-series-list">';
-          html += '<div class="gym-serie" style="margin-bottom:2px">' +
-            '<div class="gym-serie-num"></div>' +
-            '<div style="flex:1;text-align:center;font-size:0.58rem;color:#444">KG</div>' +
-            '<div class="gym-serie-label"></div>' +
-            '<div style="flex:1;text-align:center;font-size:0.58rem;color:#444">Reps</div>' +
-            '<div style="width:22px"></div>' +
-            '<div style="width:16px"></div>' +
-          '</div>';
-          ex.series.forEach(function(s, sIdx) {
-            html += '<div class="gym-serie">' +
-              '<div class="gym-serie-num">' + (sIdx+1) + '</div>' +
-              '<input class="gym-serie-input" type="number" placeholder="0" value="' + (s.kg || '') + '" onchange="gymSaveField(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ',&quot;kg&quot;,this.value)" min="0" step="0.5">' +
-              '<div class="gym-serie-label">kg</div>' +
-              '<input class="gym-serie-input" type="number" placeholder="0" value="' + (s.reps || '') + '" onchange="gymSaveField(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ',&quot;reps&quot;,this.value)" min="0">' +
-              '<div class="gym-serie-done' + (s.done ? ' checked' : '') + '" onclick="gymToggleSerie(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ')">' + (s.done ? 'v' : '') + '</div>' +
-              '<button class="gym-serie-del" onclick="gymDelSerie(' + dow + ',' + gIdx + ',' + eIdx + ',' + sIdx + ')">x</button>' +
-            '</div>';
-          });
-          html += '</div>';
-        }
-        html += '<button class="gym-add-serie" onclick="gymAddSerie(' + dow + ',' + gIdx + ',' + eIdx + ')">+ Agregar serie</button></div>';
-      });
-      html += '<div class="gym-add-exercise">' +
-        '<input id="gym-ex-input-' + gIdx + '" type="text" placeholder="Nombre del ejercicio...">' +
-        '<button onclick="gymAddExercise(' + dow + ',' + gIdx + ')">+ Agregar</button>' +
-      '</div></div></div>';
-    });
-    html += '<button class="gym-complete-btn' + (day.completed ? ' done' : '') + '" onclick="completeGymSession(' + dow + ')">' +
-      (day.completed ? 'Sesion completada' : 'Marcar sesion completa') + '</button>';
-    content.innerHTML = html;
-  }
-  var week = document.getElementById('gym-week');
-  if (week) {
-    week.innerHTML = [1,2,5].map(function(d) {
-      var r = GYM_ROUTINE[d];
-      var dy = getGymDay(d);
-      var isToday = d === dow;
-      return '<div class="gym-week-row">' +
-        '<div class="gym-week-day' + (isToday ? ' today' : '') + '">' + DIAS_SHORT[d] + '</div>' +
-        '<div class="gym-week-routine">' + (r ? r.name : '') + '</div>' +
-        '<div class="gym-week-status ' + (dy.completed ? 'completed' : 'upcoming') + '">' + (dy.completed ? 'v' : '') + '</div>' +
-      '</div>';
-    }).join('');
-  }
-}
-
-function updateInicioGym() {
-  var dow = new Date().getDay();
-  var routine = GYM_ROUTINE[dow];
-  var sub = document.getElementById('ic-gym-sub');
-  if (!sub) return;
-  if (!routine) {
-    sub.textContent = 'Hoy no toca gym - descansa';
-  } else {
-    var day = getGymDay(dow);
-    sub.textContent = day.completed ? routine.name + ' completado hoy' : routine.name + ' - pendiente';
-  }
-}
-loadDiary2();
-loadGym();
-renderTasks();
-renderDiaryList();
-updateBanner();
-updateInicio();
-updateInicioGym();
-updateDiaryTs();
-initQuickInput();
-updatePomUI();
-askNotif();
-checkTodayNotifs();
-document.addEventListener('touchstart', unlockAudio, { once: true });
-document.addEventListener('click', unlockAudio, { once: true });
-setInterval(updateBanner, 60000);
-setInterval(updateInicio, 60000);
-setInterval(updateDiaryTs, 30000);
-setInterval(checkClassReminders, 60000);
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
 </script>
-
 </body>
 </html>
